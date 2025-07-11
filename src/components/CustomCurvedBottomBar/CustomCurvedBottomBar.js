@@ -7,6 +7,9 @@ import { styles } from './CustomCurvedBottomBar.styles';
 import AppImage from '../AppImage';
 import { AppColors } from '../../constants/colors';
 import AppText from '../AppText';
+import { useDispatch } from 'react-redux';
+import { setStatusBarColor } from '../../redux/features/user/userSlice';
+import AppTouchable from '../AppTouchable';
 
 const { width } = Dimensions.get('screen');
 
@@ -16,10 +19,11 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
   const [activeIndex, setActiveIndex] = useState(activeTab);
   const [curvePath, setCurvePath] = useState('');
   const pathRef = useRef();
-
+  const dispatch = useDispatch();
   const tabWidth = width / tabs.length;
 
   const handleTabPress = (index) => {
+    dispatch(setStatusBarColor(AppColors.primary));
     setActiveIndex(index);
     onTabPress(index);
 
@@ -118,8 +122,8 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
   const renderTab = (tab, index) => {
     const isActive = activeIndex === index;
 
-    const scaleAnim = useRef(new Animated.Value(isActive ? 1.18: 1)).current;
-    const opacityAnim = useRef(new Animated.Value(isActive ? 1 : 0.7)).current;
+    const scaleAnim = useRef(new Animated.Value(isActive ? 1.18 : 1)).current;
+    const opacityAnim = useRef(new Animated.Value(isActive ? 1 : 1)).current;
 
     useEffect(() => {
       Animated.parallel([
@@ -128,7 +132,7 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
           useNativeDriver: true,
         }),
         Animated.timing(opacityAnim, {
-          toValue: isActive ? 1 : 0.7,
+          toValue: isActive ? 1 : 1,
           duration: 200,
           useNativeDriver: true,
         })
@@ -136,7 +140,7 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
     }, [isActive]);
 
     return (
-      <TouchableOpacity
+      <AppTouchable
         key={index}
         style={styles.tabItem}
         onPress={() => handleTabPress(index)}
@@ -171,7 +175,7 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
             </AppText>
           )}
         </View>
-      </TouchableOpacity>
+      </AppTouchable>
     );
   };
 

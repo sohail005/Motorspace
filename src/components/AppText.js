@@ -7,7 +7,8 @@ const AppText = ({ style, children, ...rest }) => {
   return (
     <Text
       allowFontScaling={false}
-      style={style}
+
+      style={[style, { letterSpacing: 0.8 }]}
       {...rest}
     >
       {children}

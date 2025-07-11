@@ -11,6 +11,8 @@ import {
 import VersionCheck from 'react-native-version-check';
 import DeviceInfo from 'react-native-device-info';
 import { AppColors } from '../constants/colors';
+import AppText from './AppText';
+import AppTouchable from './AppTouchable';
 
 const AppUpdateChecker = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -119,32 +121,32 @@ const AppUpdateChecker = () => {
     >
       <View style={styles.modalOverlay}>
         <View style={styles.modalContainer}>
-          <AppText style={styles.title}>New Update Available</Text>
+          <AppText style={styles.title}>New Update Available</AppText>
           <AppText style={styles.message}>
             Version {newVersion} is available on{' '}
             {Platform.OS === 'ios' ? 'App Store' : 'Play Store'}.
-          </Text>
+          </AppText>
 
           {isMandatory && (
             <AppText style={styles.mandatoryText}>
               This is a mandatory update to continue using the app.
-            </Text>
+            </AppText>
           )}
 
           <View style={styles.buttonContainer}>
             {/* {!isMandatory && (
-              <TouchableOpacity
+              <AppTouchable
                 style={[styles.button, styles.laterButton]}
                 onPress={handleLater}>
                 <AppText style={styles.buttonText}>Later</Text>
-              </TouchableOpacity>
+              </AppTouchable>
             )} */}
 
-            <TouchableOpacity
+            <AppTouchable
               style={[styles.button, styles.updateButton]}
               onPress={handleUpdate}>
-              <AppText style={styles.buttonText}>Update Now</Text>
-            </TouchableOpacity>
+              <AppText style={styles.buttonText}>Update Now</AppText>
+            </AppTouchable>
           </View>
         </View>
       </View>
