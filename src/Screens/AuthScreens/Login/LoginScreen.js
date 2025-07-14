@@ -82,7 +82,7 @@ const LoginScreen = () => {
               autoCapitalize="none"
             />
 
-            <View style={{ marginTop: 10 }}>
+            <View>
               <AppInput
                 label="Password"
                 icon={IMAGES.Lock}
@@ -108,13 +108,13 @@ const LoginScreen = () => {
               <AppText style={styles.brandText}>Motorspace?</AppText>
               <View style={{ width: DimensionsUtil.SCREEN_WIDTH / 2.5 }}>
                 <AppTouchable onPress={() => navigation.navigate('GettingStarted')} style={styles.joinButton}>
-                <AppText style={styles.joinText}>Join Now</AppText>
-              </AppTouchable>
+                  <AppText style={styles.joinText}>Join Now</AppText>
+                </AppTouchable>
+              </View>
             </View>
           </View>
-        </View>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </SafeAreaView >
   );
 };

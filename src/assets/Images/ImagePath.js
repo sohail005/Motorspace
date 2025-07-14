@@ -8,5 +8,6 @@ export const IMAGES = {
      private: require("../../assets/Images/Private.png"),
      bussiness: require("../../assets/Images/Bussiness.png"),
      addImage: require("../../assets/Images/AddImage.png"),
+     inbox: require("../../assets/Images/inbox.png"),
 
 }

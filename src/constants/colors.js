@@ -37,7 +37,7 @@ export const AppColors = {
     // Buttons
     buttonBlue: '#0D6EFD',
     buttonGray: '#ADB5BD',
-    buttonOrange: '#FF6F00',
+    buttonOrange: '#FF6A00',
 
     // Misc
     transparent: 'transparent',

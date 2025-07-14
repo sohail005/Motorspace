@@ -65,6 +65,8 @@ const BusinessDetails = () => {
     };
 
     const handleConfirm = () => {
+        navigation.navigate("OtpScreen");
+        return
         const {
             firstName, lastName, email, confirmEmail, phone,
             address1, city, county, postcode, password, confirmPassword, photo
