@@ -1,25 +1,31 @@
-// src/navigation/RootNavigator.js
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import AuthNavigator from './AuthNavigator';
 import MainNavigator from './MainNavigator';
-import { StatusBar } from 'react-native';
+import { StatusBar, Platform } from 'react-native';
 import { AppColors } from '../constants/colors';
 
 const RootNavigator = () => {
   const statusBarColor = useSelector((state) => state.user.statusBarColor);
   const isLoggedIn = useSelector((state) => !!state.user.token);
-  console.log("isLoggedIn:", isLoggedIn);
+
+  const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: AppColors.white,
+    },
+  };
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <StatusBar
-        backgroundColor={statusBarColor || AppColors.white} // fallback if null
+        translucent={false}
+        backgroundColor={statusBarColor || AppColors.white}
         barStyle={statusBarColor === AppColors.white ? 'dark-content' : 'light-content'}
       />
-      {/* {!isLoggedIn ? <MainNavigator /> : <AuthNavigator />} */}
-      <MainNavigator />
+      {!isLoggedIn ? <MainNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 };

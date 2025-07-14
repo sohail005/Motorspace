@@ -1,28 +1,24 @@
-/**
- * Entry point of the app
- */
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { store } from './redux/store';
-import { StyleSheet, StatusBar, Platform, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import RootNavigator from './navigation/RootNavigator';
 import { AppColors } from './constants/colors';
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+const AppWrapper = () => {
+  const statusBarColor = useSelector((state) => state.user.statusBarColor);
+  return (
+    <SafeAreaView style={[styles.container, { backgroundColor: statusBarColor || AppColors.white }]}>
+      <RootNavigator />
+    </SafeAreaView>
+  );
+};
+
 const App = () => {
   return (
     <Provider store={store}>
-      {/* Optional: Safe area container for iOS */}
-      <SafeAreaView style={styles.container}>
-       
-
-        {/* App Version Checker */}
-        {/* <AppUpdateChecker /> */}
-
-        {/* Navigation Stack */}
-
-        <RootNavigator />
-
-      </SafeAreaView>
+      <AppWrapper />
     </Provider>
   );
 };
@@ -30,7 +26,6 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: AppColors.primary, // fallback background
   },
 });
 

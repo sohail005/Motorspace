@@ -11,4 +11,5 @@ export const FontSizes = {
     xxxLarge: 32,       // Hero headers
     jumbo: 36,          // Special emphasis (rare)
     ultra: 40,          // Landing screen branding
+    ultraLarge: 45,          // Landing screen branding
 };

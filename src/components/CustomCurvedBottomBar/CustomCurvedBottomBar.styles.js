@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { AppColors } from '../../constants/colors';
 import { FontSizes } from '../../constants/fontsizes';
+import DimensionsUtil from '../../constants/Dimensions';
 
 export const styles = StyleSheet.create({
   container: {
@@ -13,7 +14,7 @@ export const styles = StyleSheet.create({
   bottomBar: {
     position: 'absolute',
     bottom: 0,
-    width: '100%',
+   width: DimensionsUtil.SCREEN_WIDTH,
     height: 70,
   },
   svgContainer: {
@@ -25,6 +26,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     height: 70,
+    width: DimensionsUtil.SCREEN_WIDTH
     // paddingHorizontal: 10,
   },
   tabItem: {
@@ -64,6 +66,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    width:DimensionsUtil.SCREEN_WIDTH/3
   },
   tabContent: {
     justifyContent: 'center',

@@ -2,5 +2,8 @@ export const IMAGES = {
      buycars: require("../../assets/Images/Buycars.png"),
      sellcars: require("../../assets/Images/Sellcars.png"),
      home: require("../../assets/Images/Home.png"),
+     logo: require("../../assets/Images/Logo.png"),
+     User: require("../../assets/Images/User.png"),
+     Lock: require("../../assets/Images/Lock.png"),
 
 }

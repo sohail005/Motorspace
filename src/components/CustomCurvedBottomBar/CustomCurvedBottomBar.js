@@ -1,7 +1,7 @@
 // src/components/CustomCurvedBottomBar.js
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Dimensions, TouchableOpacity, View } from 'react-native';
+import { Animated, Dimensions, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { styles } from './CustomCurvedBottomBar.styles';
 import AppImage from '../AppImage';
@@ -48,7 +48,7 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
   useEffect(() => {
     const barHeight = 70;
     const maxCurveWidth = 130;
-    const curveDepth = 36;
+    const curveDepth = 38;
 
     const radius = maxCurveWidth / 2;
     const initialCurveCenter = (activeIndex * tabWidth) + (tabWidth / 2);
@@ -122,23 +122,6 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
   const renderTab = (tab, index) => {
     const isActive = activeIndex === index;
 
-    const scaleAnim = useRef(new Animated.Value(isActive ? 1.18 : 1)).current;
-    const opacityAnim = useRef(new Animated.Value(isActive ? 1 : 1)).current;
-
-    useEffect(() => {
-      Animated.parallel([
-        Animated.spring(scaleAnim, {
-          toValue: isActive ? 1.18 : 1,
-          useNativeDriver: true,
-        }),
-        Animated.timing(opacityAnim, {
-          toValue: isActive ? 1 : 1,
-          duration: 200,
-          useNativeDriver: true,
-        })
-      ]).start();
-    }, [isActive]);
-
     return (
       <AppTouchable
         key={index}
@@ -147,37 +130,31 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
         activeOpacity={0.8}
       >
         <View style={styles.tabContent}>
-          <Animated.View style={[
-            isActive ? styles.activeIconContainer : styles.inactiveIconContainer,
-            {
-              transform: [{ scale: scaleAnim }],
-              opacity: opacityAnim
-            }
-          ]}>
+          <View style={isActive ? styles.activeIconContainer : styles.inactiveIconContainer}>
             <AppImage
               source={tab.icon}
               fallbackSource={tab.icon}
               placeholder={true}
               resizeMode="contain"
               style={{
-                width: isActive ? 45 : 45,
-                height: isActive ? 45 : 45,
+                width: 45,
+                height: 45,
               }}
             />
-
-          </Animated.View>
+          </View>
           {tab.label && isActive && (
-            <AppText style={[
+            <Text style={[
               styles.tabLabel,
               isActive && styles.activeTabLabel
             ]}>
               {tab.label}
-            </AppText>
+            </Text>
           )}
         </View>
       </AppTouchable>
     );
   };
+
 
   return (
     <View style={styles.container}>
