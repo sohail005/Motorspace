@@ -28,9 +28,11 @@ const AppInput = ({ placeholder, icon, iconStyle, label, errorMessage, style, ..
                 />
             </View>
 
-            {!!errorMessage && (
+            {!!errorMessage ? (
                 <Text style={styles.errorText}>{errorMessage}</Text>
-            )}
+            ) :
+                <Text style={styles.errorText}></Text>
+            }
         </View>
     );
 };
@@ -38,7 +40,7 @@ const AppInput = ({ placeholder, icon, iconStyle, label, errorMessage, style, ..
 
 const styles = StyleSheet.create({
     label: {
-        fontSize: FontSizes.small,
+        fontSize: FontSizes.smallMedium,
         fontWeight: '500',
         marginBottom: 6,
         color: AppColors.textPrimary,
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        fontSize: FontSizes.small,
+        fontSize: FontSizes.smallMedium,
         color: AppColors.textPrimary,
     },
     icon: {
@@ -65,9 +67,9 @@ const styles = StyleSheet.create({
     },
     errorText: {
         color: AppColors.errorText,
-        fontSize: 12,
-        marginTop: 4,
-        marginLeft: 4,
+        fontSize: FontSizes.small,
+        marginTop: 2,
+        marginBottom: 5,
     },
 });
 

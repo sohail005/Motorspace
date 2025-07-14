@@ -13,6 +13,13 @@ const GettingStarted = () => {
   const navigation = useNavigation();
   const [selectedType, setSelectedType] = useState(null); // 'private' or 'business'
 
+  const NavigateToNextScreen = () => {
+    if (selectedType == "private") {
+      navigation.navigate("PrivateDetails");
+    } else {
+      navigation.navigate("BusinessDetails");
+    }
+  }
   return (
     <View style={styles.container}>
       <AppHeaderCommon
@@ -51,7 +58,7 @@ const GettingStarted = () => {
 
       <View style={styles.buttonContainer}>
         <AppTouchable disabled={selectedType == null}
-          onPress={() => { }}
+          onPress={NavigateToNextScreen}
           style={[styles.confirmButton, { backgroundColor: selectedType == null ? AppColors.buttonDisabled : AppColors.primary }]}>
           <AppText style={styles.buttontext}>Confirm</AppText>
         </AppTouchable>

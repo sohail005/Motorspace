@@ -7,5 +7,6 @@ export const IMAGES = {
      Lock: require("../../assets/Images/Lock.png"),
      private: require("../../assets/Images/Private.png"),
      bussiness: require("../../assets/Images/Bussiness.png"),
+     addImage: require("../../assets/Images/AddImage.png"),
 
 }

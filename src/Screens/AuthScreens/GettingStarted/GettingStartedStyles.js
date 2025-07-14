@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
         fontWeight: '900',
         color: AppColors.primary,
         marginTop: DimensionsUtil.SCREEN_WIDTH / 8,
-        textAlign: 'center'
+        textAlign: 'center',
     },
     privately: {
         fontSize: FontSizes.xLarge,
@@ -33,7 +33,8 @@ export const styles = StyleSheet.create({
         backgroundColor: AppColors.lightGary,
         borderRadius: 12,
         marginTop: DimensionsUtil.SCREEN_WIDTH / 10,
-        alignItems: 'center'
+        alignItems: 'center',
+
     },
     image: {
         width: DimensionsUtil.SCREEN_WIDTH / 3,
@@ -59,6 +60,7 @@ export const styles = StyleSheet.create({
         borderWidth: 3,
         borderColor: AppColors.buttonOrange, // or use your brand color
         borderRadius: 10,
+
     },
     unSelectedBorder: {
         borderWidth: 3,
