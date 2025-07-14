@@ -25,7 +25,7 @@ const RootNavigator = () => {
         backgroundColor={statusBarColor || AppColors.white}
         barStyle={statusBarColor === AppColors.white ? 'dark-content' : 'light-content'}
       />
-      {!isLoggedIn ? <MainNavigator /> : <AuthNavigator />}
+      {isLoggedIn ? <MainNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 };

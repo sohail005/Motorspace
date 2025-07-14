@@ -5,5 +5,7 @@ export const IMAGES = {
      logo: require("../../assets/Images/Logo.png"),
      User: require("../../assets/Images/User.png"),
      Lock: require("../../assets/Images/Lock.png"),
+     private: require("../../assets/Images/Private.png"),
+     bussiness: require("../../assets/Images/Bussiness.png"),
 
 }

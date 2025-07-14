@@ -107,15 +107,15 @@ const LoginScreen = () => {
               <AppText style={styles.newText}>New to</AppText>
               <AppText style={styles.brandText}>Motorspace?</AppText>
               <View style={{ width: DimensionsUtil.SCREEN_WIDTH / 2.5 }}>
-                <AppTouchable onPress={() => console.log('Join Now')} style={styles.joinButton}>
-                  <AppText style={styles.joinText}>Join Now</AppText>
-                </AppTouchable>
-              </View>
+                <AppTouchable onPress={() => navigation.navigate('GettingStarted')} style={styles.joinButton}>
+                <AppText style={styles.joinText}>Join Now</AppText>
+              </AppTouchable>
             </View>
           </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+    </SafeAreaView >
   );
 };
 

@@ -2,7 +2,8 @@ export const AppColors = {
     // Primary Brand Colors
     primary: '#001B66',          // Main dark blue
     primaryLight: '#2E3192',     // Used in header, titles
-    secondary: '#FF6F00',        // Accent (used for buttons like "Continue")
+    secondary: '#FF6F00',  
+    buttonDisabled:'#727A96',      // Accent (used for buttons like "Continue")
 
     // Backgrounds & Surfaces
     white: '#FFFFFF',
@@ -14,6 +15,7 @@ export const AppColors = {
     // Text Colors
     textPrimary: '#000000',
     textSecondary: '#777777',
+    lightGary: '#F6F6F6',
     textMuted: '#A9A9A9',
     heading: '#2E3192',
     link: '#0D6EFD',             // Blue for links
