@@ -31,7 +31,7 @@ const OtpScreen = () => {
         otpRef.current?.clear(); // clear OTP input
     }
     const handleSubmit = () => {
-
+        navigation.navigate("EmailVerifiedScreen")
     }
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -97,7 +97,9 @@ const OtpScreen = () => {
                     </View>
                 </ScrollView>
                 <View style={styles.buttonContainer}>
-                    <AppTouchable disabled={otp?.length != 6} style={[styles.confirmButton, { opacity: otp?.length == 6 ? 1 : 0.4 }]} onPress={handleSubmit}>
+                    <AppTouchable disabled={otp?.length != 6}
+                        style={[styles.confirmButton, { opacity: otp?.length == 6 ? 1 : 0.4 }]}
+                        onPress={handleSubmit}>
                         <AppText style={styles.confirmText}>Submit</AppText>
                     </AppTouchable>
                 </View>

@@ -11,7 +11,8 @@ export const styles = StyleSheet.create({
     },
     OtpMaincontainer: {
         paddingHorizontal: DimensionsUtil.SCREEN_WIDTH / 16,
-        alignItems: "center"
+        alignItems: "center",
+        marginTop:DimensionsUtil.SCREEN_WIDTH /8
     },
     Heading: {
         fontSize: FontSizes.ultraLarge,

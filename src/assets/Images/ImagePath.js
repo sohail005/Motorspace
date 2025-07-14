@@ -9,5 +9,6 @@ export const IMAGES = {
      bussiness: require("../../assets/Images/Bussiness.png"),
      addImage: require("../../assets/Images/AddImage.png"),
      inbox: require("../../assets/Images/inbox.png"),
+     check: require("../../assets/Images/check.png"),
 
 }
