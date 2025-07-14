@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './LoginScreenStyles';
 import DimensionsUtil from '../../../constants/Dimensions';
 import { useNavigation } from '@react-navigation/native';
+import Animated, { ZoomIn } from 'react-native-reanimated';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -33,7 +34,6 @@ const LoginScreen = () => {
   const handleLogin = () => {
     let valid = true;
 
-    // Reset previous errors
     setEmailError('');
     setPasswordError('');
 
@@ -51,7 +51,6 @@ const LoginScreen = () => {
     }
 
     if (valid) {
-      // Proceed to next screen or API login
       navigation.navigate('GettingStarted');
     }
   };
@@ -65,24 +64,27 @@ const LoginScreen = () => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.container}>
-            <AppImage source={IMAGES.logo} style={styles.logo} />
-            <AppText style={styles.loginHeading}>Log in.</AppText>
+            <Animated.View
+              entering={ZoomIn.duration(500)}
+              style={{ width: '100%' }}
+            >
+              <AppImage source={IMAGES.logo} style={styles.logo} />
+              <AppText style={styles.loginHeading}>Log in.</AppText>
 
-            <AppInput
-              label="Email"
-              placeholder="Enter your email"
-              icon={IMAGES.User}
-              value={email}
-              onChangeText={(text) => {
-                setEmail(text);
-                if (emailError) setEmailError('');
-              }}
-              errorMessage={emailError}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
+              <AppInput
+                label="Email"
+                placeholder="Enter your email"
+                icon={IMAGES.User}
+                value={email}
+                onChangeText={(text) => {
+                  setEmail(text);
+                  if (emailError) setEmailError('');
+                }}
+                errorMessage={emailError}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
 
-            <View>
               <AppInput
                 label="Password"
                 icon={IMAGES.Lock}
@@ -95,27 +97,30 @@ const LoginScreen = () => {
                 }}
                 errorMessage={passwordError}
               />
-            </View>
 
-            <View style={{ marginTop: 16, width: DimensionsUtil.SCREEN_WIDTH / 2.5 }}>
-              <AppTouchable onPress={handleLogin} style={styles.signInButton}>
-                <AppText style={styles.signInText}>Sign in</AppText>
-              </AppTouchable>
-            </View>
-
-            <View style={styles.footer}>
-              <AppText style={styles.newText}>New to</AppText>
-              <AppText style={styles.brandText}>Motorspace?</AppText>
-              <View style={{ width: DimensionsUtil.SCREEN_WIDTH / 2.5 }}>
-                <AppTouchable onPress={() => navigation.navigate('GettingStarted')} style={styles.joinButton}>
-                  <AppText style={styles.joinText}>Join Now</AppText>
+              <View style={{ marginTop: 16, width: DimensionsUtil.SCREEN_WIDTH / 2.5 }}>
+                <AppTouchable onPress={handleLogin} style={styles.signInButton}>
+                  <AppText style={styles.signInText}>Sign in</AppText>
                 </AppTouchable>
               </View>
-            </View>
+
+              <View style={styles.footer}>
+                <AppText style={styles.newText}>New to</AppText>
+                <AppText style={styles.brandText}>Motorspace?</AppText>
+                <View style={{ width: DimensionsUtil.SCREEN_WIDTH / 2.5 }}>
+                  <AppTouchable
+                    onPress={() => navigation.navigate('GettingStarted')}
+                    style={styles.joinButton}
+                  >
+                    <AppText style={styles.joinText}>Join Now</AppText>
+                  </AppTouchable>
+                </View>
+              </View>
+            </Animated.View>
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
-    </SafeAreaView >
+    </SafeAreaView>
   );
 };
 
