@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 const EmailVerifiedScreen = () => {
     const navigation = useNavigation();
     const handleConfirm = () => {
-
+        navigation.navigate("ProfileApproval")
     }
     return (
         <View style={styles.container}>

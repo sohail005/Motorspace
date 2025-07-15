@@ -7,6 +7,7 @@ import PrivateDetails from '../Screens/AuthScreens/SignUpDetailScreens/PrivateDe
 import BusinessDetails from '../Screens/AuthScreens/SignUpDetailScreens/BusinessDetails';
 import OtpScreen from '../Screens/AuthScreens/OtpScreens/OtpScreen';
 import EmailVerifiedScreen from '../Screens/AuthScreens/EmailVerifiedScreens/EmailVerifiedScreen';
+import ProfileApproval from '../Screens/AuthScreens/ProfileApproval/ProfileApproval';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ const AuthNavigator = () => {
       <Stack.Screen name="BusinessDetails" component={BusinessDetails} />
       <Stack.Screen name="OtpScreen" component={OtpScreen} />
       <Stack.Screen name="EmailVerifiedScreen" component={EmailVerifiedScreen} />
+      <Stack.Screen name="ProfileApproval" component={ProfileApproval} />
       
       
     </Stack.Navigator>

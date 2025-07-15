@@ -1,5 +1,5 @@
 import { PermissionsAndroid, Platform } from 'react-native';
-
+import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 /**
  * Request gallery (photo storage) permission for Android
  * @returns {Promise<'granted' | 'denied'>}
@@ -29,4 +29,15 @@ export const requestGalleryPermission = async () => {
     console.warn('Gallery permission error:', error);
     return 'denied';
   }
+};
+export const requestStoragePermission = async () => {
+  if (Platform.OS === 'android') {
+    const permission = Platform.Version >= 33
+      ? PERMISSIONS.ANDROID.READ_MEDIA_DOCUMENTS
+      : PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
+
+    const result = await request(permission);
+    return result === RESULTS.GRANTED;
+  }
+  return true;
 };
