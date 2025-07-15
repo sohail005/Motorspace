@@ -33,18 +33,20 @@ const ProfileApproval = () => {
                 console.log("results[0]:", results[0]);
                 setSelectedFile(results[0])
                 setFileName(results[0].name);
+                setErrors((prev) => ({ ...prev, file: undefined }));
             }
         } catch (err) {
             if (err?.code === 'DOCUMENT_PICKER_CANCELED') {
                 // Cancelled by user
             } else {
-                console.error('Picker Error:', err);
-                Alert.alert('Error', 'Unable to pick a document.');
+                console.log('Picker Error:', err);
+                // Alert.alert('Error', 'Unable to pick a document.');
             }
         }
     };
     const handleSubmit = () => {
         const newErrors = {};
+        navigation.navigate("ConfirmYourInfo")
 
         if (!fileName) {
             newErrors.file = 'Please upload a PDF file.';
@@ -58,8 +60,8 @@ const ProfileApproval = () => {
 
         if (Object.keys(newErrors).length === 0) {
             // Submit logic
-            console.log('Submitted:', { fileName, description });
-            Alert.alert('Success', 'Your profile has been submitted.');
+            navigation.navigate("ConfirmYourInfo")
+            // Alert.alert('Success', 'Your profile has been submitted.');
         }
     };
 

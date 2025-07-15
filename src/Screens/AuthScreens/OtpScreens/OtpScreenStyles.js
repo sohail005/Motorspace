@@ -53,12 +53,10 @@ export const styles = StyleSheet.create({
     },
     otpinputContainer: { marginTop: 25, width: DimensionsUtil.SCREEN_WIDTH / 1.2 },
     ConfirmationCodeText: {
-        fontSize: FontSizes.mediumLarge,
+        fontSize: FontSizes.medium,
         fontWeight: '700',
+        marginBottom: 6,
         color: AppColors.textPrimary,
-        width: DimensionsUtil.SCREEN_WIDTH / 1.2,
-        marginLeft: 5,
-        paddingVertical: 10
     },
     resendButtonConatiner: {
         alignItems: 'center',
@@ -79,7 +77,7 @@ export const styles = StyleSheet.create({
     },
     confirmButton: {
         backgroundColor: AppColors.primary,
-        width: DimensionsUtil.SCREEN_WIDTH / 3,
+        width: DimensionsUtil.SCREEN_WIDTH / 2.3,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 12,

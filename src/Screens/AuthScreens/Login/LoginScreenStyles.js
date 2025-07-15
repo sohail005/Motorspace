@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     },
     signInButton: {
         height: DimensionsUtil.SCREEN_WIDTH / 9,
-        width: DimensionsUtil.SCREEN_WIDTH / 2.5,
+        width: DimensionsUtil.SCREEN_WIDTH / 2.3,
         borderRadius: 8,
         backgroundColor: AppColors.primary,
         justifyContent: 'center',
@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
     },
     joinButton: {
         height: DimensionsUtil.SCREEN_WIDTH / 9,
-        width: DimensionsUtil.SCREEN_WIDTH / 2.5,
+        width: DimensionsUtil.SCREEN_WIDTH / 2.3,
         borderRadius: 8,
         backgroundColor: AppColors.buttonOrange,
         justifyContent: 'center',

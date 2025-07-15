@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
     },
     confirmButton: {
         backgroundColor: AppColors.primary,
-        width: DimensionsUtil.SCREEN_WIDTH / 3,
+        width: DimensionsUtil.SCREEN_WIDTH / 2.3,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 12,

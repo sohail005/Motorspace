@@ -70,9 +70,10 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     label: {
-        fontSize: FontSizes.medium,
-        fontWeight: '600',
-        marginBottom: 8,
+       fontSize: FontSizes.smallMedium,
+        fontWeight: '500',
+        marginBottom: 6,
+        color: AppColors.textPrimary,
     },
     textArea: {
         textAlignVertical: 'top',
@@ -107,7 +108,7 @@ export const styles = StyleSheet.create({
     },
     confirmButton: {
         backgroundColor: AppColors.primary,
-        width: DimensionsUtil.SCREEN_WIDTH / 3,
+        width: DimensionsUtil.SCREEN_WIDTH / 2.3,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 12,
