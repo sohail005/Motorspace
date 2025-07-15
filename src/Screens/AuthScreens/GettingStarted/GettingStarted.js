@@ -1,65 +1,78 @@
-import { StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
-import AppHeaderCommon from '../../../components/AppHeaderCommon';
-import { styles } from './GettingStartedStyles';
+import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+import AppHeaderCommon from '../../../components/AppHeaderCommon';
 import AppText from '../../../components/AppText';
 import AppImage from '../../../components/AppImage';
-import { IMAGES } from '../../../assets/Images/ImagePath';
 import AppTouchable from '../../../components/AppTouchable';
+
+import { IMAGES } from '../../../assets/Images/ImagePath';
 import { AppColors } from '../../../constants/colors';
+import { styles } from './GettingStartedStyles';
+import storageItem from '../../../utils/storageItem';
 
 const GettingStarted = () => {
   const navigation = useNavigation();
-  const [selectedType, setSelectedType] = useState(null); // 'private' or 'business'
+  const [selectedType, setSelectedType] = useState(null); // 'private' | 'business' | null
 
-  const NavigateToNextScreen = () => {
-    if (selectedType == "private") {
-      navigation.navigate("PrivateDetails");
-    } else {
-      navigation.navigate("BusinessDetails");
+  const handleConfirm = () => {
+    if (selectedType === 'private') {
+      navigation.navigate('PrivateDetails');
+    } else if (selectedType === 'business') {
+      navigation.navigate('BusinessDetails');
     }
+  };
+  const SetSelectedOption = (type) => {
+    let isTypePrivate = type == 'private'
+    console.log("type:", type,isTypePrivate);
+    storageItem.setItem('isTypePrivate', isTypePrivate);
+    setSelectedType(type)
   }
+  const renderOption = (type, label, imageSource) => {
+    const isSelected = selectedType === type;
+    return (
+      <AppTouchable
+        onPress={() => SetSelectedOption(type)}
+        style={[
+          styles.ItemsConatiner,
+          isSelected ? styles.selectedBorder : styles.unSelectedBorder,
+        ]}
+      >
+        <AppImage source={imageSource} resizeMode="contain" style={styles.image} />
+        <AppText style={styles.privately}>{label}</AppText>
+      </AppTouchable>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <AppHeaderCommon
         title=""
-        onLeftPress={() => navigation.goBack()}
+        onLeftPress={navigation.goBack}
         onRightPress={() => console.log('Logo tapped')}
       />
 
       <AppText style={styles.loginHeading}>Getting Started</AppText>
 
       <View style={styles.mainItemsConatiner}>
-        {/* Private Option */}
-        <AppTouchable
-          onPress={() => setSelectedType('private')}
-          style={[
-            styles.ItemsConatiner,
-            selectedType === 'private' ? styles.selectedBorder : styles.unSelectedBorder,
-          ]}
-        >
-          <AppImage resizeMode="contain" source={IMAGES.private} style={styles.image} />
-          <AppText style={styles.privately}>I’m Buying and Selling Privately</AppText>
-        </AppTouchable>
-
-        {/* Business Option */}
-        <AppTouchable
-          onPress={() => setSelectedType('business')}
-          style={[
-            styles.ItemsConatiner,
-            selectedType === 'business' ? styles.selectedBorder : styles.unSelectedBorder,
-          ]}
-        >
-          <AppImage resizeMode="contain" source={IMAGES.bussiness} style={styles.image} />
-          <AppText style={styles.privately}>I’m Buying and Selling for a Business</AppText>
-        </AppTouchable>
+        {renderOption('private', 'I’m Buying and Selling Privately', IMAGES.private)}
+        {renderOption('business', 'I’m Buying and Selling for a Business', IMAGES.bussiness)}
       </View>
 
       <View style={styles.buttonContainer}>
-        <AppTouchable disabled={selectedType == null}
-          onPress={NavigateToNextScreen}
-          style={[styles.confirmButton, { backgroundColor: selectedType == null ? AppColors.buttonDisabled : AppColors.primary }]}>
+        <AppTouchable
+          disabled={!selectedType}
+          onPress={handleConfirm}
+          style={[
+            styles.confirmButton,
+            {
+              backgroundColor: selectedType
+                ? AppColors.primary
+                : AppColors.buttonDisabled,
+            },
+          ]}
+        >
           <AppText style={styles.buttontext}>Confirm</AppText>
         </AppTouchable>
       </View>
