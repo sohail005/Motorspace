@@ -54,7 +54,10 @@ export const styles = StyleSheet.create({
         borderColor: AppColors.borderColor,
         borderRadius: 12,
         padding: 12,
-        marginBottom: 24,
+        // marginBottom: 24,
+    },
+    fileinputcontainer: {
+        marginBottom: 10
     },
     attachmentIcon: {
         width: 20,
@@ -64,7 +67,7 @@ export const styles = StyleSheet.create({
     fileName: {
         color: AppColors.textGray,
         fontSize: FontSizes.medium,
-        paddingHorizontal:10
+        paddingHorizontal: 10
     },
     label: {
         fontSize: FontSizes.medium,
@@ -72,8 +75,12 @@ export const styles = StyleSheet.create({
         marginBottom: 8,
     },
     textArea: {
-        minHeight: 100,
         textAlignVertical: 'top',
+        padding: 8,
+        borderRadius: 8,
+        fontSize: FontSizes.medium,
+        color: AppColors.black,
+        height: DimensionsUtil.SCREEN_HEIGHT / 7
     },
     submitButton: {
         backgroundColor: AppColors.primary,
@@ -86,5 +93,30 @@ export const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         fontSize: FontSizes.medium,
+    },
+    error: {
+        color: AppColors.error, // use your red or error color
+        fontSize: FontSizes.small,
+        marginTop: 4,
+        marginLeft: 4,
+    },
+    buttonContainer: {
+        position: 'absolute',
+        bottom: 30,
+        right: 30
+    },
+    confirmButton: {
+        backgroundColor: AppColors.primary,
+        width: DimensionsUtil.SCREEN_WIDTH / 3,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 12,
+        height: DimensionsUtil.SCREEN_WIDTH / 9,
+    },
+    confirmText: {
+        fontSize: FontSizes.medium,
+        fontWeight: '500',
+        color: AppColors.white,
+        textAlign: 'center',
     },
 });

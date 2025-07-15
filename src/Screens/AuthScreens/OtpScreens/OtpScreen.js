@@ -38,7 +38,7 @@ const OtpScreen = () => {
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={styles.container}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
+                 keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : -50}
             >
                 <ScrollView
                     contentContainerStyle={{ flex: 1 }}

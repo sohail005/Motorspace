@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
     View,
-    StyleSheet,
     ScrollView,
     KeyboardAvoidingView,
     Platform,
@@ -13,53 +12,62 @@ import AppHeaderCommon from '../../../components/AppHeaderCommon';
 import AppText from '../../../components/AppText';
 import AppInput from '../../../components/AppInput';
 import AppTouchable from '../../../components/AppTouchable';
-import AppImage from '../../../components/AppImage';
-import { IMAGES } from '../../../assets/Images/ImagePath'; // ensure you have a paperclip/upload icon
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './ProfileApprovalStyles';
 import { FontSizes } from '../../../constants/fontsizes';
 import { AppColors } from '../../../constants/colors';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { requestStoragePermission } from '../../../utils/permissions';
-import DocumentPicker from '@react-native-documents/picker';
+import { pick, types } from '@react-native-documents/picker';
+
 const ProfileApproval = () => {
     const navigation = useNavigation();
     const [fileName, setFileName] = useState('');
+    const [selectedFile, setSelectedFile] = useState({});
     const [description, setDescription] = useState('');
+    const [errors, setErrors] = useState({});
 
-    const handleFileUpload = async () => {
-        const hasPermission = await requestStoragePermission();
-
-        if (!hasPermission) {
-            return Alert.alert('Permission Denied', 'Storage permission is required.');
-        }
-
+    const handleFileUploasssd = async () => {
         try {
-            const result = await DocumentPicker.pick({
-                type: ['application/pdf'],
-                allowMultiSelection: false,
-            });
-
-            if (result?.length > 0) {
-                setFileName(result[0]?.name || 'Unnamed.pdf');
-                console.log('Picked file:', result[0]);
+            const results = await pick({ type: [types.pdf] });
+            if (results?.length > 0) {
+                console.log("results[0]:", results[0]);
+                setSelectedFile(results[0])
+                setFileName(results[0].name);
             }
         } catch (err) {
-            if (!DocumentPicker.isCancel(err)) {
-                console.error('File pick error:', err);
+            if (err?.code === 'DOCUMENT_PICKER_CANCELED') {
+                // Cancelled by user
+            } else {
+                console.error('Picker Error:', err);
+                Alert.alert('Error', 'Unable to pick a document.');
             }
         }
     };
-
     const handleSubmit = () => {
-        // Add validation/submit logic here
-        console.log('Submitted:', { fileName, description });
+        const newErrors = {};
+
+        if (!fileName) {
+            newErrors.file = 'Please upload a PDF file.';
+        }
+
+        if (!description.trim()) {
+            newErrors.description = 'Description is required.';
+        }
+
+        setErrors(newErrors);
+
+        if (Object.keys(newErrors).length === 0) {
+            // Submit logic
+            console.log('Submitted:', { fileName, description });
+            Alert.alert('Success', 'Your profile has been submitted.');
+        }
     };
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : -50}
                 style={{ flex: 1 }}
             >
                 <View style={styles.container}>
@@ -87,29 +95,43 @@ const ProfileApproval = () => {
                             <AppText style={styles.bullet}>• A Recent Trade Invoice or Receipt</AppText>
                         </View>
 
-                        <AppTouchable style={styles.uploadBtn} onPress={handleFileUpload}>
+                        <AppTouchable style={styles.uploadBtn} onPress={handleFileUploasssd}>
                             <AppText style={styles.uploadText}>Upload File</AppText>
                         </AppTouchable>
-
-                        <View style={styles.fileInputBox}>
-                            <Icon name="attach" size={FontSizes.xLarge} color={AppColors.grayOverlay} />
-                            <AppText style={styles.fileName}>{fileName || 'No file selected'}</AppText>
+                        <View style={styles.fileinputcontainer}>
+                            <View style={styles.fileInputBox}>
+                                <Icon name="attach" size={FontSizes.xLarge} color={AppColors.grayOverlay} />
+                                <AppText style={styles.fileName}>{fileName || 'No file selected'}</AppText>
+                            </View>
+                            {errors.file ? <AppText style={styles.error}>{errors.file}</AppText>
+                                :
+                                <AppText style={styles.error}></AppText>
+                            }
                         </View>
-
                         <AppText style={styles.label}>Tell us about you and your business</AppText>
                         <AppInput
                             value={description}
-                            onChangeText={setDescription}
+                            onChangeText={(text) => {
+                                setDescription(text);
+                                if (errors.description) {
+                                    setErrors((prev) => ({ ...prev, description: undefined }));
+                                }
+                            }}
                             multiline
                             numberOfLines={5}
-                            placeholder="Type here..."
-                            inputStyle={styles.textArea}
+                            placeholder="Write your comment here..."
+                            inputStyle={[styles.textArea]}  // Apply height here
+                            errorMessage={errors.description}
                         />
 
-                        <AppTouchable style={styles.submitButton} onPress={handleSubmit}>
-                            <AppText style={styles.submitText}>Submit</AppText>
-                        </AppTouchable>
                     </ScrollView>
+                    <View style={styles.buttonContainer}>
+                        <AppTouchable
+                            style={[styles.confirmButton, { opacity: 1 }]}
+                            onPress={handleSubmit}>
+                            <AppText style={styles.confirmText}>Submit</AppText>
+                        </AppTouchable>
+                    </View>
                 </View>
             </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
