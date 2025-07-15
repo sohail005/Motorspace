@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
         color: AppColors.primary,
         textAlign: 'center',
         paddingVertical: 10,
-        width: DimensionsUtil.SCREEN_WIDTH / 1.7
+        width: DimensionsUtil.SCREEN_WIDTH / 1.6
     },
     mainItemsConatiner: {
         marginTop: DimensionsUtil.SCREEN_WIDTH / 8,
