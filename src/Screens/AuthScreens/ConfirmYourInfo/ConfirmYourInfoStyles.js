@@ -7,7 +7,9 @@ export const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 24,
         paddingBottom: 30,
-        flex: 1
+        // flex: 1,
+        backgroundColor: AppColors.white,
+        flexGrow: 1,
     },
     heading: {
         fontSize: FontSizes.ultraLarge,
@@ -53,11 +55,11 @@ export const styles = StyleSheet.create({
     buttonRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        position: 'absolute',
-        bottom: 30,
         width: '100%',
         alignItems: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        backgroundColor: AppColors.white,
+        padding: 24
     },
     editButton: {
         flex: 1,
