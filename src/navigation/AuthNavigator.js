@@ -10,6 +10,7 @@ import EmailVerifiedScreen from '../Screens/AuthScreens/EmailVerifiedScreens/Ema
 import ProfileApproval from '../Screens/AuthScreens/ProfileApproval/ProfileApproval';
 import ConfirmYourInfo from '../Screens/AuthScreens/ConfirmYourInfo/ConfirmYourInfo';
 import EditInfo from '../Screens/AuthScreens/EditInfo/EditInfo';
+import ApprovalPending from '../Screens/ApprovalScreens/ApprovalPending/ApprovalPending';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ const AuthNavigator = () => {
       <Stack.Screen name="ProfileApproval" component={ProfileApproval} />
       <Stack.Screen name="ConfirmYourInfo" component={ConfirmYourInfo} />
       <Stack.Screen name="EditInfo" component={EditInfo} />
+      <Stack.Screen name="ApprovalPending" component={ApprovalPending} />
       
       
     </Stack.Navigator>

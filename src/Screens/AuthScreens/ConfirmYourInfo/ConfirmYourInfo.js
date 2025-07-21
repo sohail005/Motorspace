@@ -30,7 +30,7 @@ const ConfirmYourInfo = () => {
         getStoragetData();
     }, []);
     const handleConfirm = () => {
-        // navigation.navigate("EditInfo")
+        navigation.navigate("ApprovalPending")
     }
     const handleEditInfo = () => {
         navigation.navigate("EditInfo")
@@ -45,7 +45,6 @@ const ConfirmYourInfo = () => {
             console.error('Failed to load user:', error);
         }
     };
-
 
     return (
 
