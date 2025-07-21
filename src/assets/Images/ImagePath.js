@@ -10,5 +10,7 @@ export const IMAGES = {
      addImage: require("../../assets/Images/AddImage.png"),
      inbox: require("../../assets/Images/inbox.png"),
      check: require("../../assets/Images/check.png"),
+     timeDrop: require("../../assets/Images/timeDrop.png"),
+     
 
 }

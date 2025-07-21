@@ -20,12 +20,14 @@ const ApprovalPending = () => {
 
       <AppText style={styles.heading}>Profile Approval</AppText>
 
-      <Image source={IMAGES.hourglass} style={styles.icon} resizeMode="contain" />
+      <Image source={IMAGES.timeDrop} style={styles.icon} resizeMode="contain" />
 
       <AppText style={styles.subtext}>Your profile is being processed for approval</AppText>
       <AppText style={styles.boldText}>Check back shortly!</AppText>
 
-      <AppTouchable style={styles.disabledButton} disabled>
+      <AppTouchable
+        style={[styles.disabledButton, { opacity: 0.3 }]}
+        onPress={() => { }}>
         <AppText style={styles.disabledButtonText}>Profile Approval in Progress...</AppText>
       </AppTouchable>
 
