@@ -60,6 +60,6 @@ export const styles = StyleSheet.create({
     viewMotorsText: {
         color: AppColors.primary,
         fontSize: FontSizes.medium,
-        fontWeight: '500',
+        fontWeight: '700',
     },
 });
