@@ -11,6 +11,7 @@ import ProfileApproval from '../Screens/AuthScreens/ProfileApproval/ProfileAppro
 import ConfirmYourInfo from '../Screens/AuthScreens/ConfirmYourInfo/ConfirmYourInfo';
 import EditInfo from '../Screens/AuthScreens/EditInfo/EditInfo';
 import ApprovalPending from '../Screens/ApprovalScreens/ApprovalPending/ApprovalPending';
+import RecentlyListed from '../Screens/RecentlyListed/RecentlyListed';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,7 @@ const AuthNavigator = () => {
       <Stack.Screen name="ConfirmYourInfo" component={ConfirmYourInfo} />
       <Stack.Screen name="EditInfo" component={EditInfo} />
       <Stack.Screen name="ApprovalPending" component={ApprovalPending} />
+      <Stack.Screen name="RecentlyListed" component={RecentlyListed} />
       
       
     </Stack.Navigator>

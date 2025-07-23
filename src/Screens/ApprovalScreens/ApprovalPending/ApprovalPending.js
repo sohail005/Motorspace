@@ -12,12 +12,12 @@ const ApprovalPending = () => {
   const navigation = useNavigation();
   const [isApproved, setIsApproved] = useState(true)
   const handleViewMotors = () => {
-    navigation.navigate('MotorsHome'); // update route name as needed
+    navigation.navigate('RecentlyListed',{isApproved:isApproved}); // update route name as needed
   };
 
   return (
     <View style={styles.container}>
-      <AppHeaderCommon title="" onRightPress={() => console.log('Logo')} />
+      <AppHeaderCommon title="" onLeftPress={() => navigation.goBack()} />
 
       <AppText style={styles.heading}>Profile Approval</AppText>
 
