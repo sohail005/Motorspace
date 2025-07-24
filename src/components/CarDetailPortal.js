@@ -117,9 +117,10 @@ const SellerInfo = ({ label, value }) => (
 const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: AppColors.white,
-    marginHorizontal: 20,
+    margin: 15,
     borderRadius: 12,
-    maxHeight: '95%',
+    // maxHeight: '95%',
+    maxHeight:DimensionsUtil.SCREEN_HEIGHT/1.5
   },
   content: {
     paddingBottom: 20,
@@ -199,7 +200,7 @@ const styles = StyleSheet.create({
   infoLabel: {
     fontWeight: '700',
     color: AppColors.textPrimary,
-    width: DimensionsUtil.SCREEN_WIDTH / 8
+    width: DimensionsUtil.SCREEN_WIDTH / 6
   },
   infoValue: {
     color: AppColors.textGrey,
@@ -215,8 +216,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: AppColors.primary,
     padding: 12,
-    width: DimensionsUtil.SCREEN_WIDTH / 2.5,
-    borderRadius: 10
+    // width: DimensionsUtil.SCREEN_WIDTH / 2.7,
+    borderRadius: 10,
+    alignItems:'center',
+    justifyContent:'center',
   },
   sellerRow: {
     marginBottom: 6,
@@ -225,10 +228,12 @@ const styles = StyleSheet.create({
   sellerLabel: {
     fontWeight: '700',
     color: AppColors.textPrimary,
-    width: DimensionsUtil.SCREEN_WIDTH / 4
+    width: DimensionsUtil.SCREEN_WIDTH / 3.4
   },
   sellerValue: {
     color: AppColors.textPrimary,
+    width: DimensionsUtil.SCREEN_WIDTH / 2
+
   },
 });
 
