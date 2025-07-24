@@ -52,7 +52,9 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 24,
         width: DimensionsUtil.SCREEN_WIDTH / 2.5,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        height:DimensionsUtil.SCREEN_WIDTH/9,
+        justifyContent:'center'
     },
     primaryButtonText: {
         color: AppColors.white,
@@ -74,7 +76,9 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         marginVertical: 15,
         width: DimensionsUtil.SCREEN_WIDTH / 2.5,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        height:DimensionsUtil.SCREEN_WIDTH/9,
+        justifyContent:'center'
     },
     secondaryButtonText: {
         color: AppColors.primary,

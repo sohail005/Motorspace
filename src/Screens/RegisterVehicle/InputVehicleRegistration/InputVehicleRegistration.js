@@ -11,6 +11,7 @@ import AppImage from '../../../components/AppImage';
 import { IMAGES } from '../../../assets/Images/ImagePath';
 import { styles } from './InputVehicleRegistrationStyles';
 import AppVehicleRegistrationInput from '../../../components/AppVehicleRegistrationInput/AppVehicleRegistrationInput';
+import { AppColors } from '../../../constants/colors';
 
 const InputVehicleRegistration = ({ navigation }) => {
     const [regNumber, setRegNumber] = useState('');
@@ -34,20 +35,27 @@ const InputVehicleRegistration = ({ navigation }) => {
                         <AppVehicleRegistrationInput
                             value={regNumber}
                             onChangeText={setRegNumber}
+                            style={{ borderColor: regNumber.length <= 6 ? AppColors.errorText : AppColors.greenLabel }}
                         />
                     </View>
 
                     {/* Success Message */}
-                    <AppText style={styles.successText}>
-                        Vehicle registration identified successfully!{"\n"}Click confirm to continue registration.
-                    </AppText>
-
+                    {regNumber.length > 6 ?
+                        <AppText style={styles.successText}>
+                            Vehicle registration identified successfully!{"\n"}Click confirm to continue registration.
+                        </AppText>
+                        :
+                        <AppText style={styles.ErrorText}>
+                            Vehicle registration does not exist.{"\n"}Please try again.
+                        </AppText>
+                    }
                     {/* Confirm Button */}
-                    <AppTouchable disabled={regNumber.length < 6}
-                        style={[styles.confirmButton, { opacity: regNumber.length > 6 ? 1 : 0.5 }]}>
-                        <AppText style={styles.confirmButtonText}>Confirm</AppText>
-                    </AppTouchable>
-
+                    <View style={styles.confirmButtonContainer}>
+                        <AppTouchable disabled={regNumber.length < 6}
+                            style={[styles.confirmButton, { opacity: regNumber.length > 6 ? 1 : 0.5 }]}>
+                            <AppText style={styles.confirmButtonText}>Confirm</AppText>
+                        </AppTouchable>
+                    </View>
                     {/* Bottom DVLA Logo */}
                     <View style={styles.bottomView}>
                         <AppImage

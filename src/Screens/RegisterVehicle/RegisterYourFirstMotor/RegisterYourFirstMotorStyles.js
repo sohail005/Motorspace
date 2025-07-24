@@ -3,6 +3,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { AppColors } from '../../../constants/colors'; // Adjust the path if needed
 import { FontSizes } from '../../../constants/fontsizes';
 import DimensionsUtil from '../../../constants/Dimensions';
+import { Fonts } from '../../../constants/Fonts';
 
 const { width } = Dimensions.get('window');
 
@@ -34,10 +35,9 @@ export const styles = StyleSheet.create({
     // Title
     screenTitle: {
         fontSize: FontSizes.ultraLarge,
-        fontWeight: 'bold',
         color: AppColors.primary || '#000000',
         textAlign: 'center',
-        marginBottom: 32,
+        fontFamily:Fonts.bold
     },
 
     // Main Content
@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
     addMotorText: {
         fontSize: FontSizes.xLarge,
         color: AppColors.buttonOrange || '#333333',
-        fontWeight: '500'
+        fontFamily:Fonts.bold
     },
 
     // Bottom Buttons
@@ -73,7 +73,10 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         borderColor: AppColors.primary,
-        width: DimensionsUtil.SCREEN_WIDTH / 2.5
+        width: DimensionsUtil.SCREEN_WIDTH / 2.5,
+        height:DimensionsUtil.SCREEN_WIDTH/9,
+        alignItems:'center',
+        justifyContent:'center'
     },
     editButtonText: {
         color: AppColors.primary || '#000',
@@ -89,7 +92,10 @@ export const styles = StyleSheet.create({
         backgroundColor: AppColors.primary || '#007bff',
         borderRadius: 8,
         alignItems: 'center',
-        width: DimensionsUtil.SCREEN_WIDTH / 2.5
+        width: DimensionsUtil.SCREEN_WIDTH / 2.5,
+         alignItems:'center',
+        justifyContent:'center',
+        height:DimensionsUtil.SCREEN_WIDTH/9,
     },
     finishButtonText: {
         color: '#fff',

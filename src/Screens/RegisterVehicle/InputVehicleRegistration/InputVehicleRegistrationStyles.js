@@ -35,19 +35,32 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         marginBottom: 32,
     },
+    ErrorText:{
+        textAlign: 'center',
+        color: AppColors.errorText,
+        fontSize: 14,
+        marginBottom: 32,
+    },
+    confirmButtonContainer:{
+        width: DimensionsUtil.SCREEN_WIDTH / 2.5,
+        alignSelf:'center'
+    },
     confirmButton: {
-        backgroundColor: AppColors.primary || '#001F5B',
+        backgroundColor: AppColors.primary,
         paddingVertical: 16,
         borderRadius: 8,
         alignItems: 'center',
         marginTop: 40,
         width: DimensionsUtil.SCREEN_WIDTH / 2.5,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        height:DimensionsUtil.SCREEN_WIDTH/9,
+        justifyContent:'center'
     },
     confirmButtonText: {
         color: '#fff',
         fontSize: 16,
         fontWeight: '600',
+        
     },
     dvlaLogo: {
         width:  DimensionsUtil.SCREEN_WIDTH/2.3,
