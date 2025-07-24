@@ -61,7 +61,6 @@ const InputVehicleRegistration = ({ navigation }) => {
                     {/* Bottom DVLA Logo */}
                     <View style={styles.bottomView}>
                         <AppImage
-
                             source={IMAGES.dvla_logo}
                             resizeMode="contain"
                             style={styles.dvlaLogo}
