@@ -13,6 +13,7 @@ export const IMAGES = {
      timeDrop: require("../../assets/Images/timeDrop.png"),
      MotospaceCar: require("../../assets/Images/MotospaceCar.png"),
      dvla_logo: require("../../assets/Images/dvla_logo.png"),
-     
+     NoDamage: require("../../assets/Images/NoDamage.png"),
+     Damage: require("../../assets/Images/Damage.png"),
      
 }

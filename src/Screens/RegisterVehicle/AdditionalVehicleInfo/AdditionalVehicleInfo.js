@@ -71,19 +71,20 @@ const AdditionalVehicleInfo = ({ navigation }) => {
         if (validateForm()) {
             console.log('Form submitted:', form);
             // Handle submit
+        } else {
+            navigation.navigate("AnyNotableDamage")
         }
     };
 
     const renderInput = (field, label, required = true) => (
         <View style={styles.inputWrapper}>
             <AppInput
-                label={label}
+                label={required ? `${label} *` : label}
                 placeholder={`Enter ${label}`}
                 value={form[field]}
                 onChangeText={(text) => handleChange(field, text)}
                 errorMessage={formErrors[field]}
             />
-            {/* {formErrors[field] && <AppText style={styles.errorText}>{formErrors[field]}</AppText>} */}
         </View>
     );
 

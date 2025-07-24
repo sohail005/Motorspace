@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: FontSizes.medium,
-        color: '#000',
+        color: AppColors.textPrimary,
     },
 
     boldValue: {

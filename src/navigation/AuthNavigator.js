@@ -17,6 +17,7 @@ import RegisterYourFirstMotor from '../Screens/RegisterVehicle/RegisterYourFirst
 import InputVehicleRegistration from '../Screens/RegisterVehicle/InputVehicleRegistration/InputVehicleRegistration';
 import ConfirmVehicleInfo from '../Screens/RegisterVehicle/ConfirmVehicleInfo/ConfirmVehicleInfo';
 import AdditionalVehicleInfo from '../Screens/RegisterVehicle/AdditionalVehicleInfo/AdditionalVehicleInfo';
+import AnyNotableDamage from '../Screens/RegisterVehicle/AnyNotableDamage/AnyNotableDamage';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +42,7 @@ const AuthNavigator = () => {
       <Stack.Screen name="InputVehicleRegistration" component={InputVehicleRegistration} />
       <Stack.Screen name="ConfirmVehicleInfo" component={ConfirmVehicleInfo} />
       <Stack.Screen name="AdditionalVehicleInfo" component={AdditionalVehicleInfo} />
+      <Stack.Screen name="AnyNotableDamage" component={AnyNotableDamage} />
       
 
     </Stack.Navigator>

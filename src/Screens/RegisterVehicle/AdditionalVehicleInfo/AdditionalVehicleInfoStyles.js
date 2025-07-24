@@ -20,9 +20,9 @@ export const styles = StyleSheet.create({
         fontFamily: Fonts.bold
     },
     sectionTitle: {
-        fontSize: 16,
+        fontSize: FontSizes.large,
         fontWeight: '700',
-        color: AppColors.primary,
+        color: AppColors.Blue_Subtext,
         marginTop: 24,
         marginBottom: 8,
     },
