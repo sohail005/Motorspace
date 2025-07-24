@@ -7,6 +7,7 @@ import { AppColors } from './constants/colors';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import storageItem from './utils/storageItem';
 import { setToken } from './redux/features/user/userSlice';
+import { PaperProvider } from 'react-native-paper';
 
 const AppWrapper = () => {
   const statusBarColor = useSelector((state) => state.user.statusBarColor);
@@ -25,7 +26,9 @@ const AppWrapper = () => {
       edges={['top', 'left', 'right']}
       style={[styles.container, { backgroundColor: statusBarColor || AppColors.white }]}
     >
+      <PaperProvider>
       <RootNavigator />
+      </PaperProvider>
     </SafeAreaView>
   );
 };

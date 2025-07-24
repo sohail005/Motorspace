@@ -4,14 +4,14 @@ export const AppColors = {
     primaryLight: '#2E3192',     // Used in header, titles
     secondary: '#FF6F00',  
     buttonDisabled:'#727A96',      // Accent (used for buttons like "Continue")
-
+    Blue_Subtext:"#7583B4",
     // Backgrounds & Surfaces
     white: '#FFFFFF',
     lightGray: '#F7F7F7',
     borderColor: '#B6B6B6',
     grayBackground: '#E5E5E5',
     grayOverlay: 'rgba(0, 0, 0, 0.4)',
-
+defaultBackground:"#F6F6F680",
     // Text Colors
     textPrimary: '#000000',
     textSecondary: '#777777',
@@ -31,7 +31,7 @@ export const AppColors = {
     errorBg: 'rgba(220, 53, 69, 0.3)',
 
     // Tags (number plates)
-    plateYellow: '#FFEB3B',
+    plateYellow: '#FFE100',
     plateText: '#000000',
 
     // Buttons

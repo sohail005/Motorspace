@@ -30,7 +30,7 @@ const AppHeader = ({
     return (
         <View style={[styles.container, {}]}>
             <AppTouchable style={styles.iconContainer} onPress={handleLeftPress}>
-                {leftIcon && <Icon name="bell-fill" size={FontSizes.xLarge} color={AppColors.white} />}
+                {leftIcon && <Icon name="chevron-left" size={FontSizes.xxLarge} color={AppColors.white} />}
             </AppTouchable>
 
             <View style={styles.titleContainer}>
