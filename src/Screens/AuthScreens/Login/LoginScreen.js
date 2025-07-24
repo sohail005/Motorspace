@@ -54,7 +54,10 @@ const LoginScreen = () => {
       navigation.navigate('GettingStarted');
     }
   };
-
+  const handleJoinNow = () => {
+    // navigation.navigate('GettingStarted')
+    navigation.navigate('LetsRegister')
+  }
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
@@ -109,7 +112,7 @@ const LoginScreen = () => {
                 <AppText style={styles.brandText}>Motorspace?</AppText>
                 <View style={{ width: DimensionsUtil.SCREEN_WIDTH / 2.5 }}>
                   <AppTouchable
-                    onPress={() => navigation.navigate('GettingStarted')}
+                    onPress={() => handleJoinNow()}
                     style={styles.joinButton}
                   >
                     <AppText style={styles.joinText}>Join Now</AppText>

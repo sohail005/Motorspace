@@ -11,6 +11,7 @@ export const IMAGES = {
      inbox: require("../../assets/Images/inbox.png"),
      check: require("../../assets/Images/check.png"),
      timeDrop: require("../../assets/Images/timeDrop.png"),
+     MotospaceCar: require("../../assets/Images/MotospaceCar.png"),
      
 
 }

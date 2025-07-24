@@ -12,6 +12,8 @@ import ConfirmYourInfo from '../Screens/AuthScreens/ConfirmYourInfo/ConfirmYourI
 import EditInfo from '../Screens/AuthScreens/EditInfo/EditInfo';
 import ApprovalPending from '../Screens/ApprovalScreens/ApprovalPending/ApprovalPending';
 import RecentlyListed from '../Screens/RecentlyListed/RecentlyListed';
+import LetsRegister from '../Screens/RegisterVehicle/LetsRegister';
+import RegisterYourFirstMotor from '../Screens/RegisterVehicle/RegisterYourFirstMotor/RegisterYourFirstMotor';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,8 +31,12 @@ const AuthNavigator = () => {
       <Stack.Screen name="EditInfo" component={EditInfo} />
       <Stack.Screen name="ApprovalPending" component={ApprovalPending} />
       <Stack.Screen name="RecentlyListed" component={RecentlyListed} />
-      
-      
+
+      {/* Register Vehicle */}
+      <Stack.Screen name="LetsRegister" component={LetsRegister} />
+      <Stack.Screen name="RegisterYourFirstMotor" component={RegisterYourFirstMotor} />
+
+
     </Stack.Navigator>
   );
 };

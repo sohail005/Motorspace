@@ -12,9 +12,11 @@ const ApprovalPending = () => {
   const navigation = useNavigation();
   const [isApproved, setIsApproved] = useState(true)
   const handleViewMotors = () => {
-    navigation.navigate('RecentlyListed',{isApproved:isApproved}); // update route name as needed
+    navigation.navigate('RecentlyListed', { isApproved: isApproved }); // update route name as needed
   };
-
+  const handleSetupProfileDetails = () => {
+    navigation.navigate('LetsRegister');
+  }
   return (
     <View style={styles.container}>
       <AppHeaderCommon title="" onLeftPress={() => navigation.goBack()} />
@@ -36,9 +38,9 @@ const ApprovalPending = () => {
       }
 
       <AppTouchable
-      disabled={!isApproved}
+        disabled={!isApproved}
         style={[styles.disabledButton, { opacity: isApproved ? 1 : 0.3, backgroundColor: isApproved ? AppColors.buttonOrange : AppColors.primary }]}
-        onPress={() => { }}>
+        onPress={() => handleSetupProfileDetails}>
         <AppText style={styles.disabledButtonText}>{isApproved ? "Continue to Profile Set Up" : "Profile Approval in Progress..."}</AppText>
       </AppTouchable>
 
