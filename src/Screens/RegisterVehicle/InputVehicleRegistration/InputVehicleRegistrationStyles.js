@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import { FontSizes } from '../../../constants/fontsizes';
 import { AppColors } from '../../../constants/colors';
 import DimensionsUtil from '../../../constants/Dimensions';
+import { Fonts } from '../../../constants/Fonts';
 
 
 export const styles = StyleSheet.create({
@@ -15,15 +16,16 @@ export const styles = StyleSheet.create({
     },
     title: {
         fontSize: FontSizes.ultraLarge,
-        fontWeight: '900',
         color: AppColors.primaryText || '#001F5B',
         marginTop: 20,
+        fontFamily:Fonts.bold
     },
     subtitle: {
         fontSize: FontSizes.mediumLarge,
         color: AppColors.primary || '#444',
         marginTop: 10,
         lineHeight: 20,
+        fontFamily:Fonts.regular
     },
     plateWrapper: {
         alignItems: 'center',

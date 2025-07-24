@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import { AppColors } from "../../constants/colors";
 import { FontSizes } from "../../constants/fontsizes";
 import DimensionsUtil from "../../constants/Dimensions";
+import { Fonts } from "../../constants/Fonts";
 
 export const styles = StyleSheet.create({
     container: {
@@ -30,9 +31,9 @@ export const styles = StyleSheet.create({
     title: {
         fontSize: FontSizes.ultraLarge,
         color: AppColors.primary,
-        fontWeight: '900',
-        marginTop: 40,
-        marginBottom: 24,
+        fontFamily:Fonts.bold,
+        marginTop: 20,
+        // marginBottom: 24,
     },
     carRow: {
         flexDirection: 'row',
@@ -59,7 +60,8 @@ export const styles = StyleSheet.create({
     primaryButtonText: {
         color: AppColors.white,
         fontSize: FontSizes.medium,
-        fontWeight: '500',
+        fontFamily:Fonts.semiBold,
+        marginTop:2
     },
     question: {
         textAlign: 'center',
@@ -83,7 +85,8 @@ export const styles = StyleSheet.create({
     secondaryButtonText: {
         color: AppColors.primary,
         fontSize: 15,
-        fontWeight: '500',
+        fontFamily:Fonts.semiBold,
+        marginTop:2
     },
     bottomView: {
         position: 'absolute',

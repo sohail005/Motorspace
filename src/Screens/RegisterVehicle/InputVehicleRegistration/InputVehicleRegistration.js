@@ -20,7 +20,7 @@ const InputVehicleRegistration = ({ navigation }) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={styles.container}>
                 {/* Top Reusable Header */}
-                <AppHeaderCommon onLeftPress={() => navigation.goBack()} />
+                <AppHeaderCommon title='' onLeftPress={() => navigation.goBack()} />
 
                 {/* Main Content Wrapper */}
                 <View style={styles.contentWrapper}>
@@ -51,7 +51,9 @@ const InputVehicleRegistration = ({ navigation }) => {
                     }
                     {/* Confirm Button */}
                     <View style={styles.confirmButtonContainer}>
-                        <AppTouchable disabled={regNumber.length < 6}
+                        <AppTouchable
+                            onPress={() => navigation.navigate("ConfirmVehicleInfo")}
+                            disabled={regNumber.length < 6}
                             style={[styles.confirmButton, { opacity: regNumber.length > 6 ? 1 : 0.5 }]}>
                             <AppText style={styles.confirmButtonText}>Confirm</AppText>
                         </AppTouchable>

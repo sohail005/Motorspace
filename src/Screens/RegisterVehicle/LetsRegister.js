@@ -11,7 +11,7 @@ const LetsRegister = ({ navigation }) => {
     return (
         <View style={styles.container}>
             {/* Header */}
-            <AppHeaderCommon onLeftPress={() => navigation.goBack()} />
+            <AppHeaderCommon title='' onLeftPress={() => navigation.goBack()} />
             <View style={styles.containerContent}>
                 {/* Title */}
                 <AppText style={styles.title}>

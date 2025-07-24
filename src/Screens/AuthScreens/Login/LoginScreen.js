@@ -75,7 +75,7 @@ const LoginScreen = () => {
               <AppText style={styles.loginHeading}>Log in.</AppText>
 
               <AppInput
-                label="Email"
+                label="Email Address"
                 placeholder="Enter your email"
                 icon={IMAGES.User}
                 value={email}

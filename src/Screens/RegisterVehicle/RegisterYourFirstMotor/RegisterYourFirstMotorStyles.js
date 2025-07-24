@@ -81,7 +81,8 @@ export const styles = StyleSheet.create({
     editButtonText: {
         color: AppColors.primary || '#000',
         fontSize: FontSizes.medium,
-        fontWeight: '500',
+        fontFamily:Fonts.semiBold,
+        marginTop:4,
         padding: 12,
         textAlign: 'center'
     },
@@ -100,6 +101,7 @@ export const styles = StyleSheet.create({
     finishButtonText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: '600',
+        fontFamily:Fonts.semiBold,
+        marginTop:4
     },
 });

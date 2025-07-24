@@ -10,7 +10,7 @@ import { opacity } from 'react-native-reanimated/lib/typescript/Colors';
 const RegisterYourFirstMotor = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <AppHeaderCommon onLeftPress={() => navigation.goBack()} />
+            <AppHeaderCommon title='' onLeftPress={() => navigation.goBack()} />
             <View style={styles.containerContent}>
                 {/* Screen Title */}
                 <AppText style={styles.screenTitle}>Register Motors</AppText>

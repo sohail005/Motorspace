@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import DimensionsUtil from '../../../constants/Dimensions';
 import { AppColors } from '../../../constants/colors';
 import { FontSizes } from '../../../constants/fontsizes';
+import { Fonts } from '../../../constants/Fonts';
 
 export const styles = StyleSheet.create({
     container: {
@@ -17,27 +18,29 @@ export const styles = StyleSheet.create({
     },
     loginHeading: {
         fontSize: FontSizes.ultraLarge,
-        fontWeight: '900',
+       
         color: AppColors.primary,
         marginTop: DimensionsUtil.SCREEN_WIDTH / 4.5,
         marginBottom: 24,
-
+        fontFamily:Fonts.bold,
+        
     },
     signInButton: {
         height: DimensionsUtil.SCREEN_WIDTH / 9,
         width: DimensionsUtil.SCREEN_WIDTH / 2.3,
         borderRadius: 8,
         backgroundColor: AppColors.primary,
-        justifyContent: 'center',
-        alignItems: 'center',
+       justifyContent:'center'
         // marginTop: 16,
         // marginBottom: height / 4,
     },
     signInText: {
         color: AppColors.white,
         fontSize: FontSizes.medium,
-        fontWeight: '600',
-
+        fontFamily:Fonts.semiBold,
+        textAlign:'center',
+        textAlignVertical:'center',
+        marginTop:4
     },
     footer: {
         // padding: width / 8,
@@ -70,6 +73,7 @@ export const styles = StyleSheet.create({
     joinText: {
         color: AppColors.white,
         fontSize: FontSizes.medium,
-        fontWeight: '600',
+        fontFamily:Fonts.semiBold,
+        marginTop:4
     },
 });
