@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import { FontSizes } from "../../../constants/fontsizes";
 import DimensionsUtil from "../../../constants/Dimensions";
 import { AppColors } from "../../../constants/colors";
+import { Fonts } from "../../../constants/Fonts";
 
 
 export const styles = StyleSheet.create({
@@ -12,21 +13,20 @@ export const styles = StyleSheet.create({
     },
     loginHeading: {
         fontSize: FontSizes.ultraLarge,
-        fontWeight: '900',
+        fontFamily:Fonts.bold,
         color: AppColors.primary,
-        marginTop: DimensionsUtil.SCREEN_WIDTH / 8,
+        // marginTop: DimensionsUtil.SCREEN_WIDTH / 8,
         textAlign: 'center',
     },
     privately: {
         fontSize: FontSizes.xLarge,
-        fontWeight: '900',
+        fontFamily:Fonts.bold,
         color: AppColors.primary,
         textAlign: 'center',
-        paddingVertical: 10,
         width: DimensionsUtil.SCREEN_WIDTH / 1.6
     },
     mainItemsConatiner: {
-        marginTop: DimensionsUtil.SCREEN_WIDTH / 8,
+        marginTop: DimensionsUtil.SCREEN_WIDTH / 16,
         paddingHorizontal: DimensionsUtil.SCREEN_WIDTH / 10,
     },
     ItemsConatiner: {
@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
     image: {
         width: DimensionsUtil.SCREEN_WIDTH / 4,
         height: DimensionsUtil.SCREEN_WIDTH / 4,
-        marginVertical: 10
+        marginVertical:15
     },
     confirmButton: {
         backgroundColor: AppColors.primary,
