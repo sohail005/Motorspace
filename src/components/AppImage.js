@@ -1,6 +1,7 @@
 // src/components/AppImage.js
 import React, { useState } from 'react';
 import { Image, StyleSheet, View, ActivityIndicator } from 'react-native';
+import { AppColors } from '../constants/colors';
 
 const AppImage = ({
   source,
@@ -9,7 +10,7 @@ const AppImage = ({
   resizeMode = 'cover',
   placeholder = false,
   loaderSize = 'small',
-  loaderColor = '#999',
+  loaderColor = AppColors.borderColor,
   ...rest
 }) => {
   const [isLoading, setIsLoading] = useState(true);

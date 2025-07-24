@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
     addMotorText: {
         fontSize: FontSizes.xLarge,
         color: AppColors.buttonOrange || '#333333',
-        fontWeight:'500'
+        fontWeight: '500'
     },
 
     // Bottom Buttons
@@ -66,21 +66,21 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: AppColors.white,
-        padding:20,
-        justifyContent:'space-around'
+        padding: 20,
+        justifyContent: 'space-around'
     },
     editButton: {
-        borderWidth:1,
-        borderRadius:10,
-        borderColor:AppColors.primary,
-        width:DimensionsUtil.SCREEN_WIDTH/2.5
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: AppColors.primary,
+        width: DimensionsUtil.SCREEN_WIDTH / 2.5
     },
     editButtonText: {
         color: AppColors.primary || '#000',
         fontSize: FontSizes.medium,
         fontWeight: '500',
-        padding:12,
-        textAlign:'center'
+        padding: 12,
+        textAlign: 'center'
     },
     finishButton: {
         flex: 1,
@@ -89,7 +89,7 @@ export const styles = StyleSheet.create({
         backgroundColor: AppColors.primary || '#007bff',
         borderRadius: 8,
         alignItems: 'center',
-        width:DimensionsUtil.SCREEN_WIDTH/2.5
+        width: DimensionsUtil.SCREEN_WIDTH / 2.5
     },
     finishButtonText: {
         color: '#fff',

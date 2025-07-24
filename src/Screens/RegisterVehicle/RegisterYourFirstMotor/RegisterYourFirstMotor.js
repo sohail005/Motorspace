@@ -29,7 +29,7 @@ const RegisterYourFirstMotor = ({ navigation }) => {
                         <AppText style={styles.editButtonText}>Edit Motors</AppText>
                     </AppTouchable>
 
-                    <AppTouchable style={styles.finishButton}>
+                    <AppTouchable onPress={()=>navigation.navigate("InputVehicleRegistration")} style={styles.finishButton}>
                         <AppText style={styles.finishButtonText}>Finish</AppText>
                     </AppTouchable>
                 </View>

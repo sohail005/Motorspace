@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
         color: AppColors.primary,
         marginTop: DimensionsUtil.SCREEN_WIDTH / 4.5,
         marginBottom: 24,
+        
     },
     signInButton: {
         height: DimensionsUtil.SCREEN_WIDTH / 9,
@@ -36,6 +37,7 @@ export const styles = StyleSheet.create({
         color: AppColors.white,
         fontSize: FontSizes.medium,
         fontWeight: '600',
+      
     },
     footer: {
         // padding: width / 8,

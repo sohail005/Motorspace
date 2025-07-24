@@ -12,6 +12,7 @@ export const IMAGES = {
      check: require("../../assets/Images/check.png"),
      timeDrop: require("../../assets/Images/timeDrop.png"),
      MotospaceCar: require("../../assets/Images/MotospaceCar.png"),
+     dvla_logo: require("../../assets/Images/dvla_logo.png"),
      
-
+     
 }
