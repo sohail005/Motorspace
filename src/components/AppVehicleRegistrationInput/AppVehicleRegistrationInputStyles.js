@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { FontSizes } from '../../constants/fontsizes';
 import { AppColors } from '../../constants/colors';
+import DimensionsUtil from '../../constants/Dimensions';
 
 export const styles = StyleSheet.create({
     plateContainer: {
@@ -10,7 +11,7 @@ export const styles = StyleSheet.create({
         borderColor: AppColors.greenLabel,     // Thin green border (from image outline)
         borderWidth: 2,
         borderRadius: 8,
-        width: '70%',
+        width: DimensionsUtil.SCREEN_WIDTH/1.3,
         alignSelf: 'center',
         overflow: 'hidden',
         height:80
