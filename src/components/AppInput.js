@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     errorText: {
         color: AppColors.errorText,
         fontSize: FontSizes.small,
-        marginTop: 2,
         marginBottom: 5,
     },
 });

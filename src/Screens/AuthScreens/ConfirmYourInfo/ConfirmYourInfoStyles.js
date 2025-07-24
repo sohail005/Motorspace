@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 12,
         height: 48,
-        marginTop: 4,
+      
     },
     fileName: {
         marginLeft: 8,
@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
         fontSize: FontSizes.smallMedium,
         color: AppColors.primary,
         fontWeight: '500',
-        marginTop: 4,
+       
     },
     buttonRow: {
         flexDirection: 'row',

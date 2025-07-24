@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     errorText: {
         color: 'red',
         fontSize: 12,
-        marginTop: 4,
+        
         marginLeft: 4,
     },
     inputErrorBorder: {
@@ -59,6 +59,6 @@ export const styles = StyleSheet.create({
         fontSize: FontSizes.medium,
         textAlign: 'center',
         fontFamily: Fonts.semiBold,
-        marginTop: 4
+        
     },
 });

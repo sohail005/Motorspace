@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 13,
     color: AppColors.Blue_Subtext,
-    marginTop: 2,
+    
     fontWeight: '500',
     width:DimensionsUtil.SCREEN_WIDTH/1.45
   },

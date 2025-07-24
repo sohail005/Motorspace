@@ -98,7 +98,7 @@ export const styles = StyleSheet.create({
     error: {
         color: AppColors.error, // use your red or error color
         fontSize: FontSizes.small,
-        marginTop: 4,
+        
         marginLeft: 4,
     },
     buttonContainer: {
