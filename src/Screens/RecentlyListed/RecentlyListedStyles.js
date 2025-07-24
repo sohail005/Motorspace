@@ -25,20 +25,20 @@ export const styles = StyleSheet.create({
         backgroundColor: AppColors.white
     },
     confirmButton: {
-        backgroundColor: AppColors.secondary,
+        // backgroundColor: AppColors.secondary,
         width: DimensionsUtil.SCREEN_WIDTH / 1.1,
+        height: DimensionsUtil.SCREEN_WIDTH / 9,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 12,
-        height: DimensionsUtil.SCREEN_WIDTH / 9,
-        alignSelf:'center',
-       position:'absolute',
-       bottom:20
+        alignSelf: 'center',
+       
     },
     confirmText: {
         fontSize: FontSizes.medium,
         fontWeight: '500',
         color: AppColors.white,
         textAlign: 'center',
+
     },
 });

@@ -36,6 +36,7 @@ const ApprovalPending = () => {
       }
 
       <AppTouchable
+      disabled={!isApproved}
         style={[styles.disabledButton, { opacity: isApproved ? 1 : 0.3, backgroundColor: isApproved ? AppColors.buttonOrange : AppColors.primary }]}
         onPress={() => { }}>
         <AppText style={styles.disabledButtonText}>{isApproved ? "Continue to Profile Set Up" : "Profile Approval in Progress..."}</AppText>

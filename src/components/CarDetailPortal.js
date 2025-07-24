@@ -74,16 +74,16 @@ const CarDetailPortal = ({ visible, onDismiss, car }) => {
             </View>
 
             <View style={styles.buttonRow}>
-              {car.actions.showAdditionalInfo && (
+              {/* {car.actions.showAdditionalInfo && ( */}
                 <AppTouchable style={styles.button}>
                   <AppText style={{ textAlign: 'center', color: AppColors.primary }}>Additional Information</AppText>
                 </AppTouchable>
-              )}
-              {car.actions.showDamageReport && (
+             
+              {/* {car.actions.showDamageReport && ( */}
                 <AppTouchable style={[styles.button, { backgroundColor: AppColors.primary }]}>
                   <AppText style={{ textAlign: 'center', color: AppColors.white }}>Damage Report</AppText>
                 </AppTouchable>
-              )}
+              {/* )} */}
             </View>
 
             <Divider style={styles.divider} />
@@ -209,17 +209,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 12,
+    flex:1
   },
   button: {
     flex: 1,
-    marginHorizontal: 4,
+    // marginHorizontal: 4,
     borderWidth: 1,
     borderColor: AppColors.primary,
     padding: 12,
-    // width: DimensionsUtil.SCREEN_WIDTH / 2.7,
     borderRadius: 10,
     alignItems:'center',
     justifyContent:'center',
+    width:DimensionsUtil.SCREEN_WIDTH/2.5
   },
   sellerRow: {
     marginBottom: 6,

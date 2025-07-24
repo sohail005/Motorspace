@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, Alert } from 'react-native';
 import { AppColors } from '../../constants/colors';
 import AppText from '../../components/AppText';
 import { styles } from './RecentlyListedStyles';
@@ -11,6 +11,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import RecentlyListItem from '../../components/RecentlyListItem';
 import AppTouchable from '../../components/AppTouchable';
 import CarDetailPortal from '../../components/CarDetailPortal';
+import DimensionsUtil from '../../constants/Dimensions';
 
 export const vehicleData = [
     {
@@ -333,10 +334,10 @@ const RecentlyListed = () => {
     }, []);
     const [selectedCar, setSelectedCar] = useState(null);
     const [visible, setVisible] = useState(false);
-    
+
     const openDetails = (item) => {
-      setSelectedCar(item);
-      setVisible(true);
+        setSelectedCar(item);
+        setVisible(true);
     };
     return (
         <View style={styles.container}>
@@ -350,7 +351,7 @@ const RecentlyListed = () => {
                 <AppFlatList
                     data={vehicleData}
                     keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => <RecentlyListItem item={item} onPress={() => openDetails(item)}/>}
+                    renderItem={({ item }) => <RecentlyListItem item={item} onPress={() => openDetails(item)} />}
                     emptyText="No cars listed"
                     stickyHeaderHiddenOnScroll={true}
                     stickyHeaderIndices={[0]}
@@ -362,12 +363,26 @@ const RecentlyListed = () => {
                 />
             </View>
 
-            <AppTouchable
-                disabled={!isApproved}
-                style={[styles.confirmButton, { opacity: isApproved ? 1 : 0.5, backgroundColor: isApproved ? AppColors.buttonOrange : AppColors.primary }]}
-                onPress={() => { }}>
-                <AppText style={styles.confirmText}>{isApproved ? "Continue to Profile Set Up" : "Profile Approval in Progress..."}</AppText>
-            </AppTouchable>
+            <View style={{
+                position: 'absolute',
+                bottom: 15,
+                alignSelf:'center'
+            }}>
+                <AppTouchable
+                    disabled={!isApproved}
+                    style={[
+                        styles.confirmButton,
+                         {backgroundColor: isApproved?AppColors.buttonOrange:AppColors.buttonDisabled}
+                    ]}
+                    onPress={() => {
+                        Alert.alert('test!', 'sjfkjghk')
+                    }}
+                >
+                    <AppText style={styles.confirmText}>
+                        {isApproved ? "Continue to Profile Set Up" : "Profile Approval in Progress..."}
+                    </AppText>
+                </AppTouchable>
+            </View>
             <CarDetailPortal visible={visible} onDismiss={() => setVisible(false)} car={selectedCar} />
         </View>
     );
