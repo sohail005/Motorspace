@@ -59,7 +59,7 @@ const ConfirmVehicleInfo = ({ navigation }) => {
 
             </ScrollView>
             <View style={styles.buttonConteiner}>
-            <AppTouchable style={styles.confirmButton}>
+            <AppTouchable onPress={()=>navigation.navigate("AdditionalVehicleInfo")} style={styles.confirmButton}>
                 <AppText style={styles.confirmButtonText}>Confirm</AppText>
             </AppTouchable>
             </View>
