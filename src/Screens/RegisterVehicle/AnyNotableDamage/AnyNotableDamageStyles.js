@@ -13,17 +13,17 @@ export const styles = StyleSheet.create({
     },
     loginHeading: {
         fontSize: FontSizes.ultraLarge,
-        fontFamily:Fonts.bold,
+        fontFamily: Fonts.bold,
         color: AppColors.primary,
         // marginTop: DimensionsUtil.SCREEN_WIDTH / 8,
         textAlign: 'center',
     },
     privately: {
         fontSize: FontSizes.xLarge,
-        fontFamily:Fonts.bold,
+        fontFamily: Fonts.bold,
         color: AppColors.primary,
         textAlign: 'center',
-        width: DimensionsUtil.SCREEN_WIDTH / 1.6
+        width: DimensionsUtil.SCREEN_WIDTH / 1.6,
     },
     mainItemsConatiner: {
         marginTop: DimensionsUtil.SCREEN_WIDTH / 16,
@@ -34,12 +34,12 @@ export const styles = StyleSheet.create({
         borderRadius: 12,
         marginTop: DimensionsUtil.SCREEN_WIDTH / 10,
         alignItems: 'center',
-
+        padding: 18
     },
     image: {
-        width: DimensionsUtil.SCREEN_WIDTH / 4,
-        height: DimensionsUtil.SCREEN_WIDTH / 4,
-        marginVertical:15
+        width: DimensionsUtil.SCREEN_WIDTH / 4.5,
+        height: DimensionsUtil.SCREEN_WIDTH / 4.5,
+        marginVertical: 15
     },
     confirmButton: {
         backgroundColor: AppColors.primary,
