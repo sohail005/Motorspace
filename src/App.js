@@ -8,6 +8,7 @@ import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import storageItem from './utils/storageItem';
 import { setToken } from './redux/features/user/userSlice';
 import { PaperProvider } from 'react-native-paper';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const AppWrapper = () => {
   const statusBarColor = useSelector((state) => state.user.statusBarColor);
@@ -16,7 +17,7 @@ const AppWrapper = () => {
   useEffect(() => {
     const loadToken = async () => {
       const token = await storageItem.getItem('token');
-      console.log("token::::::::::::::",token);
+      console.log("token::::::::::::::", token);
       if (token) dispatch(setToken(token));
     };
     loadToken();
@@ -27,7 +28,7 @@ const AppWrapper = () => {
       style={[styles.container, { backgroundColor: statusBarColor || AppColors.white }]}
     >
       <PaperProvider>
-      <RootNavigator />
+        <RootNavigator />
       </PaperProvider>
     </SafeAreaView>
   );
@@ -37,7 +38,9 @@ const App = () => {
   return (
     <Provider store={store}>
       <SafeAreaProvider>
-        <AppWrapper />
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <AppWrapper />
+        </GestureHandlerRootView>
       </SafeAreaProvider>
     </Provider>
   );

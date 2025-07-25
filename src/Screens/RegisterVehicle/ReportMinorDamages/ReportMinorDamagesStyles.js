@@ -1,0 +1,92 @@
+// src/screens/YourScreenFolder/RegisterYourFirstMotorStyles.js
+import { StyleSheet, Dimensions } from 'react-native';
+import { AppColors } from '../../../constants/colors'; // Adjust the path if needed
+import { FontSizes } from '../../../constants/fontsizes';
+import DimensionsUtil from '../../../constants/Dimensions';
+import { Fonts } from '../../../constants/Fonts';
+
+const { width } = Dimensions.get('window');
+
+export const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: AppColors.defaultBackground,
+        // paddingHorizontal: 16,
+        // paddingTop: 16,
+    },
+    containerContent: {
+        flex: 1,
+        // paddingHorizontal: 16,
+    },
+    // Title
+    screenTitle: {
+        fontSize: FontSizes.ultraLarge,
+        color: AppColors.primary || '#000000',
+        textAlign: 'center',
+        fontFamily: Fonts.bold
+    },
+    AddButtonContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 50
+    },
+    // Main Content
+    mainContent: {
+        alignItems: 'center',
+
+        flex: 1,
+    },
+    addMotorButton: {
+        width: 72,
+        height: 72,
+        borderRadius: 36,
+        backgroundColor: AppColors.buttonOrange,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 12,
+    },
+    addMotorText: {
+        fontSize: FontSizes.large,
+        color: AppColors.buttonOrange || '#333333',
+        fontFamily: Fonts.bold
+    },
+
+    // Bottom Buttons
+    bottomButtons: {
+        backgroundColor: AppColors.white,
+        padding: 20,
+    },
+    editButton: {
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: AppColors.primary,
+        width: DimensionsUtil.SCREEN_WIDTH / 2.5,
+        height: DimensionsUtil.SCREEN_WIDTH / 9,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    editButtonText: {
+        color: AppColors.primary || '#000',
+        fontSize: FontSizes.medium,
+        fontFamily: Fonts.semiBold,
+        padding: 12,
+        textAlign: 'center'
+    },
+    finishButton: {
+        marginLeft: 8,
+        paddingVertical: 14,
+        backgroundColor: AppColors.primary || '#007bff',
+        borderRadius: 8,
+        alignItems: 'center',
+        width: DimensionsUtil.SCREEN_WIDTH / 2.5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: DimensionsUtil.SCREEN_WIDTH / 9,
+        alignSelf: 'flex-end'
+    },
+    finishButtonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontFamily: Fonts.semiBold,
+    },
+});

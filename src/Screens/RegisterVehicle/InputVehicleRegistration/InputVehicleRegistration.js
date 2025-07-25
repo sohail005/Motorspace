@@ -16,6 +16,10 @@ import { AppColors } from '../../../constants/colors';
 const InputVehicleRegistration = ({ navigation }) => {
     const [regNumber, setRegNumber] = useState('');
 
+    const OnConfirmClick=()=>{
+        Keyboard.dismiss()
+        navigation.navigate("ConfirmVehicleInfo")
+    }
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={styles.container}>
@@ -52,7 +56,7 @@ const InputVehicleRegistration = ({ navigation }) => {
                     {/* Confirm Button */}
                     <View style={styles.confirmButtonContainer}>
                         <AppTouchable
-                            onPress={() => navigation.navigate("ConfirmVehicleInfo")}
+                            onPress={() => OnConfirmClick()}
                             disabled={regNumber.length < 6}
                             style={[styles.confirmButton, { opacity: regNumber.length > 6 ? 1 : 0.5 }]}>
                             <AppText style={styles.confirmButtonText}>Confirm</AppText>

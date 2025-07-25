@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import {
+    View,
+    TextInput,
+    StyleSheet,
+    Text,
+    Image,
+    TouchableOpacity,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { AppColors } from '../constants/colors';
 import { FontSizes } from '../constants/fontsizes';
-import Icon from 'react-native-vector-icons/Ionicons';
+
 const AppInput = ({
     placeholder,
     icon,
     iconStyle,
     label,
+    required, // ✅ new prop
+    labelStyle,
     errorMessage,
     secureTextEntry,
     style,
@@ -18,12 +28,17 @@ const AppInput = ({
 
     return (
         <View style={style}>
-            {label && <Text style={styles.label}>{label}</Text>}
+            {label && (
+                <Text style={[styles.label, labelStyle]}>
+                    {label}
+                    {required && <Text style={styles.required}> *</Text>}
+                </Text>
+            )}
 
             <View
                 style={[
                     styles.container,
-                    errorMessage && { borderColor: AppColors.errorRed },
+                    errorMessage && styles.errorBorder,
                 ]}
             >
                 {icon && (
@@ -43,24 +58,23 @@ const AppInput = ({
                     {...rest}
                 />
 
-                {/* Eye Icon */}
                 {secureTextEntry && (
-                    <TouchableOpacity onPress={() => setIsPasswordVisible(prev => !prev)}>
+                    <TouchableOpacity
+                        onPress={() => setIsPasswordVisible(prev => !prev)}
+                    >
                         <Icon
                             name={isPasswordVisible ? 'eye' : 'eye-off'}
                             size={24}
                             color={AppColors.primary}
-                            style={[styles.eyeIcon, { fontSize: FontSizes.xLarge }]}
+                            style={styles.eyeIcon}
                         />
                     </TouchableOpacity>
                 )}
             </View>
 
-            {!!errorMessage ? (
-                <Text style={styles.errorText}>{errorMessage}</Text>
-            ) : (
-                <Text style={styles.errorText}></Text>
-            )}
+            <Text style={styles.errorText}>
+                {errorMessage ? errorMessage : ' '}
+            </Text>
         </View>
     );
 };
@@ -69,11 +83,12 @@ const styles = StyleSheet.create({
     label: {
         fontSize: FontSizes.smallMedium,
         fontWeight: '500',
-        marginBottom: 6,
+        marginBottom: 4,
         color: AppColors.textPrimary,
+        marginTop: 10
     },
-    eyeIcon: {
-        marginLeft: 8,
+    required: {
+        color: AppColors.primary,
     },
     container: {
         flexDirection: 'row',
@@ -83,6 +98,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         alignItems: 'center',
         backgroundColor: AppColors.white,
+    },
+    errorBorder: {
+        borderColor: AppColors.errorRed,
     },
     input: {
         flex: 1,
@@ -96,13 +114,12 @@ const styles = StyleSheet.create({
         marginRight: 8,
     },
     eyeIcon: {
-        fontSize: 18,
         marginLeft: 8,
     },
     errorText: {
-        color: AppColors.errorText,
+        color: AppColors.errorRed,
         fontSize: FontSizes.small,
-        marginBottom: 5,
+        marginTop: 4,
     },
 });
 

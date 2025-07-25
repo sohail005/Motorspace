@@ -18,6 +18,9 @@ import InputVehicleRegistration from '../Screens/RegisterVehicle/InputVehicleReg
 import ConfirmVehicleInfo from '../Screens/RegisterVehicle/ConfirmVehicleInfo/ConfirmVehicleInfo';
 import AdditionalVehicleInfo from '../Screens/RegisterVehicle/AdditionalVehicleInfo/AdditionalVehicleInfo';
 import AnyNotableDamage from '../Screens/RegisterVehicle/AnyNotableDamage/AnyNotableDamage';
+import ReportMinorDamages from '../Screens/RegisterVehicle/ReportMinorDamages/ReportMinorDamages';
+import DamageReport from '../Screens/RegisterVehicle/DamageReport/DamageReport';
+import DamageDiagramScreen from '../Screens/RegisterVehicle/DamageReport/DamageDiagramScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,7 +46,10 @@ const AuthNavigator = () => {
       <Stack.Screen name="ConfirmVehicleInfo" component={ConfirmVehicleInfo} />
       <Stack.Screen name="AdditionalVehicleInfo" component={AdditionalVehicleInfo} />
       <Stack.Screen name="AnyNotableDamage" component={AnyNotableDamage} />
-      
+      <Stack.Screen name="ReportMinorDamages" component={ReportMinorDamages} />
+      <Stack.Screen name="DamageReport" component={DamageReport} />
+      <Stack.Screen name="DamageDiagramScreen" component={DamageDiagramScreen} />
+
 
     </Stack.Navigator>
   );

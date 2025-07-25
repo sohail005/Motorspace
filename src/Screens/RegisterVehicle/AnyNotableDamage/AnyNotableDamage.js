@@ -18,9 +18,9 @@ const AnyNotableDamage = () => {
 
     const handleConfirm = () => {
         if (selectedType === 'NoDamage') {
-            navigation.navigate('PrivateDetails');
+            // navigation.navigate('PrivateDetails');
         } else if (selectedType === 'MinorDamages') {
-            navigation.navigate('BusinessDetails');
+            navigation.navigate('ReportMinorDamages');
         }
     };
     const setSelectedOption = (type) => {
