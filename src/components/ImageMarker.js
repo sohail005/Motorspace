@@ -17,7 +17,7 @@ import Animated, {
     runOnJS,
 } from 'react-native-reanimated';
 
-const ImageMarker = forwardRef(({ imageSource, onPress }, ref) => {
+const ImageMarker = forwardRef(({ imageSource, onPress,DamageMarked }, ref) => {
     const [markerPlaced, setMarkerPlaced] = useState(false);
     // markerCoords will store the position relative to the original image dimensions
     const [markerCoords, setMarkerCoords] = useState({ x: 0, y: 0 });
@@ -71,6 +71,8 @@ const ImageMarker = forwardRef(({ imageSource, onPress }, ref) => {
             // Use runOnJS to update React state from a Reanimated worklet
             runOnJS(setMarkerCoords)({ x: clampedX, y: clampedY });
             runOnJS(setMarkerPlaced)(true);
+            runOnJS(DamageMarked)(true);
+            
             if (onPress) {
                 runOnJS(onPress)();
             }
@@ -208,7 +210,7 @@ const ImageMarker = forwardRef(({ imageSource, onPress }, ref) => {
     };
 
     return (
-        <View style={[styles.MainContainer,{ borderColor:markerPlaced?AppColors.buttonOrange:AppColors.borderColor}]} onLayout={handleContainerLayout}>
+        <View style={[styles.MainContainer, { borderColor: markerPlaced && AppColors.buttonOrange }]} onLayout={handleContainerLayout}>
             <GestureDetector gesture={imageGestures}>
                 <ViewShot
                     ref={viewShotRef}
@@ -241,9 +243,9 @@ export default ImageMarker;
 
 const styles = StyleSheet.create({
     MainContainer: {
-       borderWidth:2,
-       borderColor:AppColors.borderColor,
-       borderRadius:15
+        borderWidth: 2,
+        borderColor: AppColors.borderColor,
+        borderRadius: 15
     },
     imageWrapper: {
         width: DimensionsUtil.SCREEN_WIDTH / 1.8,

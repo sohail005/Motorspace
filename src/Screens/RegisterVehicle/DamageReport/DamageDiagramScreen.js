@@ -11,7 +11,8 @@ import { useRoute } from '@react-navigation/native';
 const DamageDiagramScreen = ({ navigation }) => {
     const [damageLocated, setDamageLocated] = useState(false);
     const imageMarkerRef = useRef();
-    const route = useRoute()
+    const route = useRoute();
+
     const {
         imageSource,
         initialMarker,
@@ -34,9 +35,9 @@ const DamageDiagramScreen = ({ navigation }) => {
         navigation.goBack();
     };
 
-    const handleImagePress = async () => {
-        const isPlaced = await imageMarkerRef.current?.isMarkerPlaced?.();
-        setDamageLocated(!!isPlaced);
+    const DamageMarked = (data) => {
+        console.log("Marker placed:", data);
+        setDamageLocated(data); // true or false
     };
 
     return (
@@ -54,9 +55,10 @@ const DamageDiagramScreen = ({ navigation }) => {
                         imageSource={imageSource}
                         initialMarker={initialMarker}
                         readOnly={readOnly}
-                        onPress={handleImagePress} // <--- Add this
+                        DamageMarked={DamageMarked}
                     />
                 </View>
+
                 <View
                     style={[
                         styles.badge,
