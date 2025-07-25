@@ -40,7 +40,6 @@ export const styles = StyleSheet.create({
         fontFamily:Fonts.semiBold,
         textAlign:'center',
         textAlignVertical:'center',
-        marginTop:4
     },
     footer: {
         // padding: width / 8,
@@ -74,6 +73,5 @@ export const styles = StyleSheet.create({
         color: AppColors.white,
         fontSize: FontSizes.medium,
         fontFamily:Fonts.semiBold,
-        marginTop:4
     },
 });

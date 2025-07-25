@@ -61,7 +61,6 @@ export const styles = StyleSheet.create({
         color: AppColors.white,
         fontSize: FontSizes.medium,
         fontFamily:Fonts.semiBold,
-        marginTop:2
     },
     question: {
         textAlign: 'center',
@@ -86,7 +85,6 @@ export const styles = StyleSheet.create({
         color: AppColors.primary,
         fontSize: 15,
         fontFamily:Fonts.semiBold,
-        marginTop:2
     },
     bottomView: {
         position: 'absolute',

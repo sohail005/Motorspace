@@ -82,7 +82,6 @@ export const styles = StyleSheet.create({
         color: AppColors.primary || '#000',
         fontSize: FontSizes.medium,
         fontFamily:Fonts.semiBold,
-        marginTop:4,
         padding: 12,
         textAlign: 'center'
     },
@@ -102,6 +101,5 @@ export const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
         fontFamily:Fonts.semiBold,
-        marginTop:4
     },
 });
