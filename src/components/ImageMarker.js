@@ -125,11 +125,9 @@ const ImageMarker = forwardRef(({ imageSource, onPress }, ref) => {
             'worklet';
             if (!imageLayout) return;
 
-            // Divide by scale so marker moves correctly regardless of zoom
             const newX = savedMarkerPosition.value.x + event.translationX / scale.value;
             const newY = savedMarkerPosition.value.y + event.translationY / scale.value;
 
-            // Clamp to image boundaries
             markerPosition.value = {
                 x: Math.max(0, Math.min(newX, imageLayout.width)),
                 y: Math.max(0, Math.min(newY, imageLayout.height)),
@@ -138,14 +136,8 @@ const ImageMarker = forwardRef(({ imageSource, onPress }, ref) => {
         .onEnd(() => {
             'worklet';
             savedMarkerPosition.value = markerPosition.value;
-            // Sync final position back to React state for `captureImage`
             runOnJS(setMarkerCoords)(markerPosition.value);
-
-            // Reset dragging state after a short delay
-            setTimeout(() => {
-                'worklet';
-                isMarkerDragging.value = false;
-            }, 100);
+            isMarkerDragging.value = false;
         });
 
     // Combine gestures
@@ -216,7 +208,7 @@ const ImageMarker = forwardRef(({ imageSource, onPress }, ref) => {
     };
 
     return (
-        <View onLayout={handleContainerLayout}>
+        <View style={[styles.MainContainer,{ borderColor:markerPlaced?AppColors.buttonOrange:AppColors.borderColor}]} onLayout={handleContainerLayout}>
             <GestureDetector gesture={imageGestures}>
                 <ViewShot
                     ref={viewShotRef}
@@ -248,9 +240,15 @@ const ImageMarker = forwardRef(({ imageSource, onPress }, ref) => {
 export default ImageMarker;
 
 const styles = StyleSheet.create({
+    MainContainer: {
+       borderWidth:2,
+       borderColor:AppColors.borderColor,
+       borderRadius:15
+    },
     imageWrapper: {
-        width: DimensionsUtil.SCREEN_WIDTH / 1.2,
-        aspectRatio: 1,
+        width: DimensionsUtil.SCREEN_WIDTH / 1.8,
+        height: DimensionsUtil.SCREEN_HEIGHT / 1.8,
+        aspectRatio: 0.7,
         alignSelf: 'center',
         backgroundColor: '#fff',
         overflow: 'hidden', // Important to clip the zoomed image
