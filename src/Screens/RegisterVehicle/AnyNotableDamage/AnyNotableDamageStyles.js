@@ -37,8 +37,8 @@ export const styles = StyleSheet.create({
         padding: 18
     },
     image: {
-        width: DimensionsUtil.SCREEN_WIDTH / 4.5,
-        height: DimensionsUtil.SCREEN_WIDTH / 4.5,
+        width: DimensionsUtil.SCREEN_WIDTH / 5.4,
+        height: DimensionsUtil.SCREEN_WIDTH / 5.4,
         marginVertical: 15
     },
     confirmButton: {
