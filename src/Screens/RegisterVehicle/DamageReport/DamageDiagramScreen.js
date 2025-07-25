@@ -11,7 +11,7 @@ import { useRoute } from '@react-navigation/native';
 const DamageDiagramScreen = ({ navigation }) => {
     const [damageLocated, setDamageLocated] = useState(false);
     const imageMarkerRef = useRef();
-const route = useRoute()
+    const route = useRoute()
     const {
         imageSource,
         initialMarker,
@@ -48,14 +48,15 @@ const route = useRoute()
                     Pinch to zoom, and select the location of the damage.
                 </AppText>
 
-                <ImageMarker
-                    ref={imageMarkerRef}
-                    imageSource={imageSource}
-                    initialMarker={initialMarker}
-                    readOnly={readOnly}
-                    onPress={handleImagePress} // <--- Add this
-                />
-
+                <View style={styles.ImageMarkerConatiner}>
+                    <ImageMarker
+                        ref={imageMarkerRef}
+                        imageSource={imageSource}
+                        initialMarker={initialMarker}
+                        readOnly={readOnly}
+                        onPress={handleImagePress} // <--- Add this
+                    />
+                </View>
                 <View
                     style={[
                         styles.badge,
@@ -77,7 +78,7 @@ const route = useRoute()
                 onPress={handleSubmit}
                 style={[
                     styles.submitBtn,
-                    { backgroundColor: damageLocated ? AppColors.buttonOrange : '#ccc' },
+                    { backgroundColor: damageLocated ? AppColors.primary : AppColors.buttonDisabled },
                 ]}
                 disabled={!damageLocated}
             >

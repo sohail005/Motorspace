@@ -2,15 +2,20 @@ import { StyleSheet } from "react-native";
 import { AppColors } from "../../../constants/colors";
 import { FontSizes } from "../../../constants/fontsizes";
 import { Fonts } from "../../../constants/Fonts";
+import DimensionsUtil from "../../../constants/Dimensions";
 
 export const styles = StyleSheet.create({
     container: {
         backgroundColor: AppColors.white,
         flex: 1,
     },
-    containerContent:{
-flex:1,
-paddingHorizontal:20
+    containerContent: {
+        flex: 1,
+        paddingHorizontal: 20
+    },
+    ImageMarkerConatiner: {
+        height: DimensionsUtil.SCREEN_HEIGHT / 1.8,
+
     },
     heading: {
         fontSize: FontSizes.ultraLarge,
@@ -79,9 +84,11 @@ paddingHorizontal:20
         paddingVertical: 12,
         borderRadius: 10,
         alignItems: 'center',
-        margin:20,
-        height:50,
-        justifyContent:'center'
+        margin: 20,
+        height: 50,
+        justifyContent: 'center',
+        width: DimensionsUtil.SCREEN_WIDTH / 2.5,
+        alignSelf: 'flex-end'
     },
     submitBtnDisabled: {
         backgroundColor: '#ccc',
