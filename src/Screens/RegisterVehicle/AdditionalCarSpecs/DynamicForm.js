@@ -7,6 +7,7 @@ import { Picker } from '@react-native-picker/picker';
 import { AppColors } from '../../../constants/colors';
 import { FontSizes } from '../../../constants/fontsizes';
 import { Fonts } from '../../../constants/Fonts';
+import DropdownMenuPaper from './DropdownMenuPaper';
 
 const DynamicForm = ({ sectionConfig, onSubmitForm, defaultValues = {} }) => {
   if (!sectionConfig || !Array.isArray(sectionConfig.fields)) {
@@ -49,21 +50,13 @@ const DynamicForm = ({ sectionConfig, onSubmitForm, defaultValues = {} }) => {
               if (field.type === 'dropdown') {
                 return (
                   <View style={styles.dropdownWrapper}>
-                    <Picker
-                      selectedValue={value ?? ''}
-                      onValueChange={(itemValue) => {
-                        onChange(itemValue);
-                        handleSubmit(onSubmit)();
-                      }}
-                      style={styles.picker}
-                      dropdownIconColor={AppColors.borderColor}
-                    >
-                      <Picker.Item label="Select an option..." value="" />
-                      {field.options?.map((option) => (
-                        <Picker.Item label={option} value={option} key={option} />
-                      ))}
-                    </Picker>
-                    
+                    <DropdownMenuPaper
+                      value={value}
+                      onChange={onChange}
+                      options={field.options}
+                      onSubmit={handleSubmit(onSubmit)}
+                    />
+
                   </View>
                 );
               }
@@ -111,7 +104,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: FontSizes.medium,
     color: AppColors.textPrimary,
-    fontFamily:Fonts.regular
+    fontFamily: Fonts.regular
   },
   input: {
     borderWidth: 1,

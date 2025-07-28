@@ -69,11 +69,8 @@ const AdditionalCarSpecs = () => {
         <ScrollView contentContainerStyle={styles.scrollContent}>
         <AppText style={styles.screenTitle}>Additional{'\n'}Car Specs</AppText>
           {specSections.map((title) => {
-            
             const isExpanded = expandedItem === title;
             const sectionConfig = getFormConfigByTitle(title);
-            console.log("sectionConfig:",sectionConfig);
-            
             return (
               <View key={title}>
                 <AppTouchable
