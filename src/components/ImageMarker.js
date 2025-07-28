@@ -1,10 +1,13 @@
+
 import React, {
     useRef,
     useState,
     useImperativeHandle,
     forwardRef,
+    useEffect,
+    useCallback,
 } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import ViewShot from 'react-native-view-shot';
 import { AppColors } from '../constants/colors';
 import DimensionsUtil from '../constants/Dimensions';
@@ -17,15 +20,85 @@ import Animated, {
     runOnJS,
 } from 'react-native-reanimated';
 
-const ImageMarker = forwardRef(({ imageSource, onPress,DamageMarked }, ref) => {
-    const [markerPlaced, setMarkerPlaced] = useState(false);
-    // markerCoords will store the position relative to the original image dimensions
-    const [markerCoords, setMarkerCoords] = useState({ x: 0, y: 0 });
-    const [imageLayout, setImageLayout] = useState(null);
-    const [containerLayout, setContainerLayout] = useState(null);
-    const viewShotRef = useRef(null);
+// Helper component for a single draggable marker
+const DraggableMarker = ({
+    index,
+    markersPositions,
+    savedMarkersPositions,
+    scale,
+    imageLayout,
+    onDragEnd,
+}) => {
+    // This gesture handles dragging for an individual marker
+    const markerPanGesture = Gesture.Pan()
+        .onStart(() => {
+            'worklet';
+            // Save the starting positions of all markers when a drag begins
+            savedMarkersPositions.value = markersPositions.value;
+        })
+        .onUpdate((event) => {
+            'worklet';
+            if (!imageLayout) return;
 
-    // Reanimated shared values for image pan & zoom
+            // Get the saved starting position for this specific marker
+            const savedPosition = savedMarkersPositions.value[index];
+            if (!savedPosition) return;
+
+            // Calculate new position based on drag translation and image scale
+            const newX = savedPosition.x + event.translationX / scale.value;
+            const newY = savedPosition.y + event.translationY / scale.value;
+
+            // Clamp the position to stay within the image boundaries
+            const clampedX = Math.max(0, Math.min(newX, imageLayout.width));
+            const clampedY = Math.max(0, Math.min(newY, imageLayout.height));
+
+            // Create a new array to update the shared value (triggers re-render)
+            const newPositions = [...markersPositions.value];
+            newPositions[index] = { x: clampedX, y: clampedY };
+            markersPositions.value = newPositions;
+        })
+        .onEnd(() => {
+            'worklet';
+            // When drag ends, update the React state with the final position
+            if (markersPositions.value[index]) {
+                runOnJS(onDragEnd)(index, markersPositions.value[index]);
+            }
+        });
+
+    // Animated style for the marker's position
+    const animatedMarkerStyle = useAnimatedStyle(() => {
+        // Ensure the marker position exists before trying to access it
+        const position = markersPositions.value[index];
+        if (!position) return { opacity: 0 };
+
+        return {
+            opacity: 1,
+            transform: [
+                { translateX: position.x - 25 }, // Center the marker (50/2)
+                { translateY: position.y - 25 }, // Center the marker (50/2)
+            ],
+        };
+    });
+
+    return (
+        <GestureDetector gesture={markerPanGesture}>
+            <Animated.View
+                style={[styles.marker, animatedMarkerStyle]}
+                hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+            />
+        </GestureDetector>
+    );
+};
+
+const ImageMarker = forwardRef(({ imageSource, DamageMarked }, ref) => {
+    // --- State Management ---
+    const [markers, setMarkers] = useState([]); // React state for marker list {id, x, y}
+    const [imageLayout, setImageLayout] = useState(null);
+    const viewShotRef = useRef(null);
+    const nextId = useRef(0);
+
+    // --- Reanimated Shared Values ---
+    // For image pan & zoom
     const scale = useSharedValue(1);
     const savedScale = useSharedValue(1);
     const translateX = useSharedValue(0);
@@ -33,63 +106,50 @@ const ImageMarker = forwardRef(({ imageSource, onPress,DamageMarked }, ref) => {
     const savedTranslateX = useSharedValue(0);
     const savedTranslateY = useSharedValue(0);
 
-    // Reanimated shared values for dragging the marker
-    const markerPosition = useSharedValue({ x: 0, y: 0 });
-    const savedMarkerPosition = useSharedValue({ x: 0, y: 0 });
+    // For multiple markers' positions
+    const markersPositions = useSharedValue([]); // Drives animation
+    const savedMarkersPositions = useSharedValue([]); // Stores positions at drag start
 
-    // Track if marker is being dragged to prevent tap conflicts
-    const isMarkerDragging = useSharedValue(false);
+    // --- Core Functions ---
+    const addMarker = useCallback(() => {
+        if (!imageLayout) return; // Wait for image to be measured
 
-    // Define Gestures
-    const tapGesture = Gesture.Tap()
-        .maxDuration(250)
-        .onEnd((event) => {
-            'worklet';
-            if (!imageLayout || !containerLayout || isMarkerDragging.value) return;
+        const centerX = imageLayout.width / 2;
+        const centerY = imageLayout.height / 2;
+        const newId = nextId.current++;
 
-            // Get the container center point
-            const containerCenterX = containerLayout.width / 2;
-            const containerCenterY = containerLayout.height / 2;
+        const newMarker = { id: newId, x: centerX, y: centerY };
+        const newPosition = { x: centerX, y: centerY };
 
-            // Calculate tap position relative to container center
-            const tapX = event.x - containerCenterX;
-            const tapY = event.y - containerCenterY;
+        // Update both React state and Reanimated shared value
+        setMarkers(currentMarkers => [...currentMarkers, newMarker]);
+        markersPositions.value = [...markersPositions.value, newPosition];
+        DamageMarked(true);
+    }, [imageLayout, DamageMarked, markersPositions]);
 
-            // Convert tap coordinates to image coordinates
-            // Account for current transform: (tap - translate) / scale
-            const imageCoordX = (tapX - translateX.value) / scale.value + imageLayout.width / 2;
-            const imageCoordY = (tapY - translateY.value) / scale.value + imageLayout.height / 2;
+    const removeAllMarkers = () => {
+        setMarkers([]);
+        markersPositions.value = [];
+        DamageMarked(false);
+    };
 
-            // Clamp to image boundaries
-            const clampedX = Math.max(0, Math.min(imageCoordX, imageLayout.width));
-            const clampedY = Math.max(0, Math.min(imageCoordY, imageLayout.height));
-
-            // Update marker position
-            markerPosition.value = { x: clampedX, y: clampedY };
-            savedMarkerPosition.value = { x: clampedX, y: clampedY };
-
-            // Use runOnJS to update React state from a Reanimated worklet
-            runOnJS(setMarkerCoords)({ x: clampedX, y: clampedY });
-            runOnJS(setMarkerPlaced)(true);
-            runOnJS(DamageMarked)(true);
-            
-            if (onPress) {
-                runOnJS(onPress)();
+    // Callback to sync final marker position from animation to React state
+    const updateMarkerReactState = (index, finalPosition) => {
+        setMarkers(currentMarkers => {
+            const newMarkers = [...currentMarkers];
+            if (newMarkers[index]) {
+                newMarkers[index] = { ...newMarkers[index], ...finalPosition };
             }
+            return newMarkers;
         });
+    };
 
+    // --- Gestures ---
     const panGesture = Gesture.Pan()
         .averageTouches(true)
-        .minDistance(10) // The fix to distinguish a pan from a tap
-        .onStart(() => {
-            'worklet';
-            // Prevent marker dragging during image pan
-            isMarkerDragging.value = false;
-        })
+        .minPointers(2) // Pan with two fingers to avoid conflict with marker drag
         .onUpdate((event) => {
             'worklet';
-            if (isMarkerDragging.value) return;
-
             translateX.value = savedTranslateX.value + event.translationX;
             translateY.value = savedTranslateY.value + event.translationY;
         })
@@ -100,55 +160,20 @@ const ImageMarker = forwardRef(({ imageSource, onPress,DamageMarked }, ref) => {
         });
 
     const pinchGesture = Gesture.Pinch()
-        .onStart(() => {
-            'worklet';
-            // Prevent marker dragging during pinch
-            isMarkerDragging.value = false;
-        })
         .onUpdate((event) => {
             'worklet';
-            if (isMarkerDragging.value) return;
-
             const newScale = savedScale.value * event.scale;
-            // Optional: limit scale between 0.5x and 3x
-            scale.value = Math.max(0.5, Math.min(3, newScale));
+            scale.value = Math.max(1, Math.min(newScale, 3)); // Limit scale
         })
         .onEnd(() => {
             'worklet';
             savedScale.value = scale.value;
         });
 
-    const markerPanGesture = Gesture.Pan()
-        .onStart(() => {
-            'worklet';
-            isMarkerDragging.value = true;
-        })
-        .onUpdate((event) => {
-            'worklet';
-            if (!imageLayout) return;
+    // Combine pan and pinch for the image. Marker gestures are separate.
+    const imageGestures = Gesture.Simultaneous(panGesture, pinchGesture);
 
-            const newX = savedMarkerPosition.value.x + event.translationX / scale.value;
-            const newY = savedMarkerPosition.value.y + event.translationY / scale.value;
-
-            markerPosition.value = {
-                x: Math.max(0, Math.min(newX, imageLayout.width)),
-                y: Math.max(0, Math.min(newY, imageLayout.height)),
-            };
-        })
-        .onEnd(() => {
-            'worklet';
-            savedMarkerPosition.value = markerPosition.value;
-            runOnJS(setMarkerCoords)(markerPosition.value);
-            isMarkerDragging.value = false;
-        });
-
-    // Combine gestures
-    const imageGestures = Gesture.Race(
-        Gesture.Simultaneous(panGesture, pinchGesture),
-        tapGesture,
-    );
-
-    // Define Animated Styles
+    // --- Animated Styles ---
     const animatedImageContainerStyle = useAnimatedStyle(() => ({
         transform: [
             { translateX: translateX.value },
@@ -157,41 +182,40 @@ const ImageMarker = forwardRef(({ imageSource, onPress,DamageMarked }, ref) => {
         ],
     }));
 
-    const animatedMarkerStyle = useAnimatedStyle(() => ({
-        opacity: markerPlaced ? 1 : 0,
-        transform: [
-            // Center the marker on its coordinates
-            { translateX: markerPosition.value.x - 25 },
-            { translateY: markerPosition.value.y - 25 },
-            { scale: isMarkerDragging.value ? 1.2 : 1 }, // Visual feedback when dragging
-        ],
-    }));
-
-    const captureImage = async () => {
-        if (!markerPlaced) return null;
-        try {
-            // Reset zoom/pan for capture to get a clean, full-frame image
-            scale.value = 1;
-            translateX.value = 0;
-            translateY.value = 0;
-            const uri = await viewShotRef.current.capture();
-            return { uri, markerCoordinates: markerCoords };
-        } catch (error) {
-            console.warn('ViewShot capture failed:', error);
-            return null;
-        }
-    };
-
+    // --- Exposing Methods via ref ---
     useImperativeHandle(ref, () => ({
-        saveImage: captureImage,
-        isMarkerPlaced: () => markerPlaced,
-        resetMarker: () => {
-            setMarkerPlaced(false);
-            setMarkerCoords({ x: 0, y: 0 });
-            markerPosition.value = { x: 0, y: 0 };
-            savedMarkerPosition.value = { x: 0, y: 0 };
+        saveImage: async () => {
+            if (markers.length === 0) return null;
+            try {
+                // Temporarily reset transform for a clean capture
+                const originalTransform = {
+                    scale: scale.value,
+                    x: translateX.value,
+                    y: translateY.value,
+                };
+                scale.value = 1;
+                translateX.value = 0;
+                translateY.value = 0;
+
+                const uri = await viewShotRef.current.capture();
+
+                // Restore transform
+                scale.value = originalTransform.scale;
+                translateX.value = originalTransform.x;
+                translateY.value = originalTransform.y;
+
+                // Get final coordinates from React state
+                const markerCoordinates = markers.map(m => ({ x: m.x, y: m.y }));
+                return { uri, markerCoordinates };
+            } catch (error) {
+                console.warn('ViewShot capture failed:', error);
+                return null;
+            }
         },
-        resetTransform: () => {
+        isMarkerPlaced: () => markers.length > 0,
+        resetAll: () => {
+            removeAllMarkers();
+            // Reset image transform
             scale.value = 1;
             translateX.value = 0;
             translateY.value = 0;
@@ -201,40 +225,58 @@ const ImageMarker = forwardRef(({ imageSource, onPress,DamageMarked }, ref) => {
         },
     }));
 
-    const handleContainerLayout = (event) => {
-        setContainerLayout(event.nativeEvent.layout);
-    };
-
+    // --- Layout and Effects ---
     const handleImageLayout = (event) => {
         setImageLayout(event.nativeEvent.layout);
     };
 
+    // Add the default marker once the image has been laid out
+    useEffect(() => {
+        if (imageLayout && markers.length === 0) {
+            addMarker();
+        }
+    }, [imageLayout, markers.length, addMarker]);
+
     return (
-        <View style={[styles.MainContainer, { borderColor: markerPlaced && AppColors.buttonOrange }]} onLayout={handleContainerLayout}>
-            <GestureDetector gesture={imageGestures}>
-                <ViewShot
-                    ref={viewShotRef}
-                    options={{ format: 'png', quality: 1.0, result: 'tmpfile' }}
-                    style={styles.imageWrapper} // Acts as a clipping mask
-                >
-                    <Animated.View style={animatedImageContainerStyle}>
-                        <Image
-                            source={{ uri: imageSource }}
-                            resizeMode="contain"
-                            style={styles.image}
-                            onLayout={handleImageLayout}
-                        />
-                        {markerPlaced && (
-                            <GestureDetector gesture={markerPanGesture}>
-                                <Animated.View
-                                    style={[styles.marker, animatedMarkerStyle]}
-                                    hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+        <View style={styles.outerContainer}>
+            <View style={[styles.mainContainer, { borderColor: markers.length > 0 ? AppColors.buttonOrange : AppColors.borderColor }]}>
+                <GestureDetector gesture={imageGestures}>
+                    <ViewShot
+                        ref={viewShotRef}
+                        options={{ format: 'png', quality: 1.0, result: 'tmpfile' }}
+                        style={styles.imageWrapper}
+                    >
+                        <Animated.View style={[styles.fullSize, animatedImageContainerStyle]}>
+                            <Image
+                                source={{ uri: imageSource }}
+                                resizeMode="contain"
+                                style={styles.image}
+                                onLayout={handleImageLayout}
+                            />
+                            {/* Render all draggable markers */}
+                            {markers.map((marker, index) => (
+                                <DraggableMarker
+                                    key={marker.id}
+                                    index={index}
+                                    markersPositions={markersPositions}
+                                    savedMarkersPositions={savedMarkersPositions}
+                                    scale={scale}
+                                    imageLayout={imageLayout}
+                                    onDragEnd={updateMarkerReactState}
                                 />
-                            </GestureDetector>
-                        )}
-                    </Animated.View>
-                </ViewShot>
-            </GestureDetector>
+                            ))}
+                        </Animated.View>
+                    </ViewShot>
+                </GestureDetector>
+            </View>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.button} onPress={addMarker}>
+                    <Text style={styles.buttonText}>Add Marker</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={removeAllMarkers}>
+                    <Text style={styles.buttonText}>Remove All</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 });
@@ -242,20 +284,30 @@ const ImageMarker = forwardRef(({ imageSource, onPress,DamageMarked }, ref) => {
 export default ImageMarker;
 
 const styles = StyleSheet.create({
-    MainContainer: {
+    outerContainer: {
+        alignItems: 'center',
+        gap: 15,
+    },
+    mainContainer: {
         borderWidth: 2,
-        borderColor: AppColors.borderColor,
-        borderRadius: 15
+        borderRadius: 15,
+        overflow: 'hidden', // Ensures the container clips its children
     },
     imageWrapper: {
         width: DimensionsUtil.SCREEN_WIDTH / 1.8,
         height: DimensionsUtil.SCREEN_HEIGHT / 1.8,
         aspectRatio: 0.7,
-        alignSelf: 'center',
         backgroundColor: '#fff',
-        overflow: 'hidden', // Important to clip the zoomed image
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+    },
+    fullSize: {
+        width: '100%',
+        height: '100%',
     },
     image: {
+        ...StyleSheet.absoluteFillObject,
         width: '100%',
         height: '100%',
     },
@@ -266,14 +318,20 @@ const styles = StyleSheet.create({
         position: 'absolute',
         borderWidth: 3,
         borderColor: AppColors.buttonOrange,
-        backgroundColor: 'rgba(255,165,0,0.3)',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: '100%',
+    },
+    button: {
+        backgroundColor: AppColors.buttonOrange,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 8,
+    },
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
     },
 });
