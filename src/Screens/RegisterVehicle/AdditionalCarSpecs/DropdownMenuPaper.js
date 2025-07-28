@@ -53,8 +53,8 @@ const DropdownMenuPaper = ({ value, onChange, options, onSubmit }) => {
               </AppText>
               <Icon 
                 name={visible ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} 
-                size={20} 
-                color={AppColors.textPrimary}
+                size={28} 
+                color={AppColors.borderColor}
                 style={styles.arrowIcon}
               />
             </View>
