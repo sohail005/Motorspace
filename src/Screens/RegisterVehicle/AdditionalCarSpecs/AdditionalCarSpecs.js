@@ -5,6 +5,7 @@ import {
   LayoutAnimation,
   Platform,
   UIManager,
+  KeyboardAvoidingView,
 } from 'react-native';
 import AppHeaderCommon from '../../../components/AppHeaderCommon';
 import AppText from '../../../components/AppText';
@@ -13,10 +14,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { AppColors } from '../../../constants/colors';
 import { styles } from './AdditionalCarSpecsStyles';
+import DynamicForm from './DynamicForm';
+import { formConfig } from './formConfig';
 
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
+
 
 const specSections = [
   'General',
@@ -24,7 +25,7 @@ const specSections = [
   'Tyres',
   'Vehicle Dimensions',
   'Weight & Capacities',
-  'Engine & Drive Train',
+  'Engine & Drive Train', // ✅ matches config.title
   'Emissions',
   'Fuel Consumption',
 ];
@@ -32,6 +33,7 @@ const specSections = [
 const AdditionalCarSpecs = () => {
   const navigation = useNavigation();
   const [expandedItem, setExpandedItem] = useState(null);
+  const [formData, setFormData] = useState({});
 
   const toggleExpand = (title) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -39,45 +41,91 @@ const AdditionalCarSpecs = () => {
   };
 
   const handleSubmit = () => {
-    navigation.goBack();
+    console.log('All Section Form Data:', formData);
+    // navigation.goBack();
   };
 
   const handleSkip = () => {
     handleSubmit(); // Same behavior
   };
 
+  const getFormConfigByTitle = (title) => {
+    const key = title.toLowerCase().replace(/[\s&]/g, '');
+    return Object.entries(formConfig).find(
+      ([configKey]) => configKey.toLowerCase().replace(/[\s&]/g, '') === key
+    )?.[1] || null;
+  };
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView 
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+    >
       <AppHeaderCommon title="" onLeftPress={navigation.goBack} />
       <View style={styles.contentContainer}>
-        <AppText style={styles.screenTitle}>Additional{'\n'}Car Specs</AppText>
+       
 
         <ScrollView contentContainerStyle={styles.scrollContent}>
+        <AppText style={styles.screenTitle}>Additional{'\n'}Car Specs</AppText>
           {specSections.map((title) => {
+            
             const isExpanded = expandedItem === title;
-
+            const sectionConfig = getFormConfigByTitle(title);
+            console.log("sectionConfig:",sectionConfig);
+            
             return (
               <View key={title}>
                 <AppTouchable
-                  style={[styles.specItem, { borderBottomColor: isExpanded ? AppColors.primary : AppColors.Blue_Subtext }]}
+                  style={[
+                    styles.specItem,
+                    {
+                      borderBottomColor: isExpanded
+                        ? AppColors.primary
+                        : AppColors.Blue_Subtext,
+                    },
+                  ]}
                   onPress={() => toggleExpand(title)}
                 >
-                  <AppText style={[styles.specText, { color: isExpanded ? AppColors.primary : AppColors.Blue_Subtext }]}>{title}</AppText>
+                  <AppText
+                    style={[
+                      styles.specText,
+                      {
+                        color: isExpanded
+                          ? AppColors.primary
+                          : AppColors.Blue_Subtext,
+                      },
+                    ]}
+                  >
+                    {title}
+                  </AppText>
                   <Icon
                     name={isExpanded ? 'chevron-down' : 'chevron-forward'}
                     size={20}
-                    color={isExpanded ? AppColors.primary : AppColors.Blue_Subtext}
+                    color={
+                      isExpanded ? AppColors.primary : AppColors.Blue_Subtext
+                    }
                   />
                 </AppTouchable>
 
-                {isExpanded && (
+                <View
+                  style={{
+                    display: isExpanded ? 'flex' : 'none',
+                  }}
+                >
                   <View style={styles.expandedContent}>
-                    <AppText style={styles.expandedText}>
-                      {/* Replace this with actual form/input component later */}
-                      Enter {title} specifications here...
-                    </AppText>
+                    <DynamicForm
+                      sectionConfig={sectionConfig}
+                      defaultValues={formData[title] || {}}
+                      onSubmitForm={(data) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          [title]: data,
+                        }));
+                      }}
+                    />
                   </View>
-                )}
+                </View>
               </View>
             );
           })}
@@ -92,7 +140,7 @@ const AdditionalCarSpecs = () => {
           <AppText style={styles.submitButtonText}>Submit</AppText>
         </AppTouchable>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
