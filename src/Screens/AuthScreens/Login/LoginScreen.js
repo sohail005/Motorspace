@@ -57,7 +57,7 @@ const LoginScreen = () => {
   const handleJoinNow = () => {
     // navigation.navigate('GettingStarted')
     //navigation.navigate('LetsRegister')
-    navigation.navigate('DamageReport')
+    navigation.navigate('ReportMinorDamages')
     
   }
   return (

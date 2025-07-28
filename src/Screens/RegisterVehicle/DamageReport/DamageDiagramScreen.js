@@ -59,23 +59,23 @@ const DamageDiagramScreen = ({ navigation }) => {
                     />
                 </View>
 
-                <View
+
+            </View>
+            <View
+                style={[
+                    styles.badge,
+                    damageLocated ? styles.badgeLocated : styles.badgeNotLocated,
+                ]}
+            >
+                <AppText
                     style={[
-                        styles.badge,
-                        damageLocated ? styles.badgeLocated : styles.badgeNotLocated,
+                        styles.badgeText,
+                        damageLocated ? styles.badgeTextLocated : styles.badgeTextNotLocated,
                     ]}
                 >
-                    <AppText
-                        style={[
-                            styles.badgeText,
-                            damageLocated ? styles.badgeTextLocated : styles.badgeTextNotLocated,
-                        ]}
-                    >
-                        {damageLocated ? '✖ Damage Located!' : 'No Damage Located'}
-                    </AppText>
-                </View>
+                    {damageLocated ? '✖ Damage Located!' : 'No Damage Located'}
+                </AppText>
             </View>
-
             <AppTouchable
                 onPress={handleSubmit}
                 style={[

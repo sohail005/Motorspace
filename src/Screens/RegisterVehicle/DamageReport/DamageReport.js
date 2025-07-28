@@ -18,6 +18,7 @@ import { styles } from './DamageReportStyles';
 import { FontSizes } from '../../../constants/fontsizes';
 import DamageDiagram from './DamageDiagramScreen';
 import { useRoute } from '@react-navigation/native';
+import storageItem from '../../../utils/storageItem';
 
 const isFormValid = (form) =>
     !!form.location && !!form.description && !!form.photo && !!form.diagramComplete;
@@ -67,7 +68,6 @@ const DamageReport = ({ navigation }) => {
             readOnly: false,
             onComplete: (isPlaced, result) => {
                 if (isPlaced && result) {
-                    console.log('Image path>>>>>>>>>>>>>>>>>>>>>>:', result.uri);
                     handleChange('photo', { uri: result.uri });
                     console.log('Marker coordinates:', result.markerCoordinates);
                     // Save to state if needed
@@ -79,8 +79,24 @@ const DamageReport = ({ navigation }) => {
     };
     const handleSubmit = () => {
         if (validateForm()) {
-            console.log('Submitting:', form);
-            // Submit form here
+            const newEntry = {
+                ...form,
+                id: Date.now(), // optional unique ID
+            };
+    
+            // Step 1: Get existing data
+            const existing = storageItem.getItem('damageReports') || [];
+    
+            // Step 2: Push new item
+            const updated = [...existing, newEntry];
+    
+            // Step 3: Save to storage
+            storageItem.setItem('damageReports', updated);
+    
+            console.log('Saved to storage:', updated);
+    
+            // Optional: navigate back or show success
+            navigation.goBack();
         }
     };
 

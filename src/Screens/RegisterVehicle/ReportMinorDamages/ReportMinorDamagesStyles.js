@@ -11,12 +11,11 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: AppColors.defaultBackground,
-        // paddingHorizontal: 16,
-        // paddingTop: 16,
+
     },
     containerContent: {
         flex: 1,
-        // paddingHorizontal: 16,
+        alignItems: 'center'
     },
     // Title
     screenTitle: {
@@ -28,7 +27,7 @@ export const styles = StyleSheet.create({
     AddButtonContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 50
+        marginVertical: DimensionsUtil.SCREEN_HEIGHT / 8
     },
     // Main Content
     mainContent: {
@@ -53,8 +52,10 @@ export const styles = StyleSheet.create({
 
     // Bottom Buttons
     bottomButtons: {
-        backgroundColor: AppColors.white,
-        padding: 20,
+
+        position: 'absolute',
+        bottom: 20,
+        right: 20
     },
     editButton: {
         borderWidth: 1,
@@ -89,4 +90,56 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: Fonts.semiBold,
     },
+    listContainer: {
+        width: DimensionsUtil.SCREEN_WIDTH / 1.1,
+
+    },
+    damageItemContainer: {
+        width: '100%',
+        borderWidth: 2,
+        borderColor: AppColors.buttonOrange,
+        borderRadius: 10,
+        padding: 10,
+        justifyContent: 'center',
+        backgroundColor: AppColors.white,
+        marginTop: 15
+    },
+    damageItemHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    damageTitle: {
+        fontSize: FontSizes.mediumLarge,
+        fontFamily: Fonts.semiBold,
+        color: AppColors.textPrimary,
+        paddingLeft: 10,
+        width: DimensionsUtil.SCREEN_WIDTH / 1.4,
+        textAlignVertical: 'center',
+    },
+    itemTitleConatiner: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    damageItemDetails: {
+        paddingHorizontal: 32,
+        borderTopColor: AppColors.borderColor || '#ccc',
+        paddingTop: 15
+    },
+
+    damageDetailText: {
+        fontSize: FontSizes.medium,
+        color: AppColors.textPrimary,
+        fontWeight: '500'
+    },
+    damageDetailImage: {
+        width: DimensionsUtil.SCREEN_WIDTH / 1.4,
+        height: DimensionsUtil.SCREEN_WIDTH / 2,
+        borderRadius: 8,
+        margin: 8,
+    },
+    flatlistConatiner: {
+        alignItems: 'center',
+    }
+
 });
