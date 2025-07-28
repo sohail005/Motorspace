@@ -88,7 +88,9 @@ export const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         width: DimensionsUtil.SCREEN_WIDTH / 2.5,
-        alignSelf: 'flex-end'
+        alignSelf: 'flex-end',
+        position:'absolute',
+        bottom:20
     },
     submitBtnDisabled: {
         backgroundColor: '#ccc',

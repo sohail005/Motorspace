@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import AppTouchable from '../../../components/AppTouchable';
 import AppText from '../../../components/AppText';
 import AppHeaderCommon from '../../../components/AppHeaderCommon';
@@ -43,7 +43,7 @@ const DamageDiagramScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <AppHeaderCommon title="" onLeftPress={navigation.goBack} />
-            <View style={styles.containerContent}>
+            <ScrollView style={styles.containerContent}>
                 <AppText style={styles.heading}>Damage Diagram</AppText>
                 <AppText style={styles.subtitle}>
                     Pinch to zoom, and select the location of the damage.
@@ -74,7 +74,7 @@ const DamageDiagramScreen = ({ navigation }) => {
                         {damageLocated ? '✖ Damage Located!' : 'No Damage Located'}
                     </AppText>
                 </View>
-            </View>
+            </ScrollView>
 
             <AppTouchable
                 onPress={handleSubmit}
