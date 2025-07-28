@@ -42,11 +42,11 @@ const AdditionalCarSpecs = () => {
 
   const handleSubmit = () => {
     console.log('All Section Form Data:', formData);
-    // navigation.goBack();
+    navigation.navigate("MotorRegistered");
   };
 
   const handleSkip = () => {
-    handleSubmit(); // Same behavior
+    navigation.navigate("MotorRegistered");
   };
 
   const getFormConfigByTitle = (title) => {
@@ -57,17 +57,17 @@ const AdditionalCarSpecs = () => {
   };
 
   return (
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
     >
       <AppHeaderCommon title="" onLeftPress={navigation.goBack} />
       <View style={styles.contentContainer}>
-       
+
 
         <ScrollView contentContainerStyle={styles.scrollContent}>
-        <AppText style={styles.screenTitle}>Additional{'\n'}Car Specs</AppText>
+          <AppText style={styles.screenTitle}>Additional{'\n'}Car Specs</AppText>
           {specSections.map((title) => {
             const isExpanded = expandedItem === title;
             const sectionConfig = getFormConfigByTitle(title);
