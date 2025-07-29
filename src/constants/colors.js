@@ -24,6 +24,7 @@ defaultBackground:"#F6F6F680",
     // Status Colors
     success: '#198754',
     successText: '#28A745',
+    quickbuy:"#1AB869",
     successBg: 'rgba(25, 135, 84, 0.3)',
     warning: '#FFC107',
     warningBg: 'rgba(255, 193, 7, 0.3)',

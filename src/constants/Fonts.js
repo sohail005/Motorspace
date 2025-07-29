@@ -3,4 +3,5 @@ export const Fonts = {
   bold: 'Poppins-Bold',
   semiBold: 'Poppins-SemiBold',
   light: 'Poppins-Light',
+  UKNumberPlate:"UKNumberPlate"
 };

@@ -1,20 +1,20 @@
-// src/navigation/HomeStack.js
+// src/navigation/BuyCarsStack.js
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from '../Screens/Home/HomeScreen.js';
+import BuyCarsList from '../Screens/Buycars/BuyCarsList/BuyCarsList';
 
 const Stack = createNativeStackNavigator();
 
-const HomeStack = () => {
+const BuyCarsStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
+        name="BuyCarsList"
+        component={BuyCarsList}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
 };
 
-export default HomeStack;
+export default BuyCarsStack;

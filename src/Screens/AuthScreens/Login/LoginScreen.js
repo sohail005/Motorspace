@@ -33,7 +33,7 @@ const LoginScreen = () => {
 
   const handleLogin = () => {
     let valid = true;
-
+    navigation.navigate('WelcomeScreen')
     setEmailError('');
     setPasswordError('');
 

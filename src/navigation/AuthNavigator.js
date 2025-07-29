@@ -10,7 +10,6 @@ import EmailVerifiedScreen from '../Screens/AuthScreens/EmailVerifiedScreens/Ema
 import ProfileApproval from '../Screens/AuthScreens/ProfileApproval/ProfileApproval';
 import ConfirmYourInfo from '../Screens/AuthScreens/ConfirmYourInfo/ConfirmYourInfo';
 import EditInfo from '../Screens/AuthScreens/EditInfo/EditInfo';
-import ApprovalPending from '../Screens/ApprovalScreens/ApprovalPending/ApprovalPending';
 import RecentlyListed from '../Screens/RecentlyListed/RecentlyListed';
 import LetsRegister from '../Screens/RegisterVehicle/LetsRegister';
 import RegisterYourFirstMotor from '../Screens/RegisterVehicle/RegisterYourFirstMotor/RegisterYourFirstMotor';
@@ -27,6 +26,7 @@ import MotorRegistered from '../Screens/RegisterVehicle/MotorRegistered/MotorReg
 import WelcomeScreen from '../Screens/WelcomeTNC/Welcome/WelcomeScreen';
 import TermsScreen from '../Screens/WelcomeTNC/TNC/TermsScreen';
 import TermsFullView from '../Screens/WelcomeTNC/TNC/TermsFullView';
+import ApprovalPending from '../Screens/ApprovalScreens/ApprovalPending';
 
 const Stack = createNativeStackNavigator();
 

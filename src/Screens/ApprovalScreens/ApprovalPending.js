@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { View, Image } from 'react-native';
-import AppHeaderCommon from '../../../components/AppHeaderCommon';
-import AppText from '../../../components/AppText';
-import AppTouchable from '../../../components/AppTouchable';
-import { IMAGES } from '../../../assets/Images/ImagePath'; // make sure hourglass icon is here
+import AppHeaderCommon from '../../components/AppHeaderCommon';
+import AppText from '../../components/AppText';
+import AppTouchable from '../../components/AppTouchable';
+import { IMAGES } from '../../assets/Images/ImagePath'; // make sure hourglass icon is here
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './ApprovalPendingStyles';
-import { AppColors } from '../../../constants/colors';
+import { AppColors } from '../../constants/colors';
 
 const ApprovalPending = () => {
   const navigation = useNavigation();
