@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, RefreshControl, TextInput } from 'react-native';
 import AppHeader from '../../../components/AppHeader';
 import AppFlatList from '../../../components/AppFlatList';
 import { FontSizes } from '../../../constants/fontsizes';
@@ -10,7 +10,13 @@ import { Fonts } from '../../../constants/Fonts';
 import AppText from '../../../components/AppText';
 import AppImage from '../../../components/AppImage';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import SearchIcon from 'react-native-vector-icons/Feather';
+import FillterIcon from 'react-native-vector-icons/Octicons';
+
+
 import AppTouchable from '../../../components/AppTouchable';
+import AppInput from '../../../components/AppInput';
+import DimensionsUtil from '../../../constants/Dimensions';
 
 const recentlyListedData = [
   {
@@ -144,6 +150,25 @@ const BuyCarsList = () => {
         }
       >
         <View style={styles.topListConatiner}>
+          {/* Search and fillter bar */}
+          <View style={styles.searchbardContainer}>
+            <View style={styles.inputConatainer}>
+              <View style={styles.iconConatiner}>
+                <SearchIcon name="search" size={26} color={AppColors.primary} />
+              </View>
+              <TextInput
+                style={styles.searchInput}
+                allowFontScaling={false}
+                placeholder="Search"
+                placeholderTextColor={AppColors.grayOverlay}
+                cursorColor={AppColors.primary}
+              />
+            </View>
+            <AppTouchable style={styles.fillterButton}>
+              <FillterIcon name="filter" size={26} color={AppColors.primary} />
+            </AppTouchable>
+          </View>
+
           <AppText style={styles.sectionTitle}>Recently Listed</AppText>
           <AppFlatList
             data={recentlyListedData}
@@ -216,5 +241,40 @@ const styles = StyleSheet.create({
   bottomListConatiner: {
     marginBottom: 100
 
+  },
+  searchbardContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // width: DimensionsUtil.SCREEN_WIDTH / 1.2,
+    // height: DimensionsUtil.SCREEN_WIDTH / 9,
+    marginVertical: 20,
+  },
+  inputConatainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    backgroundColor: AppColors.white,
+    borderRadius: 10
+  },
+  iconConatiner: {
+    padding: 15
+  },
+  fillterButton: {
+    backgroundColor: AppColors.white,
+    marginLeft: 10,
+    height: DimensionsUtil.SCREEN_WIDTH / 9,
+    width: DimensionsUtil.SCREEN_WIDTH / 9,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10
+  },
+  searchInput: {
+    borderWidth: 0,
+    fontSize: FontSizes.mediumLarge,
+    height: DimensionsUtil.SCREEN_WIDTH / 9,
+    borderRadius: 10,
+    paddingVertical: 15,
+    color: AppColors.textPrimary,
+    flex: 1,
   }
 });

@@ -11,7 +11,7 @@ export const AppColors = {
     borderColor: '#B6B6B6',
     grayBackground: '#E5E5E5',
     grayOverlay: 'rgba(0, 0, 0, 0.4)',
-defaultBackground:"#F6F6F680",
+defaultBackground:"#F6F6F6",
     // Text Colors
     textPrimary: '#000000',
     textSecondary: '#777777',

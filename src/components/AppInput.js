@@ -72,9 +72,12 @@ const AppInput = ({
                 )}
             </View>
 
-            <Text style={styles.errorText}>
-                {errorMessage ? errorMessage : ' '}
-            </Text>
+            {errorMessage &&
+                <Text style={styles.errorText}>
+                    {errorMessage ? errorMessage : ' '}
+                </Text>
+            }
+
         </View>
     );
 };
