@@ -6,6 +6,8 @@ import AppText from './AppText'; // Custom wrapper over Text with default styles
 import { AppColors } from '../constants/colors';
 import { Fonts } from '../constants/Fonts';
 import { FontSizes } from '../constants/fontsizes';
+import AppImage from './AppImage';
+import { IMAGES } from '../assets/Images/ImagePath';
 
 const CarListItem = ({
     title,
@@ -37,7 +39,16 @@ const CarListItem = ({
 
                 <View style={styles.PriceConatiner}>
                     <View style={styles.meta}>
-                        <Icon name="store" size={24} color={AppColors.grey} />
+                        <AppImage
+                            source={IMAGES.private}
+                            fallbackSource={IMAGES.private}
+                            placeholder={true}
+                            resizeMode="contain"
+                            style={{
+                                width: 18,
+                                height: 18,
+                            }}
+                        />
                         <AppText style={styles.seller}>{seller}</AppText>
                     </View>
                     <AppText style={styles.price}>{price}</AppText>
@@ -71,6 +82,10 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         margin: 6,
         elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
     },
     titleContainer: {
         flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
@@ -111,9 +126,9 @@ const styles = StyleSheet.create({
         marginTop: 4,
     },
     seller: {
-        marginLeft: 4,
-        fontSize: 12,
-        color: AppColors.grey,
+        marginLeft: 6,
+        fontSize: FontSizes.smallMedium,
+        color: AppColors.textPrimary,
     },
     price: {
         fontFamily: Fonts.bold,
