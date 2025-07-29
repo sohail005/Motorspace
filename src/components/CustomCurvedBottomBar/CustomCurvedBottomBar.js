@@ -48,7 +48,7 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
   useEffect(() => {
     const barHeight = 90;
     const maxCurveWidth = 130;
-    const curveDepth = 32;
+    const curveDepth = 40;
 
     const radius = maxCurveWidth / 2;
     const initialCurveCenter = (activeIndex * tabWidth) + (tabWidth / 2);
@@ -163,7 +163,7 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
       </View>
 
       <View style={styles.bottomBar}>
-        <Svg width={width} height={75} style={styles.svgContainer}>
+        <Svg width={width} height={80} style={styles.svgContainer}>
           <Path
             ref={pathRef}
             d={curvePath}

@@ -36,17 +36,17 @@ export const styles = StyleSheet.create({
     fontSize: FontSizes.smallMedium,
     color: AppColors.white,
     // marginTop: 4,
-    marginBottom: 8,
+    marginBottom: 26,
   },
   activeTabLabel: {
     fontFamily:Fonts.bold,
-    fontSize:FontSizes.smallMedium
+    fontSize:FontSizes.smallMedium,
   },
   activeIconContainer: {
     backgroundColor: AppColors.buttonOrange,
     borderRadius: 100,
-    padding: 8,
-    top: -20,
+    padding: 10,
+    top: -14,
   },
   inactiveIconContainer: {
     justifyContent: 'center',
