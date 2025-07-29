@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
         color: AppColors.white,
         fontFamily: Fonts.bold,
         fontSize: FontSizes.medium,
-        lineHeight: 14, // tightly packed lines
+        lineHeight: 24, // tightly packed lines
     },
 
     quickBuyTextBuy: {
