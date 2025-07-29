@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     // width: DimensionsUtil.SCREEN_WIDTH / 1.2,
-    // height: DimensionsUtil.SCREEN_WIDTH / 9,
+    height: DimensionsUtil.SCREEN_WIDTH / 9,
     marginVertical: 20,
   },
   inputConatainer: {
