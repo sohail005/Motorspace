@@ -10,12 +10,14 @@ export const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    
   },
   bottomBar: {
     position: 'absolute',
     bottom: 0,
-   width: DimensionsUtil.SCREEN_WIDTH,
-    height: 70,
+    width: DimensionsUtil.SCREEN_WIDTH,
+    height: 90,
+    
   },
   svgContainer: {
     position: 'absolute',
@@ -25,14 +27,11 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    height: 70,
-    width: DimensionsUtil.SCREEN_WIDTH
+    height: 90,
+    width: DimensionsUtil.SCREEN_WIDTH,
     // paddingHorizontal: 10,
   },
-  tabItem: {
-    flex: 1,
-    alignItems: 'center',
-  },
+ 
   tabContent: {
     alignItems: 'center',
   },
@@ -41,7 +40,7 @@ export const styles = StyleSheet.create({
     fontSize: FontSizes.smallMedium,
     color: AppColors.white,
     // marginTop: 4,
-    marginBottom: 15
+    marginBottom: 15,
   },
   activeTabLabel: {
     fontWeight: 'bold',
@@ -66,7 +65,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width:DimensionsUtil.SCREEN_WIDTH/3
+    width: DimensionsUtil.SCREEN_WIDTH / 3,
   },
   tabContent: {
     justifyContent: 'center',
