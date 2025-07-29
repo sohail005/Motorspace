@@ -57,8 +57,9 @@ const LoginScreen = () => {
   const handleJoinNow = () => {
     // navigation.navigate('GettingStarted')
     //navigation.navigate('LetsRegister')
-    navigation.navigate('ReportMinorDamages')
-    
+    // navigation.navigate('ReportMinorDamages')
+    navigation.navigate('WelcomeScreen')
+
   }
   return (
     <SafeAreaView style={{ flex: 1 }}>

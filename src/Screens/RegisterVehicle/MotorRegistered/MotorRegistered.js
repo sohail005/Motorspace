@@ -5,6 +5,9 @@ import AppText from '../../../components/AppText';
 import { AppColors } from '../../../constants/colors';
 import { FontSizes } from '../../../constants/fontsizes';
 import { Fonts } from '../../../constants/Fonts';
+import AppImage from '../../../components/AppImage';
+import { IMAGES } from '../../../assets/Images/ImagePath';
+import DimensionsUtil from '../../../constants/Dimensions';
 
 const MotorRegistered = ({ navigation, route }) => {
   const { make, model, registrationNumber } = route?.params || {
@@ -15,18 +18,16 @@ const MotorRegistered = ({ navigation, route }) => {
 
   const handleContinue = () => {
     // Navigate to next screen or perform action
-    navigation?.navigate('NextScreen');
+    navigation?.navigate('RegisterYourFirstMotor');
   };
 
   const CarIcon = () => (
     <View style={styles.carIcon}>
-      <View style={styles.carBody}>
-        <View style={styles.carTop} />
-        <View style={styles.carWindows}>
-          <View style={styles.window} />
-          <View style={styles.window} />
-        </View>
-      </View>
+      <AppImage
+        source={IMAGES.MotospaceCar}
+        resizeMode="contain"
+        style={{ width: DimensionsUtil.SCREEN_WIDTH/3, height: DimensionsUtil.SCREEN_WIDTH/3 }}
+      />
     </View>
   );
 

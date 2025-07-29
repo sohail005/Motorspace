@@ -17,7 +17,7 @@ const RegisterYourFirstMotor = ({ navigation }) => {
 
                 {/* Main Content Area */}
                 <View style={styles.mainContent}>
-                    <AppTouchable style={styles.addMotorButton}>
+                    <AppTouchable onPress={() => navigation.navigate("InputVehicleRegistration")} style={styles.addMotorButton}>
                         <Icon name="add" size={32} color="white" />
                     </AppTouchable>
                     <AppText style={styles.addMotorText}>Register a Motor</AppText>
@@ -25,11 +25,11 @@ const RegisterYourFirstMotor = ({ navigation }) => {
 
                 {/* Bottom Action Buttons */}
                 <View style={styles.bottomButtons}>
-                    <AppTouchable style={[styles.editButton,{opacity:0.5}]}>
+                    <AppTouchable style={[styles.editButton, { opacity: 0.5 }]}>
                         <AppText style={styles.editButtonText}>Edit Motors</AppText>
                     </AppTouchable>
 
-                    <AppTouchable onPress={()=>navigation.navigate("InputVehicleRegistration")} style={styles.finishButton}>
+                    <AppTouchable onPress={() => navigation.navigate("InputVehicleRegistration")} style={styles.finishButton}>
                         <AppText style={styles.finishButtonText}>Finish</AppText>
                     </AppTouchable>
                 </View>

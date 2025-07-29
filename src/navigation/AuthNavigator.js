@@ -24,6 +24,9 @@ import DamageDiagramScreen from '../Screens/RegisterVehicle/DamageReport/DamageD
 import AdditionalFeatures from '../Screens/RegisterVehicle/AdditionalFeatures/AdditionalFeatures';
 import AdditionalCarSpecs from '../Screens/RegisterVehicle/AdditionalCarSpecs/AdditionalCarSpecs';
 import MotorRegistered from '../Screens/RegisterVehicle/MotorRegistered/MotorRegistered';
+import WelcomeScreen from '../Screens/WelcomeTNC/Welcome/WelcomeScreen';
+import TermsScreen from '../Screens/WelcomeTNC/TNC/TermsScreen';
+import TermsFullView from '../Screens/WelcomeTNC/TNC/TermsFullView';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,7 +58,12 @@ const AuthNavigator = () => {
       <Stack.Screen name="AdditionalFeatures" component={AdditionalFeatures} />
       <Stack.Screen name="AdditionalCarSpecs" component={AdditionalCarSpecs} />
       <Stack.Screen name="MotorRegistered" component={MotorRegistered} />
-      
+
+      {/* Welcome and Terms and Conditions */}
+      <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+      <Stack.Screen name="TermsScreen" component={TermsScreen} />
+      <Stack.Screen name="TermsFullView" component={TermsFullView} />
+
 
     </Stack.Navigator>
   );
