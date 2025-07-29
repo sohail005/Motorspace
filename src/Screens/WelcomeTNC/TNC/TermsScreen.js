@@ -10,14 +10,15 @@ const TermsScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.topContainer}>
+            
+
+
+            <ScrollView style={styles.termsList}>
+                <View style={styles.topContainer}>
                 <AppText style={styles.header}>MOTORSPACE</AppText>
                 <AppText style={styles.subHeader}>Terms & Conditions</AppText>
                 <AppText style={styles.instruction}>You must read and agree to continue</AppText>
             </View>
-
-
-            <ScrollView style={styles.termsList}>
                 <AppText style={styles.termItem}>1. Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat.</AppText>
                 <AppText style={styles.termItem}>2. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.</AppText>
                 <AppText style={styles.termItem}>3. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Laculis massa nisl malesuada lacinia integer nunc posuere.</AppText>
@@ -27,9 +28,11 @@ const TermsScreen = ({ navigation }) => {
                 <AppText style={styles.termItem}>7. Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat.</AppText>
                 <AppText style={styles.termItem}>8. Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat.</AppText>
                 <AppText style={styles.termItem}>9. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Laculis massa nisl malesuada lacinia integer nunc posuere.</AppText>
+           
+           
+            
             </ScrollView>
-
-            <View style={styles.bottomContainer}>
+<View style={styles.bottomContainer}>
                 <AppTouchable onPress={()=>navigation.navigate('TermsFullView')} style={styles.linkButton}>
                     <AppText style={styles.linkButtonText}>Click for Full T&Cs</AppText>
                 </AppTouchable>
@@ -54,6 +57,7 @@ const TermsScreen = ({ navigation }) => {
                     <AppText style={styles.continueButtonText}>Continue</AppText>
                 </AppTouchable>
             </View>
+           
         </View>
     );
 };

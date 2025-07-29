@@ -36,7 +36,6 @@ export const styles = StyleSheet.create({
     },
     termsList: {
         marginTop: 16,
-        marginBottom: 10,
         flex: 1,
     },
     termItem: {
@@ -84,9 +83,7 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     bottomContainer: {
-        position: 'absolute',
-        bottom: 0,
-        width: DimensionsUtil.SCREEN_WIDTH,
-        padding: 25
+        backgroundColor:AppColors.white,
+        marginBottom:40
     }
 });
