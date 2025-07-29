@@ -137,18 +137,18 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
               placeholder={true}
               resizeMode="contain"
               style={{
-                width: 45,
-                height: 45,
+                width: 48,
+                height: 48,
               }}
             />
           </View>
           {tab.label && isActive && (
-            <Text style={[
+            <AppText style={[
               styles.tabLabel,
               isActive && styles.activeTabLabel
             ]}>
               {tab.label}
-            </Text>
+            </AppText>
           )}
         </View>
       </AppTouchable>
@@ -163,7 +163,7 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
       </View>
 
       <View style={styles.bottomBar}>
-        <Svg width={width} height={70} style={styles.svgContainer}>
+        <Svg width={width} height={75} style={styles.svgContainer}>
           <Path
             ref={pathRef}
             d={curvePath}

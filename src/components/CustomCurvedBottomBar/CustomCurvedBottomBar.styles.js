@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import { AppColors } from '../../constants/colors';
 import { FontSizes } from '../../constants/fontsizes';
 import DimensionsUtil from '../../constants/Dimensions';
+import { Fonts } from '../../constants/Fonts';
 
 export const styles = StyleSheet.create({
   container: {
@@ -31,19 +32,15 @@ export const styles = StyleSheet.create({
     width: DimensionsUtil.SCREEN_WIDTH,
     // paddingHorizontal: 10,
   },
- 
-  tabContent: {
-    alignItems: 'center',
-  },
-  activeTabItem: {},
   tabLabel: {
     fontSize: FontSizes.smallMedium,
     color: AppColors.white,
     // marginTop: 4,
-    marginBottom: 15,
+    marginBottom: 8,
   },
   activeTabLabel: {
-    fontWeight: 'bold',
+    fontFamily:Fonts.bold,
+    fontSize:FontSizes.smallMedium
   },
   activeIconContainer: {
     backgroundColor: AppColors.buttonOrange,
