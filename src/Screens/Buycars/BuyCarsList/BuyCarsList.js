@@ -17,6 +17,8 @@ import FillterIcon from 'react-native-vector-icons/Octicons';
 import AppTouchable from '../../../components/AppTouchable';
 import AppInput from '../../../components/AppInput';
 import DimensionsUtil from '../../../constants/Dimensions';
+import { styles } from './BuyCarsListStyles';
+import FilterSortModal from '../../../components/FilterSortModal/FilterSortModal';
 
 const recentlyListedData = [
   {
@@ -111,6 +113,12 @@ const nearbyCarsData = [
 
 const BuyCarsList = () => {
   const [refreshing, setRefreshing] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  // State to hold the active filters
+  const [activeFilters, setActiveFilters] = useState({});
+
+  const showModal = () => setModalVisible(true);
+  const hideModal = () => setModalVisible(false);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -132,7 +140,11 @@ const BuyCarsList = () => {
       showLocation={item.showLocation}
     />
   );
-
+  // Callback function to receive filter data from the modal
+  const handleApplyFilters = (filters) => {
+    console.log('Applied Filters:', filters);
+    setActiveFilters(filters);
+  };
   return (
     <View style={styles.container}>
       <AppHeader rightIcon={IMAGES.home} />
@@ -149,6 +161,13 @@ const BuyCarsList = () => {
           />
         }
       >
+        {/* --- MODAL INTEGRATION --- */}
+        <FilterSortModal
+          visible={modalVisible}
+          onDismiss={hideModal}
+          onApplyFilters={handleApplyFilters}
+          initialFilters={activeFilters} // Pass current filters to the modal
+        />
         <View style={styles.topListConatiner}>
           {/* Search and fillter bar */}
           <View style={styles.searchbardContainer}>
@@ -164,7 +183,7 @@ const BuyCarsList = () => {
                 cursorColor={AppColors.primary}
               />
             </View>
-            <AppTouchable style={styles.fillterButton}>
+            <AppTouchable onPress={() => showModal()} style={styles.fillterButton}>
               <FillterIcon name="filter" size={26} color={AppColors.primary} />
             </AppTouchable>
           </View>
@@ -206,75 +225,3 @@ const BuyCarsList = () => {
 };
 
 export default BuyCarsList;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: AppColors.defaultBackground,
-  },
-  scrollContent: {
-    paddingHorizontal: 16,
-    paddingBottom: 30
-  },
-  sectionTitle: {
-    fontSize: FontSizes.ultra,
-    color: AppColors.primary,
-    fontFamily: Fonts.bold,
-  },
-  locationText: {
-    fontFamily: FontSizes.medium,
-    color: AppColors.link,
-    paddingLeft: 5
-  },
-  locationContiner: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 10
-  },
-  topListConatiner: {
-    marginBottom: 10
-  },
-  viewmoreButton: {
-    marginVertical: 10
-  },
-  viewmore: { fontSize: FontSizes.large, textAlign: 'center', fontFamily: Fonts.semiBold, color: AppColors.primary },
-  bottomListConatiner: {
-    marginBottom: 100
-
-  },
-  searchbardContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    // width: DimensionsUtil.SCREEN_WIDTH / 1.2,
-    height: DimensionsUtil.SCREEN_WIDTH / 9,
-    marginVertical: 20,
-  },
-  inputConatainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-    backgroundColor: AppColors.white,
-    borderRadius: 10
-  },
-  iconConatiner: {
-    paddingHorizontal: 15
-  },
-  fillterButton: {
-    backgroundColor: AppColors.white,
-    marginLeft: 10,
-    height: DimensionsUtil.SCREEN_WIDTH / 9,
-    width: DimensionsUtil.SCREEN_WIDTH / 9,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10
-  },
-  searchInput: {
-    borderWidth: 0,
-    fontSize: FontSizes.mediumLarge,
-    height: DimensionsUtil.SCREEN_WIDTH / 9,
-    borderRadius: 10,
-    paddingVertical: 15,
-    color: AppColors.textPrimary,
-    flex: 1,
-  }
-});
