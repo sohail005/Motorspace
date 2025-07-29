@@ -1,11 +1,16 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, RefreshControl } from 'react-native';
 import AppHeader from '../../../components/AppHeader';
 import AppFlatList from '../../../components/AppFlatList';
 import { FontSizes } from '../../../constants/fontsizes';
 import { AppColors } from '../../../constants/colors';
 import CarListItem from '../../../components/CarListItem';
 import { IMAGES } from '../../../assets/Images/ImagePath';
+import { Fonts } from '../../../constants/Fonts';
+import AppText from '../../../components/AppText';
+import AppImage from '../../../components/AppImage';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import AppTouchable from '../../../components/AppTouchable';
 
 const recentlyListedData = [
   {
@@ -99,6 +104,16 @@ const nearbyCarsData = [
 
 
 const BuyCarsList = () => {
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+
+    // Simulate network fetch (replace this with real API)
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1500);
+  }, []);
   const renderCarItem = ({ item }) => (
     <CarListItem
       title={item.title}
@@ -115,25 +130,52 @@ const BuyCarsList = () => {
   return (
     <View style={styles.container}>
       <AppHeader rightIcon={IMAGES.home} />
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.sectionTitle}>Recently Listed</Text>
-        <AppFlatList
-          data={recentlyListedData}
-          renderItem={renderCarItem}
-          keyExtractor={(item) => item.id}
-          scrollEnabled={false}
-          emptyText="No recent listings found"
-        />
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={[AppColors.primary]}
+            tintColor={AppColors.primary}
+            title="Refreshing..."
+            titleColor={AppColors.primary}
+          />
+        }
+      >
+        <View style={styles.topListConatiner}>
+          <AppText style={styles.sectionTitle}>Recently Listed</AppText>
+          <AppFlatList
+            data={recentlyListedData}
+            renderItem={renderCarItem}
+            keyExtractor={(item) => item.id}
+            scrollEnabled={false}
+            emptyText="No recent listings found"
+          />
+          <AppTouchable style={styles.viewmoreButton}>
+            <AppText style={styles.viewmore}>View More</AppText>
+          </AppTouchable>
+        </View>
 
-        <Text style={styles.sectionTitle}>Cars Near Me</Text>
-        <AppFlatList
-          data={nearbyCarsData}
-          renderItem={renderCarItem}
-          keyExtractor={(item) => item.id}
-          scrollEnabled={false}
-          emptyText="No nearby cars found"
-        />
+        <View style={styles.bottomListConatiner}>
+          <AppText style={styles.sectionTitle}>Cars Near Me</AppText>
+          <View style={styles.locationContiner}>
+            <Icon name="location-arrow" size={14} color={AppColors.link} />
+            <AppText style={styles.locationText}>Ashby-De-La-Zouch</AppText>
+          </View>
+          <AppFlatList
+            data={nearbyCarsData}
+            renderItem={renderCarItem}
+            keyExtractor={(item) => item.id}
+            scrollEnabled={false}
+            emptyText="No nearby cars found"
+          />
+          <AppTouchable style={styles.viewmoreButton}>
+            <AppText style={styles.viewmore}>View More</AppText>
+          </AppTouchable>
+        </View>
       </ScrollView>
+
     </View>
   );
 };
@@ -146,13 +188,33 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.defaultBackground,
   },
   scrollContent: {
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingBottom: 30
   },
   sectionTitle: {
-    fontSize: FontSizes.large,
-    fontWeight: 'bold',
+    fontSize: FontSizes.ultra,
     color: AppColors.primary,
-    marginTop: 10,
-    marginBottom: 6,
+    fontFamily: Fonts.bold,
   },
+  locationText: {
+    fontFamily: FontSizes.medium,
+    color: AppColors.link,
+    paddingLeft: 5
+  },
+  locationContiner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 10
+  },
+  topListConatiner: {
+    marginBottom: 10
+  },
+  viewmoreButton: {
+    marginVertical: 10
+  },
+  viewmore: { fontSize: FontSizes.large, textAlign: 'center', fontFamily: Fonts.semiBold, color: AppColors.primary },
+  bottomListConatiner: {
+    marginBottom: 100
+
+  }
 });

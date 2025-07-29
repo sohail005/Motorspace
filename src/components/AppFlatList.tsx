@@ -43,7 +43,6 @@ export default AppFlatList;
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 100,
   },
   emptyContainer: {
     alignItems: 'center',

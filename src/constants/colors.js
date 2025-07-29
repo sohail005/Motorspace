@@ -18,7 +18,7 @@ defaultBackground:"#F6F6F680",
     lightGary: '#F6F6F6',
     textMuted: '#A9A9A9',
     heading: '#2E3192',
-    link: '#0D6EFD',             // Blue for links
+    link: '#5081FF',             // Blue for links
     errorText: '#FF1D25',        // Error red
 
     // Status Colors
