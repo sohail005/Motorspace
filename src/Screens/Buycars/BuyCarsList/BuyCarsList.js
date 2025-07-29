@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   iconConatiner: {
-    padding: 15
+    paddingHorizontal: 15
   },
   fillterButton: {
     backgroundColor: AppColors.white,

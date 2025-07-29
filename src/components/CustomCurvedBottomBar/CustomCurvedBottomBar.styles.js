@@ -11,14 +11,12 @@ export const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    
   },
   bottomBar: {
     position: 'absolute',
     bottom: 0,
     width: DimensionsUtil.SCREEN_WIDTH,
     height: 90,
-    
   },
   svgContainer: {
     position: 'absolute',
@@ -39,8 +37,8 @@ export const styles = StyleSheet.create({
     marginBottom: 26,
   },
   activeTabLabel: {
-    fontFamily:Fonts.bold,
-    fontSize:FontSizes.smallMedium,
+    fontFamily: Fonts.bold,
+    fontSize: FontSizes.smallMedium,
   },
   activeIconContainer: {
     backgroundColor: AppColors.buttonOrange,
