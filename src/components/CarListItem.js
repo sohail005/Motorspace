@@ -18,48 +18,53 @@ const CarListItem = ({
     time,
     seller,
     showLocation = false,
+    onPress = () => { }, // <- default no-op
 }) => {
+    console.log("seller:", seller?.name);
+
     return (
         <View style={styles.container}>
             <View style={styles.left}>
-                <View style={styles.titleContainer}>
-                    <AppText style={styles.title} numberOfLines={1}>{title}</AppText>
-                    <AppText style={styles.time}>{time}</AppText>
-                </View>
-
-
-                <AppText style={styles.subtitle}>{subtitle}</AppText>
-
-                {!!badge && (
-                    <View style={styles.badge}>
-                        <AppText style={styles.badgeText}>{badge}</AppText>
+                <AppTouchable onPress={onPress}>
+                    <View style={styles.titleContainer}>
+                        <AppText style={styles.title} numberOfLines={1}>{title}</AppText>
+                        <AppText style={styles.time}>{time}</AppText>
                     </View>
-                )}
 
 
-                <View style={styles.PriceConatiner}>
-                    <View style={styles.meta}>
-                        <AppImage
-                            source={IMAGES.private}
-                            fallbackSource={IMAGES.private}
-                            placeholder={true}
-                            resizeMode="contain"
-                            style={{
-                                width: 18,
-                                height: 18,
-                            }}
-                        />
-                        <AppText style={styles.seller}>{seller}</AppText>
+                    <AppText style={styles.subtitle}>{subtitle}</AppText>
+
+                    {!!badge && (
+                        <View style={styles.badge}>
+                            <AppText style={styles.badgeText}>{badge}</AppText>
+                        </View>
+                    )}
+
+
+                    <View style={styles.PriceConatiner}>
+                        <View style={styles.meta}>
+                            <AppImage
+                                source={IMAGES.private}
+                                fallbackSource={IMAGES.private}
+                                placeholder={true}
+                                resizeMode="contain"
+                                style={{
+                                    width: 18,
+                                    height: 18,
+                                }}
+                            />
+                            <AppText style={styles.seller}>{seller?.name}</AppText>
+                        </View>
+                        <AppText style={styles.price}>{price}</AppText>
                     </View>
-                    <AppText style={styles.price}>{price}</AppText>
-                </View>
 
-                {showLocation && (
-                    <View style={styles.locationRow}>
-                        <Icon name="map-marker" size={14} color={AppColors.primary} />
-                        <AppText style={styles.locationText}>{location}</AppText>
-                    </View>
-                )}
+                    {showLocation && (
+                        <View style={styles.locationRow}>
+                            <Icon name="map-marker" size={14} color={AppColors.primary} />
+                            <AppText style={styles.locationText}>{location}</AppText>
+                        </View>
+                    )}
+                </AppTouchable>
             </View>
 
             <AppTouchable style={styles.right}>
@@ -90,7 +95,11 @@ const styles = StyleSheet.create({
     titleContainer: {
         flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'
     },
-    PriceConatiner: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+    PriceConatiner: { 
+        flexDirection: 'row',
+         justifyContent: 'space-between',
+          alignItems: 'center',
+         },
     left: {
         flex: 1,
         paddingHorizontal: 10,
@@ -111,7 +120,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 6,
         borderRadius: 5,
         alignSelf: 'flex-start',
-        marginVertical: 10
+        marginTop: 12
     },
     badgeText: {
         fontSize: FontSizes.mediumLarge,
@@ -134,7 +143,7 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.bold,
         fontSize: FontSizes.xLarge,
         color: AppColors.textPrimary,
-        marginTop: 6,
+        marginTop: 4,
     },
     right: {
         backgroundColor: AppColors.quickbuy,
@@ -144,8 +153,9 @@ const styles = StyleSheet.create({
         flex: 1
     },
     time: {
-        fontSize: 12,
+        fontSize: FontSizes.small,
         color: AppColors.borderColor,
+        fontFamily: Fonts.semiBold
     },
     quickBuy: {
         backgroundColor: AppColors.quickbuy,

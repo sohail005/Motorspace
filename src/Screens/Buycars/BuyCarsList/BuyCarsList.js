@@ -12,102 +12,267 @@ import AppImage from '../../../components/AppImage';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import SearchIcon from 'react-native-vector-icons/Feather';
 import FillterIcon from 'react-native-vector-icons/Octicons';
-
-
 import AppTouchable from '../../../components/AppTouchable';
-import AppInput from '../../../components/AppInput';
-import DimensionsUtil from '../../../constants/Dimensions';
 import { styles } from './BuyCarsListStyles';
 import FilterSortModal from '../../../components/FilterSortModal/FilterSortModal';
 import LocationModal from '../../../components/LocationModal';
+import CarDetailPortal from '../../../components/CarDetailPortal';
 
-const recentlyListedData = [
+export const vehicleData = [
   {
     id: '1',
-    title: 'BMW 4 Series Gran...',
-    subtitle: '2.0 Diesel Auto RWD 5dr Hatchback',
-    badge: 'BE20 UHG',
+    title: 'BMW 4 Series Gran Coupe',
+    variant: '420d [190] M Sport 5dr Auto',
+    numberPlate: 'BE20 UHG',
+    condition: 'Like New',
+    timeListed: '35m ago',
     price: '£17,849',
-    seller: 'Prototype Cars',
-    time: '35m ago',
+    dealer: {
+      name: 'ProHatch Cars',
+      address: '106 Jam Road, Bristol, BS47 2HJ',
+      contactName: 'Jason Murray',
+      phone: '0789 123 4567',
+      email: 'bmw@prohatchcars.co.uk',
+    },
+    vehicleInfo: {
+      year: 2020,
+      color: 'Midnight',
+      engine: '2.0 L',
+      miles: '32,000',
+      fuel: 'Diesel',
+      transmission: 'Automatic',
+    },
+    actions: {
+      showAdditionalInfo: true,
+      showDamageReport: true,
+    },
   },
   {
     id: '2',
-    title: 'Lexus ES',
-    subtitle: '2.5 Hybrid Auto FWD 5dr Saloon',
-    badge: 'W21 ERR',
-    price: '£23,395',
-    seller: 'Alpha Car Sales',
-    time: '1hr ago',
+    title: 'Audi A6 TDI S Line',
+    variant: '40 TDI [204] Quattro 4dr S Tronic',
+    numberPlate: 'AU21 A6T',
+    condition: 'Used',
+    timeListed: '1hr ago',
+    price: '£23,995',
+    dealer: {
+      name: 'Metro Autohaus',
+      address: '32 King’s Road, London, NW1 3BP',
+      contactName: 'Elena Ford',
+      phone: '0777 345 9012',
+      email: 'sales@metroautohaus.co.uk',
+    },
+    vehicleInfo: {
+      year: 2021,
+      color: 'Black',
+      engine: '2.0 L',
+      miles: '21,000',
+      fuel: 'Diesel',
+      transmission: 'Automatic',
+    },
+    actions: {
+      showAdditionalInfo: true,
+      showDamageReport: false,
+    },
   },
+  {
+    id: '3',
+    title: 'Mercedes-Benz C-Class',
+    variant: 'C200 AMG Line 4dr 9G-Tronic',
+    numberPlate: 'MB22 AMG',
+    condition: 'Certified',
+    timeListed: '3hrs ago',
+    price: '£28,499',
+    dealer: {
+      name: 'Star Auto Traders',
+      address: '221 Victoria Ave, Manchester, M16 8EX',
+      contactName: 'Rahul Singh',
+      phone: '0745 998 2311',
+      email: 'sales@starautotraders.co.uk',
+    },
+    vehicleInfo: {
+      year: 2022,
+      color: 'Silver',
+      engine: '1.5 L',
+      miles: '15,000',
+      fuel: 'Petrol',
+      transmission: 'Automatic',
+    },
+    actions: {
+      showAdditionalInfo: true,
+      showDamageReport: true,
+    },
+  },
+  // ... (continues for other vehicles up to id: '11')
 ];
-
-const nearbyCarsData = [
+export const nearbyCarsData = [
   {
     id: '1',
     title: 'Alfa Romeo Giulia',
-    subtitle: '2.0 Turbo Tributo Italiano 4dr Auto',
-    badge: 'EK74 PDF',
+    variant: '2.0 Turbo Tributo Italiano 4dr Auto',
+    numberPlate: 'EK74 PDF',
+    condition: 'Used',
+    timeListed: '2hrs ago',
     price: '£36,465',
-    seller: 'Middlesex Motors',
-    time: '2hrs ago',
-    location: 'Ashby-De-La-Zouch',
-    showLocation: true,
+    dealer: {
+      name: 'Middlesex Motors',
+      address: 'Ashby-De-La-Zouch, UK',
+      contactName: 'Sales Team',
+      phone: 'N/A',
+      email: 'info@middlesexmotors.co.uk',
+    },
+    vehicleInfo: {
+      year: 2022,
+      color: 'Red',
+      engine: '2.0 L',
+      miles: '12,000',
+      fuel: 'Petrol',
+      transmission: 'Automatic',
+    },
+    actions: {
+      showAdditionalInfo: true,
+      showDamageReport: true,
+    },
   },
   {
     id: '2',
     title: 'Nissan Qashqai',
-    subtitle: '1.3 DiG-T MH 158 N-Connecta 5dr',
-    badge: 'FV22 YHT',
+    variant: '1.3 DiG-T MH 158 N-Connecta 5dr',
+    numberPlate: 'FV22 YHT',
+    condition: 'Used',
+    timeListed: '2hrs ago',
     price: '£16,655',
-    seller: 'West End Cars',
-    time: '2hrs ago',
-    location: 'Ashby-De-La-Zouch',
-    showLocation: true,
+    dealer: {
+      name: 'West End Cars',
+      address: 'Ashby-De-La-Zouch, UK',
+      contactName: 'Sales Team',
+      phone: 'N/A',
+      email: 'info@westendcars.co.uk',
+    },
+    vehicleInfo: {
+      year: 2022,
+      color: 'Grey',
+      engine: '1.3 L',
+      miles: '14,000',
+      fuel: 'Petrol',
+      transmission: 'Manual',
+    },
+    actions: {
+      showAdditionalInfo: false,
+      showDamageReport: false,
+    },
   },
   {
     id: '3',
     title: 'Mercedes-Benz A-Class',
-    subtitle: 'A2000 AMG Line 5dr Auto',
-    badge: 'KJ69 DSA',
+    variant: 'A2000 AMG Line 5dr Auto',
+    numberPlate: 'KJ69 DSA',
+    condition: 'Used',
+    timeListed: '4hrs ago',
     price: '£15,788',
-    seller: 'Harbour Trades',
-    time: '4hrs ago',
-    location: 'Ashby-De-La-Zouch',
-    showLocation: true,
+    dealer: {
+      name: 'Harbour Trades',
+      address: 'Ashby-De-La-Zouch, UK',
+      contactName: 'Sales Team',
+      phone: 'N/A',
+      email: 'sales@harbourtrades.co.uk',
+    },
+    vehicleInfo: {
+      year: 2021,
+      color: 'Black',
+      engine: '2.0 L',
+      miles: '25,000',
+      fuel: 'Petrol',
+      transmission: 'Automatic',
+    },
+    actions: {
+      showAdditionalInfo: true,
+      showDamageReport: false,
+    },
   },
   {
     id: '4',
     title: 'Vauxhall Insignia Grand Sport',
-    subtitle: '1.5T SRi VX-Line Nav 5dr',
-    badge: 'DY17 NGH',
+    variant: '1.5T SRi VX-Line Nav 5dr',
+    numberPlate: 'DY17 NGH',
+    condition: 'Used',
+    timeListed: '4hrs ago',
     price: '£10,399',
-    seller: 'Alexander Matthews',
-    time: '4hrs ago',
-    location: 'Ashby-De-La-Zouch',
-    showLocation: true,
+    dealer: {
+      name: 'Alexander Matthews',
+      address: 'Ashby-De-La-Zouch, UK',
+      contactName: 'Sales Team',
+      phone: 'N/A',
+      email: 'info@alexandermatthews.co.uk',
+    },
+    vehicleInfo: {
+      year: 2017,
+      color: 'Silver',
+      engine: '1.5 L',
+      miles: '50,000',
+      fuel: 'Diesel',
+      transmission: 'Manual',
+    },
+    actions: {
+      showAdditionalInfo: false,
+      showDamageReport: true,
+    },
   },
   {
     id: '5',
     title: 'Volkswagen Golf',
-    subtitle: '160kW Premium 73 kWh 5dr Auto',
-    badge: 'KN22 PGJ',
+    variant: '160kW Premium 73 kWh 5dr Auto',
+    numberPlate: 'KN22 PGJ',
+    condition: 'Like New',
+    timeListed: '5hrs ago',
     price: '£19,687',
-    seller: 'West End Cars',
-    time: '5hrs ago',
-    location: 'Ashby-De-La-Zouch',
-    showLocation: true,
+    dealer: {
+      name: 'West End Cars',
+      address: 'Ashby-De-La-Zouch, UK',
+      contactName: 'Sales Team',
+      phone: 'N/A',
+      email: 'info@westendcars.co.uk',
+    },
+    vehicleInfo: {
+      year: 2022,
+      color: 'White',
+      engine: 'Electric',
+      miles: '7,000',
+      fuel: 'Electric',
+      transmission: 'Automatic',
+    },
+    actions: {
+      showAdditionalInfo: true,
+      showDamageReport: true,
+    },
   },
   {
     id: '6',
     title: 'Hyundai IONIQ 5',
-    subtitle: '225kW Ultimate 73 kWh 5dr AWD Auto',
-    badge: 'TR71 WER',
+    variant: '225kW Ultimate 73 kWh 5dr AWD Auto',
+    numberPlate: 'TR71 WER',
+    condition: 'Certified',
+    timeListed: '8hrs ago',
     price: '£20,138',
-    seller: 'West End Cars',
-    time: '8hrs ago',
-    location: 'Ashby-De-La-Zouch',
-    showLocation: true,
+    dealer: {
+      name: 'West End Cars',
+      address: 'Ashby-De-La-Zouch, UK',
+      contactName: 'Sales Team',
+      phone: 'N/A',
+      email: 'info@westendcars.co.uk',
+    },
+    vehicleInfo: {
+      year: 2021,
+      color: 'Black',
+      engine: 'Electric',
+      miles: '10,000',
+      fuel: 'Electric',
+      transmission: 'Automatic',
+    },
+    actions: {
+      showAdditionalInfo: true,
+      showDamageReport: false,
+    },
   },
 ];
 
@@ -124,6 +289,8 @@ const BuyCarsList = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [filtersCount, setFiltersCount] = useState(0);
   const [showLocationModal, setShowLocationModal] = useState(false);
+  const [visibleCarDetails, setVisibleCarDetails] = useState(false);
+  const [selectedCar, setSelectedCar] = useState(null);
   const [postcode, setPostcode] = useState('');
   const [city, setCity] = useState('');
   const [county, setCounty] = useState('');
@@ -142,13 +309,14 @@ const BuyCarsList = () => {
   const renderCarItem = ({ item }) => (
     <CarListItem
       title={item.title}
-      subtitle={item.subtitle}
-      badge={item.badge}
+      subtitle={item.variant}
+      badge={item.numberPlate}
       price={item.price}
-      seller={item.seller}
-      time={item.time}
+      seller={item.dealer}
+      time={item.timeListed}
       location={item.location}
       showLocation={item.showLocation}
+      onPress={() => openDetails(item)}
     />
   );
   function countAppliedFilters(filters) {
@@ -172,6 +340,10 @@ const BuyCarsList = () => {
     setFiltersCount(0);
 
   }
+  const openDetails = (item) => {
+    setSelectedCar(item);
+    setVisibleCarDetails(true);
+  };
   return (
     <View style={styles.container}>
       <AppHeader rightIcon={IMAGES.home} />
@@ -242,7 +414,7 @@ const BuyCarsList = () => {
 
           <AppText style={styles.sectionTitle}>Recently Listed</AppText>
           <AppFlatList
-            data={recentlyListedData}
+            data={vehicleData}
             renderItem={renderCarItem}
             keyExtractor={(item) => item.id}
             scrollEnabled={false}
@@ -255,7 +427,7 @@ const BuyCarsList = () => {
 
         <View style={styles.bottomListConatiner}>
           <AppText style={styles.sectionTitle}>Cars Near Me</AppText>
-          <AppTouchable onPress={()=> setShowLocationModal(true)} style={styles.locationContiner}>
+          <AppTouchable onPress={() => setShowLocationModal(true)} style={styles.locationContiner}>
             <Icon name="location-arrow" size={14} color={AppColors.link} />
             <AppText style={styles.locationText}>Ashby-De-La-Zouch</AppText>
           </AppTouchable>
@@ -271,7 +443,7 @@ const BuyCarsList = () => {
           </AppTouchable>
         </View>
       </ScrollView>
-
+      <CarDetailPortal visible={visibleCarDetails} onDismiss={() => setVisibleCarDetails(false)} car={selectedCar} openedFromHome={true}/>
     </View>
   );
 };

@@ -1,6 +1,6 @@
 // components/CarDetailPortal.js
 import React, { useEffect } from 'react';
-import { View, StyleSheet, ScrollView,  } from 'react-native';
+import { View, StyleSheet, ScrollView, } from 'react-native';
 import { Portal, Modal, Text, Button, Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AppText from './AppText'; // assumes this exists
@@ -8,10 +8,11 @@ import { AppColors } from '../constants/colors';
 import AppTouchable from './AppTouchable';
 import { FontSizes } from '../constants/fontsizes';
 import DimensionsUtil from '../constants/Dimensions';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming,Easing } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing } from 'react-native-reanimated';
+import { Fonts } from '../constants/Fonts';
 
 
-const CarDetailPortal = ({ visible, onDismiss, car }) => {
+const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
   const opacity = useSharedValue(0);
   const scale = useSharedValue(0.9);
   useEffect(() => {
@@ -75,14 +76,14 @@ const CarDetailPortal = ({ visible, onDismiss, car }) => {
 
             <View style={styles.buttonRow}>
               {/* {car.actions.showAdditionalInfo && ( */}
-                <AppTouchable style={styles.button}>
-                  <AppText style={{ textAlign: 'center', color: AppColors.primary }}>Additional Information</AppText>
-                </AppTouchable>
-             
+              <AppTouchable style={styles.button}>
+                <AppText style={{ textAlign: 'center', color: AppColors.primary }}>Additional Information</AppText>
+              </AppTouchable>
+
               {/* {car.actions.showDamageReport && ( */}
-                <AppTouchable style={[styles.button, { backgroundColor: AppColors.primary }]}>
-                  <AppText style={{ textAlign: 'center', color: AppColors.white }}>Damage Report</AppText>
-                </AppTouchable>
+              <AppTouchable style={[styles.button, { backgroundColor: AppColors.primary }]}>
+                <AppText style={{ textAlign: 'center', color: AppColors.white }}>Damage Report</AppText>
+              </AppTouchable>
               {/* )} */}
             </View>
 
@@ -93,6 +94,17 @@ const CarDetailPortal = ({ visible, onDismiss, car }) => {
             <SellerInfo label="Contact Name" value={car.dealer.contactName} />
             <SellerInfo label="Phone Number" value={car.dealer.phone} />
             <SellerInfo label="Email Address" value={car.dealer.email} />
+
+            {openedFromHome &&
+              <View style={styles.bottomButtonContainer}>
+                <AppTouchable style={styles.sendOffer}>
+                  <AppText style={styles.sendOfferText}>Send Offer</AppText>
+                </AppTouchable>
+                <AppTouchable style={styles.buyNow}>
+                  <AppText style={styles.sendOfferText}>BUY NOW</AppText>
+                </AppTouchable>
+              </View>
+            }
           </ScrollView>
         </Animated.View>
       </Modal>
@@ -117,10 +129,11 @@ const SellerInfo = ({ label, value }) => (
 const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: AppColors.white,
-    margin: 15,
+    marginHorizontal: 15,
+    marginTop: 10,
     borderRadius: 12,
     // maxHeight: '95%',
-    maxHeight:DimensionsUtil.SCREEN_HEIGHT/1.5
+    maxHeight: DimensionsUtil.SCREEN_HEIGHT / 1.3
   },
   content: {
     paddingBottom: 20,
@@ -172,6 +185,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     fontSize: FontSizes.small,
     color: AppColors.textSecondary,
+    fontFamily: Fonts.semiBold
   },
   price: {
     fontWeight: '900',
@@ -184,9 +198,9 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.textSecondary,
   },
   sectionTitle: {
-    fontWeight: '700',
+    fontFamily: Fonts.semiBold,
     marginBottom: 6,
-    fontSize: FontSizes.large
+    fontSize: FontSizes.xLarge
   },
   infoGrid: {
     flexDirection: 'row',
@@ -198,9 +212,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   infoLabel: {
-    fontWeight: '700',
+    fontFamily: Fonts.semiBold,
+    fontSize: FontSizes.medium,
     color: AppColors.textPrimary,
-    width: DimensionsUtil.SCREEN_WIDTH / 6
+    width: DimensionsUtil.SCREEN_WIDTH / 6,
+    
   },
   infoValue: {
     color: AppColors.textGrey,
@@ -209,7 +225,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 12,
-    flex:1
+    flex: 1
   },
   button: {
     flex: 1,
@@ -218,24 +234,48 @@ const styles = StyleSheet.create({
     borderColor: AppColors.primary,
     padding: 12,
     borderRadius: 10,
-    alignItems:'center',
-    justifyContent:'center',
-    width:DimensionsUtil.SCREEN_WIDTH/2.5
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: DimensionsUtil.SCREEN_WIDTH / 2.5
   },
   sellerRow: {
     marginBottom: 6,
     flexDirection: 'row',
   },
   sellerLabel: {
-    fontWeight: '700',
+    fontFamily: Fonts.semiBold,
+    fontSize: FontSizes.medium,
     color: AppColors.textPrimary,
     width: DimensionsUtil.SCREEN_WIDTH / 3.4
   },
   sellerValue: {
     color: AppColors.textPrimary,
     width: DimensionsUtil.SCREEN_WIDTH / 2
-
   },
+  bottomButtonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 20
+  },
+  sendOffer: {
+    backgroundColor: AppColors.link,
+    width: DimensionsUtil.SCREEN_WIDTH / 3.3,
+    borderRadius: 10,
+  },
+  buyNow: {
+    backgroundColor: AppColors.quickbuy,
+    width: DimensionsUtil.SCREEN_WIDTH / 1.8,
+    borderRadius: 10
+  },
+  sendOfferText: {
+    color: AppColors.white,
+    fontSize: FontSizes.medium,
+    fontFamily: Fonts.semiBold,
+    textAlign: 'center',
+    height: DimensionsUtil.SCREEN_WIDTH / 9,
+    textAlignVertical: 'center'
+  }
 });
 
 export default CarDetailPortal;
