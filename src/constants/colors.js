@@ -15,6 +15,7 @@ defaultBackground:"#F6F6F6",
     // Text Colors
     textPrimary: '#000000',
     textSecondary: '#777777',
+    gobackButton:"#898989",
     lightGary: '#F6F6F6',
     textMuted: '#A9A9A9',
     heading: '#2E3192',

@@ -1,5 +1,5 @@
 // components/CarDetailPortal.js
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView, } from 'react-native';
 import { Portal, Modal, Text, Button, Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -10,11 +10,13 @@ import { FontSizes } from '../constants/fontsizes';
 import DimensionsUtil from '../constants/Dimensions';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing } from 'react-native-reanimated';
 import { Fonts } from '../constants/Fonts';
+import SendOfferPortal from '../Screens/Buycars/BuyCarsList/SendOfferPortal';
 
 
 const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
   const opacity = useSharedValue(0);
   const scale = useSharedValue(0.9);
+  const [offerVisible, setOfferVisible] = useState(false);
   useEffect(() => {
     if (visible) {
       opacity.value = withTiming(1, { duration: 300, easing: Easing.out(Easing.ease) });
@@ -97,7 +99,7 @@ const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
 
             {openedFromHome &&
               <View style={styles.bottomButtonContainer}>
-                <AppTouchable style={styles.sendOffer}>
+                <AppTouchable onPress={()=>setOfferVisible(true)} style={styles.sendOffer}>
                   <AppText style={styles.sendOfferText}>Send Offer</AppText>
                 </AppTouchable>
                 <AppTouchable style={styles.buyNow}>
@@ -108,6 +110,16 @@ const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
           </ScrollView>
         </Animated.View>
       </Modal>
+      <SendOfferPortal
+        visible={offerVisible}
+        listingPrice={car.price}
+        onDismiss={() => setOfferVisible(false)}
+        onSubmit={(userOffer) => {
+          console.log('Offer submitted:', userOffer);
+          // Optionally trigger API call or alert here
+          setOfferVisible(false);
+        }}
+      />
     </Portal>
   );
 };
@@ -216,7 +228,7 @@ const styles = StyleSheet.create({
     fontSize: FontSizes.medium,
     color: AppColors.textPrimary,
     width: DimensionsUtil.SCREEN_WIDTH / 6,
-    
+
   },
   infoValue: {
     color: AppColors.textGrey,
