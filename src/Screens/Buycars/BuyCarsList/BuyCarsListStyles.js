@@ -77,5 +77,31 @@ export const styles = StyleSheet.create({
         paddingVertical: 15,
         color: AppColors.textPrimary,
         flex: 1,
+    },
+    showAppliedFillterContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    closeIconButton: {
+        height: DimensionsUtil.SCREEN_WIDTH / 16,
+        width: DimensionsUtil.SCREEN_WIDTH / 16,
+        alignItems: "center",
+        justifyContent: 'center',
+        backgroundColor: AppColors.redLabel,
+        borderRadius: 5
+    },
+    filterCountContainer:{
+        backgroundColor:AppColors.buttonOrange,
+        borderRadius:5,
+        height: DimensionsUtil.SCREEN_WIDTH / 16,
+        alignItems:'center',
+        justifyContent:'center',
+        marginLeft:10
+    },
+    fillterCountText:{
+        color:AppColors.white,
+        fontSize:FontSizes.smallMedium,
+        fontFamily:Fonts.semiBold,
+        paddingHorizontal:10
     }
 });

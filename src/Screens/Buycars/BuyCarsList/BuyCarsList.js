@@ -110,19 +110,26 @@ const nearbyCarsData = [
   },
 ];
 
-
+const defaultValues = {
+  sort: 'Most Recent',
+  distance: 'Any',
+  model: 'Any',
+  price: 'Any',
+  year: 'Any',
+  mileage: 'Any',
+};
 const BuyCarsList = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [filtersCount, setFiltersCount] = useState(0);
   // State to hold the active filters
-  const [activeFilters, setActiveFilters] = useState({});
+  const [activeFilters, setActiveFilters] = useState(defaultValues);
 
   const showModal = () => setModalVisible(true);
   const hideModal = () => setModalVisible(false);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-
     // Simulate network fetch (replace this with real API)
     setTimeout(() => {
       setRefreshing(false);
@@ -140,11 +147,27 @@ const BuyCarsList = () => {
       showLocation={item.showLocation}
     />
   );
+  function countAppliedFilters(filters) {
+    let count = 0;
+    for (const key in filters) {
+      if (filters[key] !== defaultValues[key]) {
+        count++;
+      }
+    }
+    return count;
+  }
   // Callback function to receive filter data from the modal
   const handleApplyFilters = (filters) => {
-    console.log('Applied Filters:', filters);
+    console.log("filters:", filters);
+    console.log('Number of keys in filters object:', countAppliedFilters(filters));
+    setFiltersCount(countAppliedFilters(filters))
     setActiveFilters(filters);
   };
+  const ClearFilters = () => {
+    setActiveFilters(defaultValues);
+    setFiltersCount(0);
+
+  }
   return (
     <View style={styles.container}>
       <AppHeader rightIcon={IMAGES.home} />
@@ -187,6 +210,18 @@ const BuyCarsList = () => {
               <FillterIcon name="filter" size={26} color={AppColors.primary} />
             </AppTouchable>
           </View>
+          {console.log("filtersCount:",filtersCount)          }
+          {/* showAppliedFillterContainer */}
+          {(filtersCount > 0) &&
+            <View style={styles.showAppliedFillterContainer}>
+              <AppTouchable onPress={() => ClearFilters()} style={styles.closeIconButton}>
+                <FillterIcon name="x" size={26} color={AppColors.white} />
+              </AppTouchable>
+              <View style={styles.filterCountContainer}>
+                <AppText style={styles.fillterCountText}>{filtersCount} Filters Active</AppText>
+              </View>
+            </View>
+          }
 
           <AppText style={styles.sectionTitle}>Recently Listed</AppText>
           <AppFlatList

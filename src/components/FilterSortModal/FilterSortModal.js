@@ -28,7 +28,6 @@ const initialFiltersState = {
 };
 
 // In a real app, this might be fetched or stored elsewhere
-const POSTCODE = 'Ashby-De-La-Zouch';
 
 const SORT_OPTIONS = ['Most Recent', 'Price (Low to High)', 'Price (High to Low)', 'Distance', 'Age (Newest)'];
 const DISTANCE_OPTIONS = ['Any', '10 miles', '25 miles', '50 miles', '100 miles'];
@@ -66,7 +65,7 @@ const FilterSortModal = ({ visible, onDismiss, onApplyFilters, initialFilters = 
     const closeMenu = (name) => setMenuVisible(prev => ({ ...prev, [name]: false }));
 
     const handleApply = () => {
-        onApplyFilters({ ...filters, postcode: POSTCODE });
+        onApplyFilters({ ...filters });
         onDismiss();
     };
 
@@ -124,7 +123,7 @@ const FilterSortModal = ({ visible, onDismiss, onApplyFilters, initialFilters = 
                 <Divider style={styles.divider} />
 
                 <FilterMenu menuName="distance" options={DISTANCE_OPTIONS} filterKey="distance">
-                    <FilterRow icon="map-marker-outline" label="Distance" value={filters.distance !== 'Any' ? `${POSTCODE.substring(0, 15)}...` : 'Any'} onPress={() => openMenu('distance')} />
+                    <FilterRow icon="map-marker-outline" label="Distance" value={filters.distance} onPress={() => openMenu('distance')} />
                 </FilterMenu>
                 <Divider style={styles.divider} />
 
