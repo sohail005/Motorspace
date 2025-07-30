@@ -26,7 +26,8 @@ export const styles = StyleSheet.create({
     locationContiner: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingLeft: 10
+        paddingLeft: 10,
+        marginVertical:10
     },
     topListConatiner: {
         marginBottom: 10

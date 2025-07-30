@@ -62,12 +62,12 @@ const CarListItem = ({
                 )}
             </View>
 
-            <View style={styles.right}>
+            <AppTouchable style={styles.right}>
                 <View style={styles.quickBuyContainer}>
                     <AppText style={styles.quickBuyText}>QUICK</AppText>
                     <AppText style={[styles.quickBuyText, styles.quickBuyTextBuy]}>BUY</AppText>
                 </View>
-            </View>
+            </AppTouchable>
 
         </View>
     );
@@ -140,7 +140,8 @@ const styles = StyleSheet.create({
         backgroundColor: AppColors.quickbuy,
         borderTopRightRadius: 10,
         borderBottomRightRadius: 10,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flex: 1
     },
     time: {
         fontSize: 12,

@@ -19,6 +19,7 @@ import AppInput from '../../../components/AppInput';
 import DimensionsUtil from '../../../constants/Dimensions';
 import { styles } from './BuyCarsListStyles';
 import FilterSortModal from '../../../components/FilterSortModal/FilterSortModal';
+import LocationModal from '../../../components/LocationModal';
 
 const recentlyListedData = [
   {
@@ -122,7 +123,10 @@ const BuyCarsList = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [filtersCount, setFiltersCount] = useState(0);
-  // State to hold the active filters
+  const [showLocationModal, setShowLocationModal] = useState(false);
+  const [postcode, setPostcode] = useState('');
+  const [city, setCity] = useState('');
+  const [county, setCounty] = useState('');
   const [activeFilters, setActiveFilters] = useState(defaultValues);
 
   const showModal = () => setModalVisible(true);
@@ -184,6 +188,20 @@ const BuyCarsList = () => {
           />
         }
       >
+        <LocationModal
+          visible={showLocationModal}
+          onDismiss={() => setShowLocationModal(false)}
+          postcode={postcode}
+          setPostcode={setPostcode}
+          city={city}
+          setCity={setCity}
+          county={county}
+          setCounty={setCounty}
+          onApply={() => {
+            console.log({ postcode, city, county });
+            setShowLocationModal(false);
+          }}
+        />
         {/* --- MODAL INTEGRATION --- */}
         <FilterSortModal
           visible={modalVisible}
@@ -210,7 +228,6 @@ const BuyCarsList = () => {
               <FillterIcon name="filter" size={26} color={AppColors.primary} />
             </AppTouchable>
           </View>
-          {console.log("filtersCount:",filtersCount)          }
           {/* showAppliedFillterContainer */}
           {(filtersCount > 0) &&
             <View style={styles.showAppliedFillterContainer}>
@@ -238,10 +255,10 @@ const BuyCarsList = () => {
 
         <View style={styles.bottomListConatiner}>
           <AppText style={styles.sectionTitle}>Cars Near Me</AppText>
-          <View style={styles.locationContiner}>
+          <AppTouchable onPress={()=> setShowLocationModal(true)} style={styles.locationContiner}>
             <Icon name="location-arrow" size={14} color={AppColors.link} />
             <AppText style={styles.locationText}>Ashby-De-La-Zouch</AppText>
-          </View>
+          </AppTouchable>
           <AppFlatList
             data={nearbyCarsData}
             renderItem={renderCarItem}
