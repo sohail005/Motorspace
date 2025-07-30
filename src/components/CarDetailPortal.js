@@ -255,12 +255,12 @@ const styles = StyleSheet.create({
   bottomButtonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginTop: 20
   },
   sendOffer: {
     backgroundColor: AppColors.link,
-    width: DimensionsUtil.SCREEN_WIDTH / 3.3,
+    width: DimensionsUtil.SCREEN_WIDTH / 3.5,
     borderRadius: 10,
   },
   buyNow: {
