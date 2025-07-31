@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
         // height: DimensionsUtil.SCREEN_WIDTH / 9,
         width: DimensionsUtil.SCREEN_WIDTH / 2.4,
         marginVertical: 25,
-        paddingHorizontal:5
     },
     outlineButtonText: {
         color: AppColors.primary,
