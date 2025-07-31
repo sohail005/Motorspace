@@ -42,7 +42,7 @@ export default ImageViewerPortal;
 
 const styles = StyleSheet.create({
     modalContainer: {
-        flex: 1,
+        // flex: 1,
         justifyContent: 'center',
         backgroundColor: 'transparent',
     },
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         flex: 1,
-        height: DimensionsUtil.SCREEN_HEIGHT * 0.55,
+        height: DimensionsUtil.SCREEN_HEIGHT,
         alignItems: 'center',
         justifyContent: 'center'
     },
