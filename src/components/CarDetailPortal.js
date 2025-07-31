@@ -8,10 +8,14 @@ import { AppColors } from '../constants/colors';
 import AppTouchable from './AppTouchable';
 import { FontSizes } from '../constants/fontsizes';
 import DimensionsUtil from '../constants/Dimensions';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing } from 'react-native-reanimated';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+  Easing,
+} from 'react-native-reanimated';
 import { Fonts } from '../constants/Fonts';
 import SendOfferPortal from '../Screens/Buycars/BuyCarsList/SendOfferPortal';
-
 
 const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
   const opacity = useSharedValue(0);
@@ -19,8 +23,14 @@ const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
   const [offerVisible, setOfferVisible] = useState(false);
   useEffect(() => {
     if (visible) {
-      opacity.value = withTiming(1, { duration: 300, easing: Easing.out(Easing.ease) });
-      scale.value = withTiming(1, { duration: 300, easing: Easing.out(Easing.ease) });
+      opacity.value = withTiming(1, {
+        duration: 300,
+        easing: Easing.out(Easing.ease),
+      });
+      scale.value = withTiming(1, {
+        duration: 300,
+        easing: Easing.out(Easing.ease),
+      });
     } else {
       opacity.value = withTiming(0, { duration: 200 });
       scale.value = withTiming(0.9, { duration: 200 });
@@ -41,12 +51,23 @@ const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
         contentContainerStyle={styles.modalContainer}
       >
         <Animated.View style={[styles.modalContainer, animatedStyle]}>
-          <ScrollView contentContainerStyle={styles.content}>
-
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.content}
+          >
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            >
               <AppText style={styles.title}>{car.title}</AppText>
-              <AppTouchable onPress={onDismiss} style={{ alignSelf: 'flex-end' }}>
-                <Icon name="close-outline" size={32} color={AppColors.textSecondary} />
+              <AppTouchable
+                onPress={onDismiss}
+                style={{ alignSelf: 'flex-end' }}
+              >
+                <Icon
+                  name="close-outline"
+                  size={32}
+                  color={AppColors.textSecondary}
+                />
               </AppTouchable>
             </View>
             <AppText style={styles.subtitle}>{car.variant}</AppText>
@@ -59,7 +80,11 @@ const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
             </View>
 
             <View style={styles.dealerRow}>
-              <Icon name="person-sharp" size={18} color={AppColors.textPrimary} />
+              <Icon
+                name="person-sharp"
+                size={18}
+                color={AppColors.textPrimary}
+              />
               <AppText style={styles.dealerName}>{car.dealer.name}</AppText>
               <AppText style={styles.timeListed}>{car.timeListed}</AppText>
               <AppText style={styles.price}>{car.price}</AppText>
@@ -79,12 +104,22 @@ const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
             <View style={styles.buttonRow}>
               {/* {car.actions.showAdditionalInfo && ( */}
               <AppTouchable style={styles.button}>
-                <AppText style={{ textAlign: 'center', color: AppColors.primary }}>Additional Information</AppText>
+                <AppText
+                  style={{ textAlign: 'center', color: AppColors.primary }}
+                >
+                  Additional Information
+                </AppText>
               </AppTouchable>
 
               {/* {car.actions.showDamageReport && ( */}
-              <AppTouchable style={[styles.button, { backgroundColor: AppColors.primary }]}>
-                <AppText style={{ textAlign: 'center', color: AppColors.white }}>Damage Report</AppText>
+              <AppTouchable
+                style={[styles.button, { backgroundColor: AppColors.primary }]}
+              >
+                <AppText
+                  style={{ textAlign: 'center', color: AppColors.white }}
+                >
+                  Damage Report
+                </AppText>
               </AppTouchable>
               {/* )} */}
             </View>
@@ -97,7 +132,7 @@ const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
             <SellerInfo label="Phone Number" value={car.dealer.phone} />
             <SellerInfo label="Email Address" value={car.dealer.email} />
 
-            {openedFromHome &&
+            {openedFromHome && (
               <View style={styles.bottomButtonContainer}>
                 <AppTouchable onPress={()=>setOfferVisible(true)} style={styles.sendOffer}>
                   <AppText style={styles.sendOfferText}>Send Offer</AppText>
@@ -106,7 +141,7 @@ const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
                   <AppText style={styles.sendOfferText}>BUY NOW</AppText>
                 </AppTouchable>
               </View>
-            }
+            )}
           </ScrollView>
         </Animated.View>
       </Modal>
@@ -142,18 +177,16 @@ const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: AppColors.white,
     marginHorizontal: 15,
-    marginTop: 10,
     borderRadius: 12,
-    // maxHeight: '95%',
-    maxHeight: DimensionsUtil.SCREEN_HEIGHT / 1.3
+    maxHeight: DimensionsUtil.SCREEN_HEIGHT - 100,
   },
   content: {
-    paddingBottom: 20,
+    paddingVertical: 10,
   },
   title: {
     fontSize: FontSizes.xxxLarge,
-    fontWeight: '700',
-    width: '80%'
+    fontFamily: Fonts.bold,
+    width: '80%',
   },
   subtitle: {
     color: AppColors.Blue_Subtext,
@@ -175,11 +208,11 @@ const styles = StyleSheet.create({
   plateText: {
     fontWeight: '900',
     color: AppColors.textPrimary,
-    fontSize: FontSizes.medium
+    fontSize: FontSizes.medium,
   },
   conditionText: {
     color: AppColors.greenLabel,
-    fontWeight: '700'
+    fontWeight: '700',
   },
   dealerRow: {
     flexDirection: 'row',
@@ -191,19 +224,19 @@ const styles = StyleSheet.create({
     color: AppColors.textGrey,
     paddingLeft: 5,
     fontWeight: '700',
-    maxWidth: DimensionsUtil.SCREEN_WIDTH / 4
+    maxWidth: DimensionsUtil.SCREEN_WIDTH / 4,
   },
   timeListed: {
     marginLeft: 'auto',
     fontSize: FontSizes.small,
     color: AppColors.textSecondary,
-    fontFamily: Fonts.semiBold
+    fontFamily: Fonts.semiBold,
   },
   price: {
     fontWeight: '900',
     fontSize: FontSizes.large,
     marginLeft: 'auto',
-    color: AppColors.textPrimary
+    color: AppColors.textPrimary,
   },
   divider: {
     marginVertical: 10,
@@ -212,7 +245,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontFamily: Fonts.semiBold,
     marginBottom: 6,
-    fontSize: FontSizes.xLarge
+    fontSize: FontSizes.xLarge,
   },
   infoGrid: {
     flexDirection: 'row',
@@ -228,7 +261,6 @@ const styles = StyleSheet.create({
     fontSize: FontSizes.medium,
     color: AppColors.textPrimary,
     width: DimensionsUtil.SCREEN_WIDTH / 6,
-
   },
   infoValue: {
     color: AppColors.textGrey,
@@ -236,19 +268,20 @@ const styles = StyleSheet.create({
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 12,
-    flex: 1
+    marginVertical: 8,
+    flex: 1,
   },
   button: {
     flex: 1,
     // marginHorizontal: 4,
     borderWidth: 1,
     borderColor: AppColors.primary,
-    padding: 12,
+    // padding: 12,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    width: DimensionsUtil.SCREEN_WIDTH / 2.5
+    minWidth: DimensionsUtil.SCREEN_WIDTH / 2.5,
+    height: DimensionsUtil.SCREEN_WIDTH / 9,
   },
   sellerRow: {
     marginBottom: 6,
@@ -258,27 +291,29 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.semiBold,
     fontSize: FontSizes.medium,
     color: AppColors.textPrimary,
-    width: DimensionsUtil.SCREEN_WIDTH / 3.4
+    width: DimensionsUtil.SCREEN_WIDTH / 3.4,
   },
   sellerValue: {
     color: AppColors.textPrimary,
-    width: DimensionsUtil.SCREEN_WIDTH / 2
+    width: DimensionsUtil.SCREEN_WIDTH / 2,
   },
   bottomButtonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
-    marginTop: 20
+    justifyContent: 'space-between',
+    marginTop: 20,
   },
   sendOffer: {
     backgroundColor: AppColors.link,
-    width: DimensionsUtil.SCREEN_WIDTH / 3.5,
+    width: DimensionsUtil.SCREEN_WIDTH / 3.3,
     borderRadius: 10,
   },
   buyNow: {
     backgroundColor: AppColors.quickbuy,
-    width: DimensionsUtil.SCREEN_WIDTH / 1.8,
-    borderRadius: 10
+    width: DimensionsUtil.SCREEN_WIDTH / 1.9,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   sendOfferText: {
     color: AppColors.white,
@@ -286,8 +321,9 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.semiBold,
     textAlign: 'center',
     height: DimensionsUtil.SCREEN_WIDTH / 9,
-    textAlignVertical: 'center'
-  }
+    textAlignVertical: 'center',
+    paddingVertical: 14,
+  },
 });
 
 export default CarDetailPortal;
