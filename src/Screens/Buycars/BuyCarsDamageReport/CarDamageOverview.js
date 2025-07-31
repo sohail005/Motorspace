@@ -51,7 +51,7 @@ const CarDamageOverview = () => {
             <AppTouchable onPress={() => toggleExpand(item.id)}>
                 <View style={styles.damageItemHeader}>
                     <View style={styles.itemTitleConatiner}>
-                        <AppTouchable onPress={() => removeDamage(item.id)} style={styles.closeIcon}>
+                        <AppTouchable style={styles.closeIcon}>
                             <Icon name="close" size={28} color={AppColors.buttonOrange} />
                         </AppTouchable>
                         <AppText numberOfLines={1} style={styles.damageTitle}>

@@ -166,7 +166,9 @@ const BuyCarsList = () => {
         />
         <View style={styles.topListConatiner}>
           {/* Search and fillter bar */}
+          <View style={{marginTop:20}}>
           <SearchFilterBar onFilterPress={showModal} />
+          </View>
           {/* showAppliedFillterContainer */}
           {(filtersCount > 0) &&
             <View style={styles.showAppliedFillterContainer}>

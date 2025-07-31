@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         // width: DimensionsUtil.SCREEN_WIDTH / 1.2,
         height: DimensionsUtil.SCREEN_WIDTH / 9,
-        marginVertical: 20,
+        // marginTop: 20,
     },
     inputConatainer: {
         flexDirection: 'row',

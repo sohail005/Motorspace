@@ -12,7 +12,7 @@ import { setStatusBarColor } from '../redux/features/user/userSlice';
 const { width, height } = Dimensions.get('window');
 
 const ImageViewerPortal = ({ visible, onDismiss, imageUri }) => {
-    
+
 
     return (
         <Portal>

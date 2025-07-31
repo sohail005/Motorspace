@@ -3,15 +3,14 @@ import React from 'react'
 import AppText from '../../components/AppText'
 import AppHeader from '../../components/AppHeader'
 import { IMAGES } from '../../assets/Images/ImagePath'
+import SellCarsStack from '../../navigation/SellCarsStack'
 
 const SellcarsScreen = () => {
-    return (
-      <View style={{ flex: 1 }}>
-      <AppHeader
-        rightIcon={IMAGES.home}
-      />
+  return (
+    <View style={{ flex: 1 }}>
+      <SellCarsStack />
     </View>
-    )
+  )
 }
 
 export default SellcarsScreen
