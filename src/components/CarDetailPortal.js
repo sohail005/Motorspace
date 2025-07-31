@@ -16,11 +16,14 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Fonts } from '../constants/Fonts';
 import SendOfferPortal from '../Screens/Buycars/BuyCarsList/SendOfferPortal';
+import ConfirmPurchasePortal from '../Screens/Buycars/BuyCarsList/ConfirmPurchasePortal';
 
-const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
+const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome, offerSent,ConfirmPurchase }) => {
   const opacity = useSharedValue(0);
   const scale = useSharedValue(0.9);
   const [offerVisible, setOfferVisible] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
   useEffect(() => {
     if (visible) {
       opacity.value = withTiming(1, {
@@ -36,7 +39,17 @@ const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
       scale.value = withTiming(0.9, { duration: 200 });
     }
   }, [visible]);
-
+  const handleConfirm = () => {
+    setShowConfirmModal(false);
+    ConfirmPurchase(true);
+    onDismiss();
+  };
+  const OnOfferSent = () => {
+    setOfferVisible(false);
+    offerSent(true)
+    onDismiss()
+  }
+  
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
     transform: [{ scale: scale.value }],
@@ -134,10 +147,10 @@ const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
 
             {openedFromHome && (
               <View style={styles.bottomButtonContainer}>
-                <AppTouchable onPress={()=>setOfferVisible(true)} style={styles.sendOffer}>
+                <AppTouchable onPress={() => setOfferVisible(true)} style={styles.sendOffer}>
                   <AppText style={styles.sendOfferText}>Send Offer</AppText>
                 </AppTouchable>
-                <AppTouchable style={styles.buyNow}>
+                <AppTouchable onPress={() => setShowConfirmModal(true)} style={styles.buyNow}>
                   <AppText style={styles.sendOfferText}>BUY NOW</AppText>
                 </AppTouchable>
               </View>
@@ -149,11 +162,15 @@ const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome }) => {
         visible={offerVisible}
         listingPrice={car.price}
         onDismiss={() => setOfferVisible(false)}
-        onSubmit={(userOffer) => {
-          console.log('Offer submitted:', userOffer);
-          // Optionally trigger API call or alert here
-          setOfferVisible(false);
-        }}
+        onSubmit={(userOffer) => OnOfferSent(userOffer)}
+      />
+      <ConfirmPurchasePortal
+        visible={showConfirmModal}
+        onDismiss={() => setShowConfirmModal(false)}
+        onConfirm={handleConfirm}
+        vehicleTitle={car.title}
+        vehicleSubtitle={car.variant}
+        price={car.price}
       />
     </Portal>
   );

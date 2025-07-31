@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, RefreshControl, TextInput } from 'react-native';
+import { View, Text, Animated, ScrollView, RefreshControl, TextInput, StyleSheet } from 'react-native';
 import AppHeader from '../../../components/AppHeader';
 import AppFlatList from '../../../components/AppFlatList';
 import { FontSizes } from '../../../constants/fontsizes';
@@ -291,6 +291,10 @@ const BuyCarsList = () => {
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [visibleCarDetails, setVisibleCarDetails] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null);
+  const [popupTitle, setPopupTitle] = useState("");
+  const [popupContent, setPopupContent] = useState("");
+
+
   const [postcode, setPostcode] = useState('');
   const [city, setCity] = useState('');
   const [county, setCounty] = useState('');
@@ -298,9 +302,28 @@ const BuyCarsList = () => {
 
   const showModal = () => setModalVisible(true);
   const hideModal = () => setModalVisible(false);
+  const [showOfferSent, setShowOfferSent] = useState(false);
+  const slideAnim = useState(new Animated.Value(-100))[0];
 
+  const triggerOfferSentPopup = () => {
+    setShowOfferSent(true);
+    Animated.timing(slideAnim, {
+      toValue: 0,
+      duration: 400,
+      useNativeDriver: true,
+    }).start(() => {
+      setTimeout(() => {
+        Animated.timing(slideAnim, {
+          toValue: -100,
+          duration: 400,
+          useNativeDriver: true,
+        }).start(() => setShowOfferSent(false));
+      }, 3000);
+    });
+  };
   const onRefresh = useCallback(() => {
     setRefreshing(true);
+    triggerOfferSentPopup()
     // Simulate network fetch (replace this with real API)
     setTimeout(() => {
       setRefreshing(false);
@@ -344,9 +367,35 @@ const BuyCarsList = () => {
     setSelectedCar(item);
     setVisibleCarDetails(true);
   };
+  const offerSent = () => {
+    setPopupTitle("Offer Sent!");
+    setPopupContent("The seller has until 13:41 today to reply to your offer.")
+    triggerOfferSentPopup();
+  }
+  const ConfirmPurchase = () => {
+    setPopupTitle("Purchase Request Sent!");
+    setPopupContent("The seller has until 13:41 today to accept or decline your purchase.")
+    triggerOfferSentPopup();
+  }
   return (
     <View style={styles.container}>
       <AppHeader rightIcon={IMAGES.home} />
+      {showOfferSent && (
+        <Animated.View style={[internalStyles.offerPopup, { transform: [{ translateY: slideAnim }] }]}>
+          <View style={internalStyles.offerContent}>
+            <AppTouchable onPress={() => setShowOfferSent(false)}>
+              <FillterIcon name="x" size={26} color={AppColors.white} />
+            </AppTouchable>
+            <View style={{ marginLeft: 20 }}>
+              <AppText style={internalStyles.offerTitle}>{popupTitle}</AppText>
+              <AppText style={internalStyles.offerText}>
+                {popupContent}
+              </AppText>
+            </View>
+
+          </View>
+        </Animated.View>
+      )}
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         refreshControl={
@@ -443,9 +492,52 @@ const BuyCarsList = () => {
           </AppTouchable>
         </View>
       </ScrollView>
-      <CarDetailPortal visible={visibleCarDetails} onDismiss={() => setVisibleCarDetails(false)} car={selectedCar} openedFromHome={true}/>
+      <CarDetailPortal
+        visible={visibleCarDetails}
+        onDismiss={() => setVisibleCarDetails(false)}
+        car={selectedCar}
+        openedFromHome={true}
+        offerSent={offerSent}
+        ConfirmPurchase={ConfirmPurchase}
+      />
     </View>
   );
 };
 
 export default BuyCarsList;
+const internalStyles = StyleSheet.create({
+  offerPopup: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    right: 10,
+    zIndex: 100,
+    backgroundColor: AppColors.popupbg,
+    borderRadius: 12,
+    padding: 14,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 6,
+    elevation: 6,
+  },
+  offerContent: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  offerTitle: {
+    color: AppColors.white,
+    fontFamily: Fonts.bold,
+    fontSize: FontSizes.medium,
+  },
+  offerText: {
+    color: AppColors.white,
+    fontFamily: Fonts.regular,
+    fontSize: FontSizes.medium,
+    marginTop: 4,
+  },
+  offerTime: {
+    fontFamily: Fonts.bold,
+    color: AppColors.white,
+  },
+});

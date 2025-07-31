@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Keyboard } from 'react-native';
 import { Modal, Portal } from 'react-native-paper';
 import AppText from '../../../components/AppText';
 import AppInput from '../../../components/AppInput';
@@ -19,8 +19,11 @@ const SendOfferPortal = ({ visible, onDismiss, listingPrice, onSubmit }) => {
         if (numericOffer >= numericListing) {
             setError('Your offer needs to be less than the original listing price');
         } else {
-            setError('');
-            onSubmit(numericOffer);
+            Keyboard.dismiss()
+            setTimeout(() => {
+                setError('');
+                onSubmit(numericOffer);
+            }, 50);
         }
     };
 
@@ -98,12 +101,12 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.regular,
         textAlign: 'center'
     },
-    inputStyles:{
+    inputStyles: {
         fontSize: FontSizes.xLarge,
-        alignItems:'cenetr',
-        verticalAlign:'center',
-        textAlign:'cenetr',
-        fontFamily:Fonts.bold,
+        alignItems: 'cenetr',
+        verticalAlign: 'center',
+        textAlign: 'cenetr',
+        fontFamily: Fonts.bold,
     },
     price: {
         fontSize: FontSizes.xxxLarge,
@@ -119,14 +122,14 @@ const styles = StyleSheet.create({
         width: DimensionsUtil.SCREEN_WIDTH / 1.4,
         alignSelf: 'center',
         height: DimensionsUtil.SCREEN_WIDTH / 8,
-        justifyContent:'center',
-        
+        justifyContent: 'center',
+
     },
     inputError: {
         borderColor: AppColors.redLabel,
         backgroundColor: AppColors.errorBg,
-        borderWidth:1,
-        borderRadius:10
+        borderWidth: 1,
+        borderRadius: 10
     },
     errorConatiner: {
         width: '75%',
@@ -195,6 +198,7 @@ const styles = StyleSheet.create({
     },
     validText: {
         color: AppColors.quickbuy,
+        fontSize: FontSizes.medium
     },
 });
 
