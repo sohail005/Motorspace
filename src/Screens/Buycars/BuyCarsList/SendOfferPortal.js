@@ -17,7 +17,7 @@ const SendOfferPortal = ({ visible, onDismiss, listingPrice, onSubmit }) => {
         const numericOffer = parseFloat(offer.replace(/[^\d.]/g, ''));
         const numericListing = parseFloat(listingPrice.replace(/[^\d.]/g, ''));
         if (numericOffer >= numericListing) {
-            setError('Error: Your offer needs to be less than the original listing price');
+            setError('Your offer needs to be less than the original listing price');
         } else {
             setError('');
             onSubmit(numericOffer);
@@ -43,17 +43,23 @@ const SendOfferPortal = ({ visible, onDismiss, listingPrice, onSubmit }) => {
                     placeholder="Enter your offer"
                     keyboardType="numeric"
                     value={offer}
+                    inputStyle={styles.inputStyles}
                     onChangeText={setOffer}
                 />
 
-                {error ? (
-                    <AppText style={styles.error}>{error}</AppText>
-                ) : (
-                    <AppText style={styles.note}>
-                        <AppText style={styles.noteBold}>Please note: </AppText>
-                        If your offer is accepted, an invoice will be sent to your email address.
-                    </AppText>
-                )}
+                <View style={styles.errorConatiner}>
+                    {error ? (
+                        <AppText style={styles.error}>
+                            <AppText style={styles.errorBold}>Error: </AppText>
+                            {error}
+                        </AppText>
+                    ) : (
+                        <AppText style={styles.note}>
+                            <AppText style={styles.noteBold}>Please note: </AppText>
+                            If your offer is accepted, an invoice will be sent to your email address.
+                        </AppText>
+                    )}
+                </View>
 
                 <View style={styles.buttonRow}>
                     <AppTouchable style={styles.cancelButton} onPress={handleClose}>
@@ -92,6 +98,13 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.regular,
         textAlign: 'center'
     },
+    inputStyles:{
+        fontSize: FontSizes.xLarge,
+        alignItems:'cenetr',
+        verticalAlign:'center',
+        textAlign:'cenetr',
+        fontFamily:Fonts.bold,
+    },
     price: {
         fontSize: FontSizes.xxxLarge,
         fontFamily: Fonts.bold,
@@ -100,16 +113,22 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     input: {
-        fontSize: FontSizes.ultra,
-        fontFamily: Fonts.semiBold,
+        // fontSize: FontSizes.ultra,
+        // fontFamily: Fonts.semiBold,
         backgroundColor: AppColors.white,
         width: DimensionsUtil.SCREEN_WIDTH / 1.4,
         alignSelf: 'center',
         height: DimensionsUtil.SCREEN_WIDTH / 8,
-      },
+        justifyContent:'center',
+        
+    },
     inputError: {
         borderColor: AppColors.error,
         backgroundColor: AppColors.errorLight,
+    },
+    errorConatiner: {
+        width: '75%',
+        alignSelf: 'center'
     },
     error: {
         color: AppColors.error,
@@ -130,10 +149,14 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.bold,
         color: AppColors.textPrimary,
     },
+    errorBold: {
+        fontFamily: Fonts.bold,
+        color: AppColors.redLabel,
+    },
     buttonRow: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-         marginTop: 24,
+        marginTop: 24,
 
     },
     cancelButton: {
@@ -149,7 +172,7 @@ const styles = StyleSheet.create({
         color: AppColors.gobackButton,
         fontFamily: Fonts.bold,
         textAlign: 'center',
-        fontSize:FontSizes.medium
+        fontSize: FontSizes.medium
     },
     sendButton: {
         backgroundColor: AppColors.lightGray,
@@ -163,7 +186,7 @@ const styles = StyleSheet.create({
     sendText: {
         color: AppColors.link,
         fontFamily: Fonts.bold,
-        fontSize:FontSizes.medium
+        fontSize: FontSizes.medium
     },
     validButton: {
         backgroundColor: AppColors.success,

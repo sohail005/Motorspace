@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        fontSize: FontSizes.smallMedium,
+        fontSize: undefined,
         color: AppColors.textPrimary,
         minHeight: 50,
     },
