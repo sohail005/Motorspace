@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { View, Text, Animated, ScrollView, RefreshControl, StyleSheet } from 'react-native';
+import { View, Text, Animated, ScrollView, RefreshControl, StyleSheet, Platform } from 'react-native';
 import AppHeader from '../../../components/AppHeader';
 import { FontSizes } from '../../../constants/fontsizes';
 import { AppColors } from '../../../constants/colors';
@@ -129,10 +129,10 @@ const BuyCarsList = () => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefresh}
-            colors={[AppColors.primary]}
             tintColor={AppColors.primary}
             title="Refreshing..."
             titleColor={AppColors.primary}
+            {...(Platform.OS === 'android' && { colors: [AppColors.primary] })}
           />
         }
       >
