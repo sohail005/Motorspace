@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     input: {
         // fontSize: FontSizes.ultra,
         // fontFamily: Fonts.semiBold,
-        backgroundColor: AppColors.white,
+        // backgroundColor: AppColors.white,
         width: DimensionsUtil.SCREEN_WIDTH / 1.4,
         alignSelf: 'center',
         height: DimensionsUtil.SCREEN_WIDTH / 8,
@@ -123,8 +123,10 @@ const styles = StyleSheet.create({
         
     },
     inputError: {
-        borderColor: AppColors.error,
-        backgroundColor: AppColors.errorLight,
+        borderColor: AppColors.redLabel,
+        backgroundColor: AppColors.errorBg,
+        borderWidth:1,
+        borderRadius:10
     },
     errorConatiner: {
         width: '75%',
@@ -189,10 +191,10 @@ const styles = StyleSheet.create({
         fontSize: FontSizes.medium
     },
     validButton: {
-        backgroundColor: AppColors.success,
+        backgroundColor: AppColors.lightGray,
     },
     validText: {
-        color: AppColors.white,
+        color: AppColors.quickbuy,
     },
 });
 

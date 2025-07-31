@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 12,
         alignItems: 'center',
-        backgroundColor: AppColors.white,
+        // backgroundColor: AppColors.white,
     },
     errorBorder: {
         borderColor: AppColors.errorRed,
