@@ -19,6 +19,7 @@ const CarListItem = ({
     seller,
     showLocation = false,
     onPress = () => { }, // <- default no-op
+    onQuickBuyPress= () => { },
 }) => {
     console.log("seller:", seller?.name);
 
@@ -67,7 +68,7 @@ const CarListItem = ({
                 </AppTouchable>
             </View>
 
-            <AppTouchable style={styles.right}>
+            <AppTouchable onPress={onQuickBuyPress} style={styles.right}>
                 <View style={styles.quickBuyContainer}>
                     <AppText style={styles.quickBuyText}>QUICK</AppText>
                     <AppText style={[styles.quickBuyText, styles.quickBuyTextBuy]}>BUY</AppText>

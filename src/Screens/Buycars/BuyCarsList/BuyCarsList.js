@@ -17,6 +17,8 @@ import { styles } from './BuyCarsListStyles';
 import FilterSortModal from '../../../components/FilterSortModal/FilterSortModal';
 import LocationModal from '../../../components/LocationModal';
 import CarDetailPortal from '../../../components/CarDetailPortal';
+import ConfirmPurchasePortal from './ConfirmPurchasePortal';
+import ConfirmQuickBuyPortal from './ConfirmQuickBuyPortal';
 
 export const vehicleData = [
   {
@@ -293,6 +295,8 @@ const BuyCarsList = () => {
   const [selectedCar, setSelectedCar] = useState(null);
   const [popupTitle, setPopupTitle] = useState("");
   const [popupContent, setPopupContent] = useState("");
+  const [showConfirmQuickBuyModal, setShowConfirmQuickBuyModal] = useState(false);
+  const [selectedQuickBuyData, setSelectedQuickBuyData] = useState(null);
 
 
   const [postcode, setPostcode] = useState('');
@@ -329,6 +333,10 @@ const BuyCarsList = () => {
       setRefreshing(false);
     }, 1500);
   }, []);
+  const onQuickBuyPress=(item)=>{
+    setSelectedQuickBuyData(item);
+    setShowConfirmQuickBuyModal(true)
+  }
   const renderCarItem = ({ item }) => (
     <CarListItem
       title={item.title}
@@ -340,6 +348,7 @@ const BuyCarsList = () => {
       location={item.location}
       showLocation={item.showLocation}
       onPress={() => openDetails(item)}
+      onQuickBuyPress={() => onQuickBuyPress(item)}
     />
   );
   function countAppliedFilters(filters) {
@@ -366,6 +375,7 @@ const BuyCarsList = () => {
   const openDetails = (item) => {
     setSelectedCar(item);
     setVisibleCarDetails(true);
+   
   };
   const offerSent = () => {
     setPopupTitle("Offer Sent!");
@@ -376,6 +386,10 @@ const BuyCarsList = () => {
     setPopupTitle("Purchase Request Sent!");
     setPopupContent("The seller has until 13:41 today to accept or decline your purchase.")
     triggerOfferSentPopup();
+  }
+  const handleConfirmQuickBuy = () => {
+    setShowConfirmQuickBuyModal(false)
+    ConfirmPurchase()
   }
   return (
     <View style={styles.container}>
@@ -423,6 +437,14 @@ const BuyCarsList = () => {
             setShowLocationModal(false);
           }}
         />
+        <ConfirmQuickBuyPortal
+          visible={showConfirmQuickBuyModal}
+          onDismiss={() => setShowConfirmQuickBuyModal(false)}
+          onConfirm={handleConfirmQuickBuy}
+          vehicleTitle={selectedQuickBuyData?.title}
+          vehicleSubtitle={selectedQuickBuyData?.variant}
+          price={selectedQuickBuyData?.price}
+                  />
         {/* --- MODAL INTEGRATION --- */}
         <FilterSortModal
           visible={modalVisible}
