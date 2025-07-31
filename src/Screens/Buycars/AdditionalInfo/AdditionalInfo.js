@@ -108,9 +108,10 @@ const styles = StyleSheet.create({
         borderColor: AppColors.primary,
         borderRadius: 10,
         alignItems: 'center',
-        height: DimensionsUtil.SCREEN_WIDTH / 9,
+        // height: DimensionsUtil.SCREEN_WIDTH / 9,
         width: DimensionsUtil.SCREEN_WIDTH / 2.4,
-        marginVertical: 25
+        marginVertical: 25,
+        // paddingVertical:2
     },
     outlineButtonText: {
         color: AppColors.primary,
