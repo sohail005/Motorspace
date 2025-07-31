@@ -15,5 +15,7 @@ export const IMAGES = {
      dvla_logo: require("../../assets/Images/dvla_logo.png"),
      NoDamage: require("../../assets/Images/NoDamage.png"),
      Damage: require("../../assets/Images/Damage.png"),
+     CarsDamages: require("../../assets/Images/CarsDamages.png"),
+     
      
 }

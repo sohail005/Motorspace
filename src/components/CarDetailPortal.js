@@ -19,12 +19,12 @@ import SendOfferPortal from '../Screens/Buycars/BuyCarsList/SendOfferPortal';
 import ConfirmPurchasePortal from '../Screens/Buycars/BuyCarsList/ConfirmPurchasePortal';
 import { useNavigation } from '@react-navigation/native';
 
-const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome, offerSent,ConfirmPurchase }) => {
+const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome, offerSent, ConfirmPurchase }) => {
   const opacity = useSharedValue(0);
   const scale = useSharedValue(0.9);
   const [offerVisible, setOfferVisible] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-const navigation = useNavigation()
+  const navigation = useNavigation()
   useEffect(() => {
     if (visible) {
       opacity.value = withTiming(1, {
@@ -50,9 +50,14 @@ const navigation = useNavigation()
     offerSent(true)
     onDismiss()
   }
-  const OnAdditionlInfoPress=(car)=>{
+  const OnAdditionlInfoPress = (car) => {
     onDismiss();
-    navigation.navigate("AdditionalInfo",{car})
+    navigation.navigate("AdditionalInfo", { car })
+  }
+
+  const OnDamageReportPress = () => {
+    onDismiss();
+    navigation.navigate("BuyCarsDamageReport", { car })
   }
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
@@ -120,7 +125,7 @@ const navigation = useNavigation()
 
             <View style={styles.buttonRow}>
               {/* {car.actions.showAdditionalInfo && ( */}
-              <AppTouchable onPress={()=> OnAdditionlInfoPress(car)} style={styles.button}>
+              <AppTouchable onPress={() => OnAdditionlInfoPress(car)} style={styles.button}>
                 <AppText
                   style={{ textAlign: 'center', color: AppColors.primary }}
                 >
@@ -130,6 +135,7 @@ const navigation = useNavigation()
 
               {/* {car.actions.showDamageReport && ( */}
               <AppTouchable
+                onPress={() => OnDamageReportPress(car)}
                 style={[styles.button, { backgroundColor: AppColors.primary }]}
               >
                 <AppText

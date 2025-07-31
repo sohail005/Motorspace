@@ -3,6 +3,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BuyCarsList from '../Screens/Buycars/BuyCarsList/BuyCarsList';
 import AdditionalInfo from '../Screens/Buycars/AdditionalInfo/AdditionalInfo';
+import BuyCarsDamageReport from '../Screens/Buycars/BuyCarsDamageReport/BuyCarsDamageReport';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,11 @@ const BuyCarsStack = () => {
       <Stack.Screen
         name="AdditionalInfo"
         component={AdditionalInfo}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="BuyCarsDamageReport"
+        component={BuyCarsDamageReport}
         options={{ headerShown: false }}
       />
       
