@@ -21,7 +21,6 @@ const listings = [
         cap: 35044,
         capStrike: 38335,
         price: '35,044',
-        cardColor: '#DDF7E9',
     },
     {
         title: 'Mercedes-Benz CLS',
@@ -31,7 +30,6 @@ const listings = [
         cap: 24550,
         capStrike: 27560,
         price: '24,650',
-        cardColor: '#E9E9FF',
     },
     {
         title: 'Tesla Model S',
@@ -41,7 +39,6 @@ const listings = [
         cap: 33985,
         capStrike: 35090,
         price: '33,985',
-        cardColor: '#F8F8F8',
     },
     {
         title: 'Audi SQ2',
@@ -51,17 +48,15 @@ const listings = [
         cap: 28752,
         capStrike: 29778,
         price: '28,752',
-        cardColor: '#F8F8F8',
     },
     {
-        title: 'Audi SQ2',
-        subtitle: 'SQ2 Quattro 5dr S Tronic',
+        title: 'Audi A5',
+        subtitle: '2.0 TFSI 150 S Line 4dr S Tronic',
         reg: 'DS74 KLM',
-        status: 'FOR SALE',
-        cap: 28752,
-        capStrike: 29778,
-        price: '28,752',
-        cardColor: '#F8F8F8',
+        status: 'PURCHASE REQUEST',
+        cap: 35044,
+        capStrike: 38335,
+        price: '35,044',
     },
 ];
 
@@ -90,7 +85,7 @@ const SellCarsList = ({ navigation }) => {
                         <SellCarCardItem item={item} onPress={() => { }} />
                     )}
                     ListHeaderComponent={
-                        <View>
+                        <View style={{ paddingBottom: 15 }}>
                             <View style={styles.titleConatiner}>
                                 <AppText style={styles.sectionTitle}>Active Listings</AppText>
                                 {listings.length > 0 &&
@@ -105,7 +100,7 @@ const SellCarsList = ({ navigation }) => {
                             <SearchFilterBar />
                         </View>
                     }
-                    contentContainerStyle={{ paddingBottom: 200 }}
+                    contentContainerStyle={{ paddingBottom: 200, }}
                 />
             </View>
         </View>
@@ -120,9 +115,9 @@ const styles = StyleSheet.create({
         backgroundColor: AppColors.defaultBackground,
     },
     scrollContent: {
-        paddingHorizontal: 16,
-        // paddingBottom: 100,
-        // flex: 1,
+        backgroundColor: AppColors.defaultBackground,
+        marginHorizontal: 15
+
     },
     sectionTitle: {
         fontSize: FontSizes.ultra,
