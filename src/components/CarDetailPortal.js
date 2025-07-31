@@ -17,13 +17,14 @@ import Animated, {
 import { Fonts } from '../constants/Fonts';
 import SendOfferPortal from '../Screens/Buycars/BuyCarsList/SendOfferPortal';
 import ConfirmPurchasePortal from '../Screens/Buycars/BuyCarsList/ConfirmPurchasePortal';
+import { useNavigation } from '@react-navigation/native';
 
 const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome, offerSent,ConfirmPurchase }) => {
   const opacity = useSharedValue(0);
   const scale = useSharedValue(0.9);
   const [offerVisible, setOfferVisible] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-
+const navigation = useNavigation()
   useEffect(() => {
     if (visible) {
       opacity.value = withTiming(1, {
@@ -49,7 +50,10 @@ const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome, offerSent,Co
     offerSent(true)
     onDismiss()
   }
-  
+  const OnAdditionlInfoPress=(car)=>{
+    onDismiss();
+    navigation.navigate("AdditionalInfo",{car})
+  }
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
     transform: [{ scale: scale.value }],
@@ -116,7 +120,7 @@ const CarDetailPortal = ({ visible, onDismiss, car, openedFromHome, offerSent,Co
 
             <View style={styles.buttonRow}>
               {/* {car.actions.showAdditionalInfo && ( */}
-              <AppTouchable style={styles.button}>
+              <AppTouchable onPress={()=> OnAdditionlInfoPress(car)} style={styles.button}>
                 <AppText
                   style={{ textAlign: 'center', color: AppColors.primary }}
                 >

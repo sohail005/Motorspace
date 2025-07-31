@@ -21,8 +21,6 @@ const CarListItem = ({
     onPress = () => { }, // <- default no-op
     onQuickBuyPress= () => { },
 }) => {
-    console.log("seller:", seller?.name);
-
     return (
         <View style={styles.container}>
             <View style={styles.left}>
