@@ -379,12 +379,12 @@ const BuyCarsList = () => {
   };
   const offerSent = () => {
     setPopupTitle("Offer Sent!");
-    setPopupContent("The seller has until 13:41 today to reply to your offer.")
+    setPopupContent("The seller has until 13:41 today to reply to your offer.");
     triggerOfferSentPopup();
   }
   const ConfirmPurchase = () => {
     setPopupTitle("Purchase Request Sent!");
-    setPopupContent("The seller has until 13:41 today to accept or decline your purchase.")
+    setPopupContent("The seller has until 13:41 today to accept or decline your purchase.");
     triggerOfferSentPopup();
   }
   const handleConfirmQuickBuy = () => {

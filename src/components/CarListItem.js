@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.bold,
         fontSize: FontSizes.large,
         color: AppColors.darkText,
-        width: '80%'
+        width: '75%'
     },
     subtitle: {
         color: AppColors.Blue_Subtext,
