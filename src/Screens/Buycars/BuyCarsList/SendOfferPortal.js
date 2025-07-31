@@ -83,10 +83,11 @@ const styles = StyleSheet.create({
         fontSize: FontSizes.xxLarge,
         color: AppColors.link,
         textAlign: 'center',
-        marginVertical: 10,
+        marginTop: 15,
+        marginBottom: 10,
     },
     label: {
-        fontSize: FontSizes.xLarge,
+        fontSize: FontSizes.large,
         color: AppColors.textPrimary,
         fontFamily: Fonts.regular,
         textAlign: 'center'
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     buttonRow: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        // marginTop: 24,
+         marginTop: 24,
 
     },
     cancelButton: {
