@@ -12,15 +12,16 @@ import { IMAGES } from '../../../assets/Images/ImagePath';
 import AppImage from '../../../components/AppImage';
 import { useFocusEffect } from '@react-navigation/native';
 import storageItem from '../../../utils/storageItem';
-
-const DAMAGE_DATA = [
-    'Rear Driver Wheel Arch',
-    'Front Passenger Door Handle',
-    'Rear Windscreen',
-];
+import ImageViewerPortal from '../../../components/ImageViewerPortal';
+import { useDispatch } from 'react-redux';
+import { setStatusBarColor } from '../../../redux/features/user/userSlice';
 
 const CarDamageOverview = () => {
     const [allReports, setAllReports] = useState([]);
+    const [showImageViewer, setShowImageViewer] = useState(false);
+    const [clickedImage, setClickedImage] = useState("");
+    const dispatch = useDispatch();
+
     useFocusEffect(
         useCallback(() => {
             const fetchReports = () => {
@@ -40,6 +41,11 @@ const CarDamageOverview = () => {
             )
         );
     };
+    const OnImagePress = () => {
+        dispatch(setStatusBarColor('#000000dd'));
+        setClickedImage("https://images.pexels.com/photos/63764/pexels-photo-63764.jpeg?cs=srgb&dl=car-cars-lamborghini-aventador-63764.jpg&fm=jpg");
+        setShowImageViewer(true)
+    }
     const renderItem = ({ item }) => (
         <View key={item.id} style={styles.damageItemContainer}>
             <AppTouchable onPress={() => toggleExpand(item.id)}>
@@ -74,6 +80,11 @@ const CarDamageOverview = () => {
             )}
         </View>
     );
+    const OnDismissImageViewer = () => {
+        setShowImageViewer(false);
+        dispatch(setStatusBarColor(AppColors.primary));
+
+    }
     return (
         <View style={styles.container}>
             {/* Header Section */}
@@ -86,7 +97,7 @@ const CarDamageOverview = () => {
             </View>
 
             {/* Car Diagram with Overlays */}
-            <View style={styles.diagramContainer}>
+            <AppTouchable onPress={() => OnImagePress()} style={styles.diagramContainer}>
                 <AppImage
                     source={IMAGES.CarsDamages}
                     resizeMode="contain"
@@ -97,7 +108,7 @@ const CarDamageOverview = () => {
                 <View style={[styles.marker, { top: '36%', left: '20%' }]} />
                 <View style={[styles.marker, { top: '52%', left: '35%' }]} />
                 <View style={[styles.marker, { top: '60%', left: '66%' }]} />
-            </View>
+            </AppTouchable>
 
             <View style={styles.divider} />
 
@@ -113,6 +124,11 @@ const CarDamageOverview = () => {
                     showsVerticalScrollIndicator={false}
                 />
             </View>
+            <ImageViewerPortal
+                visible={showImageViewer}
+                onDismiss={() => OnDismissImageViewer()}
+                imageUri={clickedImage} // or a remote URL
+            />
         </View>
     );
 };

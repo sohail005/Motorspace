@@ -119,7 +119,6 @@ const BuyCarsList = () => {
                 {popupContent}
               </AppText>
             </View>
-
           </View>
         </Animated.View>
       )}
