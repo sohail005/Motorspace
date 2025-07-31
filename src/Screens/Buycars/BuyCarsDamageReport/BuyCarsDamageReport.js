@@ -21,18 +21,18 @@ const BuyCarsDamageReport = ({ navigation }) => {
           specLine={variant}
         />
         <View style={styles.carDamagesDetialConatiner}>
-        <CarDamageOverview />
+          <CarDamageOverview />
         </View>
         <WarningContainer
-                    messages={[
-                        'If you think information for this listing is incorrect or misleading, you can contact the seller directly',
-                        'Alternatively, you can reach out to our free Helpline below',
-                    ]}
-                    onPress={() => {
-                        // Call helpline or open dialer
-                        console.log('Calling helpline...');
-                    }}
-                />
+          messages={[
+            'If you think information for this listing is incorrect or misleading, you can contact the seller directly',
+            'Alternatively, you can reach out to our free Helpline below',
+          ]}
+          onPress={() => {
+            // Call helpline or open dialer
+            console.log('Calling helpline...');
+          }}
+        />
       </ScrollView>
     </View>
   )

@@ -56,7 +56,6 @@ const BuyCarsList = () => {
   };
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    triggerOfferSentPopup()
     // Simulate network fetch (replace this with real API)
     setTimeout(() => {
       setRefreshing(false);
