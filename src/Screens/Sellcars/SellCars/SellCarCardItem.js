@@ -18,9 +18,9 @@ const getCardColor = (status) => {
 
 const getStatusColor = (status) => {
     switch (status) {
-        case 'PURCHASE REQUEST': return AppColors.success;
+        case 'PURCHASE REQUEST': return AppColors.quickbuy;
         case 'INCOMING OFFER': return AppColors.link;
-        case 'SALE PENDING': return AppColors.success;
+        case 'SALE PENDING': return AppColors.quickbuy;
         case 'FOR SALE': return AppColors.buttonOrange;
         default: return AppColors.textPrimary;
     }
@@ -29,8 +29,8 @@ const getStatusColor = (status) => {
 const SellCarCardItem = ({ item, onPress }) => {
     const {
         title,
-        subtitle,
-        reg,
+        variant,
+        numberPlate,
         cap,
         capStrike,
         price,
@@ -40,17 +40,17 @@ const SellCarCardItem = ({ item, onPress }) => {
     return (
         <AppTouchable onPress={onPress} style={[styles.cardContainer, { backgroundColor: getCardColor(status) }]}>
             <AppText style={[styles.title, { color: getStatusColor(status) }]}>{title}</AppText>
-            <AppText style={styles.subtitle}>{subtitle}</AppText>
+            <AppText style={styles.subtitle}>{variant}</AppText>
 
             <View style={styles.rowBetween}>
                 <View style={styles.badge}>
-                    <AppText style={styles.badgeText}>{reg}</AppText>
+                    <AppText style={styles.badgeText}>{numberPlate}</AppText>
                 </View>
 
                 <View>
                     <View style={styles.row}>
                         <AppText style={styles.capLabel}>CAP: </AppText>
-                        <AppText style={styles.capStrike}>£{capStrike.toLocaleString()}</AppText>
+                        <AppText style={styles.capStrike}>£{cap.toLocaleString()}</AppText>
                     </View>
                     <View style={styles.row}>
                         {/* <AppText style={styles.capLabel}></AppText> */}

@@ -83,7 +83,6 @@ export const vehicleData = [
         showDamageReport: true,
       },
     },
-    // ... (continues for other vehicles up to id: '11')
   ];
   export const nearbyCarsData = [
     {
