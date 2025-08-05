@@ -132,7 +132,10 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
     if (!car) return null;
 
     const statusStyles = getStatusStyles(car?.status);
-
+    const onAcceptNewOffer = () => {
+        setShowNewOfferReceived(false);
+        triggerNotificationPopup("Offer Accepted!", "You have accepted the new offer from John Jacobson.");
+    };
     return (
         <Portal>
             {visible && (
@@ -304,9 +307,9 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
             />
             <NewOfferReceived
                 visible={showNewOfferReceived}
-                onDecline={() => { }}
+                onDecline={() => setShowDeclineConfirm(true)}
                 onCounter={() => { }}
-                onAccept={() => { }}
+                onAccept={() => onAcceptNewOffer()}
                 onDecideLater={() => { }}
                 onDismiss={() => setShowNewOfferReceived(false)}
                 car={car}
