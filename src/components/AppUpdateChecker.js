@@ -35,7 +35,6 @@ const AppUpdateChecker = () => {
       const latestVersion = updateInfo.latestVersion;
       const currentVersion = updateInfo.currentVersion;
       const storeUrl = updateInfo.storeUrl;
-      console.log("updateInfo:", DeviceInfo.getApiLevel());
 
       const resultCompared = compareVersions(currentVersion, latestVersion);
       // ✅ Only prompt if App Store version is newer

@@ -11,9 +11,9 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import AppTouchable from '../../../components/AppTouchable'
 import AppFlatList from '../../../components/AppFlatList'
 import SellCarCardItem from './SellCarCardItem'
-import PurchaseRequestPortal from '../../../components/PurchaseRequestPortal'
 import { listings } from './data'
 import { styles } from './SellCarsListStyles'
+import VehicleDetailsPortal from '../Portals/VehicleDetailsPortal'
 
 const SellCarsList = ({ navigation }) => {
     const [visibleCarDetails, setVisibleCarDetails] = useState(false);
@@ -68,7 +68,7 @@ const SellCarsList = ({ navigation }) => {
                     contentContainerStyle={{ paddingBottom: 200, }}
                 />
             </View>
-            <PurchaseRequestPortal
+            <VehicleDetailsPortal
                 visible={visibleCarDetails}
                 onDismiss={() => setVisibleCarDetails(false)}
                 car={selectedCar}
