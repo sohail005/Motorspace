@@ -19,7 +19,10 @@ export const AppColors = {
     lightGary: '#F6F6F6',
     textMuted: '#A9A9A9',
     heading: '#2E3192',
-    link: '#5081FF',             // Blue for links
+    link: '#5081FF',  
+    pricebg:"#E4EBFF80",
+    blueeBg:"#E4EBFF",    
+    offerReceivedBackground:'#E0F4E9',       // Blue for links
     errorText: '#FF1D25',        // Error red
     notificationbg: '#DE8484',
     // Status Colors

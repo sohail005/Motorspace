@@ -319,5 +319,6 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         height: DimensionsUtil.SCREEN_WIDTH / 9,
         textAlignVertical: 'center',
-    }
+    },
+    
 });

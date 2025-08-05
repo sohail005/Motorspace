@@ -21,6 +21,7 @@ import PurchaseNotificationPopup from './PurchaseNotificationPopup';
 
 import { AppColors } from '../../../constants/colors';
 import { styles } from './VehicleDetailsPortalStyles';
+import NewOfferReceived from './NewOfferReceived';
 
 const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSent, ConfirmPurchase }) => {
     const opacity = useSharedValue(0);
@@ -37,6 +38,31 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
     const [notificationMessage, setNotificationMessage] = useState('');
     const [isOfferDeclined, setIsOfferDeclined] = useState(false);
     const [isOfferAccepted, setIsOfferAccepted] = useState(false);
+
+    const [showNewOfferReceived, setShowNewOfferReceived] = useState(false);
+    useEffect(() => {
+        if (visible) {
+            // Reset all internal states when modal opens
+            setOfferVisible(false);
+            setShowConfirmModal(false);
+            setShowPurchasePopup(false);
+            setShowDeclineConfirm(false);
+            setShowNotificationpoup(false);
+            setShowNewOfferReceived(false);
+            setNotificationTittle('');
+            setNotificationMessage('');
+            setIsOfferDeclined(false);
+            setIsOfferAccepted(false);
+
+            // Trigger entrance animation
+            opacity.value = withTiming(1, { duration: 300, easing: Easing.out(Easing.ease) });
+            scale.value = withTiming(1, { duration: 300, easing: Easing.out(Easing.ease) });
+        } else {
+            // Trigger exit animation
+            opacity.value = withTiming(0, { duration: 200 });
+            scale.value = withTiming(0.9, { duration: 200 });
+        }
+    }, [visible]);
 
     useEffect(() => {
         if (visible) {
@@ -88,7 +114,24 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
         navigation.navigate(screen, { car });
     };
 
+    const getStatusStyles = (status = '') => {
+        if (status === 'INCOMING OFFER') {
+            return {
+                pillBackground: AppColors.blueeBg,
+                pillTextColor: AppColors.link,
+                priceColor: AppColors.link,
+            };
+        }
+        return {
+            pillBackground: AppColors.offerReceivedBackground || '#E0F4E9',
+            pillTextColor: AppColors.quickbuy || '#1E824C',
+            priceColor: AppColors.quickbuy || '#1E824C',
+        };
+    };
+
     if (!car) return null;
+
+    const statusStyles = getStatusStyles(car?.status);
 
     return (
         <Portal>
@@ -127,14 +170,18 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
 
                                 {/* Status */}
                                 <View style={styles.statusRow}>
-                                    <AppText style={styles.statusLabel}>Status: <AppText style={styles.statusValue}>{car.status || 'PURCHASE REQUEST'}</AppText></AppText>
-                                    <AppText style={[styles.price, { color: car.status === 'PURCHASE REQUEST' ? AppColors.quickbuy : AppColors.textPrimary }]}>{car.price}</AppText>
+                                    <AppText style={styles.statusLabel}>
+                                        Status: <AppText style={[styles.statusValue, { color: statusStyles.pillTextColor }]}>{car.status || 'PURCHASE REQUEST'}</AppText>
+                                    </AppText>
+                                    <AppText style={[styles.price, { color: statusStyles.priceColor }]}>{car.price}</AppText>
                                 </View>
 
                                 {!isOfferDeclined && (
-                                    <View style={styles.statusPill}>
-                                        <AppText style={styles.statusPillText}>PURCHASE REQUEST RECEIVED </AppText>
-                                        <AppText style={styles.timestamp}>(2:28)</AppText>
+                                    <View style={[styles.statusPill, { backgroundColor: statusStyles.pillBackground, borderColor: statusStyles.pillTextColor }]}>
+                                        <AppText style={[styles.statusPillText, { color: statusStyles.pillTextColor }]}>
+                                            {car.status === 'INCOMING OFFER' ? 'INCOMING OFFER PENDING' : 'PURCHASE REQUEST RECEIVED'}
+                                        </AppText>
+                                        <AppText style={[styles.timestamp, { color: statusStyles.pillTextColor }]}>(3:59)</AppText>
                                     </View>
                                 )}
 
@@ -174,7 +221,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                                 <SellerInfo label="Email Address" value={car.dealer?.email} />
 
                                 {/* Conditional Bottom Buttons */}
-                                {openedFromHome && !isOfferDeclined && !isOfferAccepted && car?.status != "INCOMING OFFER" && (
+                                {openedFromHome && !isOfferDeclined && !isOfferAccepted && car?.status !== "INCOMING OFFER" && (
                                     <View style={styles.bottomButtonContainer}>
                                         <AppTouchable onPress={() => setShowDeclineConfirm(true)} style={styles.declineOffer}>
                                             <AppText style={styles.sendOfferText}>Decline Offer</AppText>
@@ -209,6 +256,17 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                                         </AppTouchable>
                                     </View>
                                 )}
+                                {car.status === 'INCOMING OFFER' && !isOfferDeclined &&
+                                    <View style={styles.offerDeclineButtonsContainer}>
+                                        <AppTouchable onPress={() => setShowDeclineConfirm(true)} style={styles.declineOffer}>
+                                            <AppText style={styles.ReportanIssueButtonText}>Decline Offer</AppText>
+                                        </AppTouchable>
+                                        <AppTouchable onPress={() => setShowNewOfferReceived(true)}
+                                            style={[styles.viewOffer, { backgroundColor: AppColors.link }]}>
+                                            <AppText style={styles.CompleteSaleButtontext}>View Offer</AppText>
+                                        </AppTouchable>
+                                    </View>
+                                }
                             </ScrollView>
                         </Animated.View>
                     </Modal>
@@ -243,6 +301,17 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                 onDismiss={() => setShowDeclineConfirm(false)}
                 onDecline={handleDeclineConfirmed}
                 onGoBack={() => setShowDeclineConfirm(false)}
+            />
+            <NewOfferReceived
+                visible={showNewOfferReceived}
+                onDecline={() => { }}
+                onCounter={() => { }}
+                onAccept={() => { }}
+                onDecideLater={() => { }}
+                onDismiss={() => setShowNewOfferReceived(false)}
+                car={car}
+                userPrice={25559}
+                offerPrice={24650}
             />
         </Portal>
     );
