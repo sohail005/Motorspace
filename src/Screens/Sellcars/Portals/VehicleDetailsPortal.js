@@ -22,6 +22,7 @@ import PurchaseNotificationPopup from './PurchaseNotificationPopup';
 import { AppColors } from '../../../constants/colors';
 import { styles } from './VehicleDetailsPortalStyles';
 import NewOfferReceived from './NewOfferReceived';
+import ArchiveListingPortal from './ArchiveListingPortal';
 
 const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSent, ConfirmPurchase }) => {
     const opacity = useSharedValue(0);
@@ -43,6 +44,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
     const [showNewOfferReceived, setShowNewOfferReceived] = useState(false);
     const [counterOfferSent, setCounterOfferSent] = useState(false);
     const [newAcceptOffer, setNewAcceptOffer] = useState(false);
+    const [showArchivePortal, setShowArchivePortal] = useState(false);
 
     useEffect(() => {
         if (visible) {
@@ -266,7 +268,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                                         <AppTouchable onPress={() => setShowDeclineConfirm(true)} style={styles.EditDetailsButton}>
                                             <AppText style={styles.EditDetailsButtonText}>Edit Details</AppText>
                                         </AppTouchable>
-                                        <AppTouchable onPress={() => { }} style={styles.ArchiveListingButton}>
+                                        <AppTouchable onPress={() => setShowArchivePortal(true)} style={styles.ArchiveListingButton}>
                                             <AppText style={styles.ArchiveListingButtontext}>Archive Listing</AppText>
                                         </AppTouchable>
                                         <AppTouchable onPress={() => { }} style={styles.deleteButton}>
@@ -349,6 +351,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
             />
 
             <OffferConfirmationPortal
+                title={car.status === 'INCOMING OFFER' ? "Decline Offer?" : "Decline Purchase?"}
                 visible={showDeclineConfirm}
                 onDismiss={() => setShowDeclineConfirm(false)}
                 onDecline={handleDeclineConfirmed}
@@ -366,6 +369,14 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                 car={car}
                 userPrice={25559}
                 offerPrice={24650}
+            />
+            <ArchiveListingPortal
+                visible={showArchivePortal}
+                onDismiss={() => setShowArchivePortal(false)}
+                onConfirm={() => {
+                    // perform archive logic here
+                    setShowArchivePortal(false);
+                }}
             />
         </Portal>
     );

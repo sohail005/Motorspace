@@ -141,6 +141,7 @@ const NewOfferReceived = ({
                 </KeyboardAvoidingView>
             </Modal>
             <OffferConfirmationPortal
+                title="Accept Offer?"
                 visible={showAcceptConfirmationportal}
                 onGoBack={() => setAcceptConfirmationportal(false)}
                 openedFromAcceptOffer={true}

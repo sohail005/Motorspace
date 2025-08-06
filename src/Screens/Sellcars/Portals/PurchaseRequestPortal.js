@@ -56,6 +56,7 @@ const PurchaseRequestPortal = ({
                 </View>
             </Modal>
             <OffferConfirmationPortal
+                title="Accept Purchase?"
                 visible={showAcceptConfirmationportal}
                 onGoBack={() => setAcceptConfirmationportal(false)}
                 openedFromAcceptOffer={true}

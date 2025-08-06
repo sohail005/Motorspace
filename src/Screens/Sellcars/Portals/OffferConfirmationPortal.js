@@ -9,6 +9,7 @@ import { Fonts } from '../../../constants/Fonts';
 import DimensionsUtil from '../../../constants/Dimensions';
 
 const OffferConfirmationPortal = ({
+  title,
   visible,
   onDismiss,
   onDecline,
@@ -16,7 +17,6 @@ const OffferConfirmationPortal = ({
   openedFromAcceptOffer = false,
   onAccept,
 }) => {
-  console.log('OffferConfirmationPortal rendered with openedFromAcceptOffer:', openedFromAcceptOffer);
   
   return (
     <Portal>
@@ -26,7 +26,7 @@ const OffferConfirmationPortal = ({
         contentContainerStyle={styles.modal}
         style={styles.overlay}
       >
-        <AppText style={[styles.title, { color: openedFromAcceptOffer ? AppColors.quickbuy : AppColors.redLabel }]}>{openedFromAcceptOffer ? 'Accept Purchase?' : 'Decline Purchase?'}</AppText>
+        <AppText style={[styles.title, { color: openedFromAcceptOffer ? AppColors.quickbuy : AppColors.redLabel }]}>{title}</AppText>
 
         {openedFromAcceptOffer ?
           <AppText style={styles.message}>
