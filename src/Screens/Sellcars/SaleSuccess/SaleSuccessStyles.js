@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
   scrollContainer: {
     padding: 20,
     alignItems: 'center',
+    paddingBottom: 150, // Ensure enough space for the footer
   },
   imaegContainer: {
     marginTop: 20,

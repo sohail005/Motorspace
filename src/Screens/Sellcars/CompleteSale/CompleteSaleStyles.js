@@ -1,8 +1,8 @@
-import { StyleSheet } from "react-native";
-import { AppColors } from "../../../constants/colors";
-import { FontSizes } from "../../../constants/fontsizes";
-import { Fonts } from "../../../constants/Fonts";
-import DimensionsUtil from "../../../constants/Dimensions";
+import { StyleSheet } from 'react-native';
+import { AppColors } from '../../../constants/colors';
+import { FontSizes } from '../../../constants/fontsizes';
+import { Fonts } from '../../../constants/Fonts';
+import DimensionsUtil from '../../../constants/Dimensions';
 
 export const styles = StyleSheet.create({
   container: {
@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
   },
   scrollContainer: {
     padding: 25,
+    paddingBottom: 200, // Ensure enough space for the footer
   },
   title: {
     fontSize: FontSizes.ultra,
@@ -135,19 +136,29 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     width: DimensionsUtil.SCREEN_WIDTH / 2.3,
-
   },
   emailText: {
     color: AppColors.white,
     fontFamily: Fonts.bold,
     fontSize: FontSizes.medium,
   },
+  proceedButtonContainer: {
+    marginTop: 20,
+    marginBottom: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // flex: 1,
+    width: DimensionsUtil.SCREEN_WIDTH, // Adjusted for better fit
+    alignSelf: 'center',
+  },
   proceedButton: {
+    // flex:1,
+    width: DimensionsUtil.SCREEN_WIDTH / 1.2,
     backgroundColor: AppColors.quickbuy,
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: 'center',
-    marginTop: 30,
+    // marginTop: 30,
   },
   proceedText: {
     color: AppColors.white,

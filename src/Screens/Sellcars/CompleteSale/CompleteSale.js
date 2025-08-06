@@ -87,9 +87,11 @@ const CompleteSale = () => {
         </View>
 
         {/* Proceed Button */}
+        <View style={styles.proceedButtonContainer}>
         <AppTouchable onPress={() => OnProceedClcik()} style={styles.proceedButton}>
           <AppText style={styles.proceedText}>Proceed</AppText>
         </AppTouchable>
+        </View>
       </ScrollView>
       <FinaliseSalePortal
         visible={showFinalisePortal}
