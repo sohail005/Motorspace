@@ -247,6 +247,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         height: 50,
         width: DimensionsUtil.SCREEN_WIDTH / 1.4,
+        marginBottom: 16, // Add some space below the input
     },
     prefix: {
         fontSize: FontSizes.jumbo,
