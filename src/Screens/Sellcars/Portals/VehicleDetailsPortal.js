@@ -151,7 +151,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                         <Animated.View style={[styles.modalContainer, animatedStyle]}>
                             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
                                 {/* Header */}
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between'}}>
                                     <AppText style={styles.title}>{car.title}</AppText>
                                     <AppTouchable onPress={onDismiss}>
                                         <Icon name="close-outline" size={32} color={AppColors.textSecondary} />
