@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, TouchableWithoutFeedback, Platform, Keyboard } from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView, TouchableWithoutFeedback, Platform, Keyboard, TextInput } from 'react-native';
 import { Modal, Portal, Text } from 'react-native-paper';
 import AppText from '../../../components/AppText';
 import AppTouchable from '../../../components/AppTouchable';
@@ -63,13 +63,18 @@ const NewOfferReceived = ({
                             {showCounterOffer && (
                                 <>
                                     <AppText style={[styles.priceLabel, { marginTop: 16 }]}>Your Counter-Offer:</AppText>
-                                    <AppInput
-                                        value={counterOfferValue}
-                                        onChangeText={setCounterOfferValue}
-                                        keyboardType="numeric"
-                                        style={styles.counterOfferPriceInput}
-                                        inputStyle={styles.counterOfferPriceInputtext}
-                                    />
+                                    <View style={styles.inputWithPrefix}>
+                                        <AppText style={styles.prefix}>£</AppText>
+                                        <TextInput
+                                            value={counterOfferValue}
+                                            onChangeText={setCounterOfferValue}
+                                            keyboardType="numeric"
+                                            placeholder="0"
+                                            placeholderTextColor={AppColors.grayOverlay}
+                                            style={styles.counterOfferPriceInputtext}
+                                        />
+                                    </View>
+
                                     <AppText style={styles.subtitle}>
                                         <Text style={styles.bold}>Please note:</Text> If your counter-offer is accepted, an invoice containing the newly-agreed price will be sent to the buyer.
                                     </AppText>
@@ -231,23 +236,35 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: Fonts.semiBold,
     },
-    counterOfferPriceInput: {
-        flex: 1,
-        marginTop: 8,
-        marginBottom: 20,
-        width: DimensionsUtil.SCREEN_WIDTH / 1.4,
-        backgroundColor: AppColors.white,
-        height: 50,
-        fontSize: FontSizes.xxxLarge,
-    },
-    counterOfferPriceInputtext: {
-        fontSize: FontSizes.large,
-        color: AppColors.textPrimary,
-        // fontFamily: Fonts.bold,
-        textAlignVertical: 'center',
-        paddingLeft: 10,
-            
-    }
+    inputWithPrefix: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  backgroundColor: AppColors.white,
+  height: 80,
+  borderRadius: 8,
+  borderWidth: 1,
+  borderColor: AppColors.borderColor,
+  paddingHorizontal: 12,
+  marginTop: 8,
+  marginBottom: 20,
+  width: DimensionsUtil.SCREEN_WIDTH / 1.4,
+},
+
+prefix: {
+  fontSize: FontSizes.jumbo,
+  color: AppColors.textPrimary,
+  marginRight: 4,
+},
+
+counterOfferPriceInputtext: {
+  flex: 1,
+  fontSize: FontSizes.jumbo,
+  color: AppColors.textPrimary,
+  paddingLeft: 4,
+  textAlignVertical: 'center',
+},
+
+
 });
 
 export default NewOfferReceived;
