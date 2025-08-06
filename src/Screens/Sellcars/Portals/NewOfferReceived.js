@@ -69,7 +69,7 @@ const NewOfferReceived = ({
                                             value={counterOfferValue}
                                             onChangeText={setCounterOfferValue}
                                             keyboardType="numeric"
-                                            placeholder="0"
+                                            placeholder="00.00"
                                             placeholderTextColor={AppColors.grayOverlay}
                                             style={styles.counterOfferPriceInputtext}
                                         />
@@ -267,8 +267,8 @@ const styles = StyleSheet.create({
         height: 50, // required for vertical alignment
         fontFamily: Fonts.bold,
         includeFontPadding: false, // Optional: better vertical centering on Android
-        paddingVertical: 0, 
-        borderTopWidth:1   ,    // Optional: avoid extra vertical spacing,
+        paddingVertical: 0,
+        borderTopWidth: 1,    // Optional: avoid extra vertical spacing,
         borderBottomWidth: 1, // Optional: avoid extra vertical spacing
         borderColor: AppColors.borderColor,
     },
