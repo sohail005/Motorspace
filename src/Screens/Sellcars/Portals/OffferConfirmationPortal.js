@@ -16,6 +16,8 @@ const OffferConfirmationPortal = ({
   openedFromAcceptOffer = false,
   onAccept,
 }) => {
+  console.log('OffferConfirmationPortal rendered with openedFromAcceptOffer:', openedFromAcceptOffer);
+  
   return (
     <Portal>
       <Modal

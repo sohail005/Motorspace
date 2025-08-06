@@ -33,6 +33,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
     const [showPurchasePopup, setShowPurchasePopup] = useState(false);
     const [showDeclineConfirm, setShowDeclineConfirm] = useState(false);
     const [showNotificationpoup, setShowNotificationpoup] = useState(false);
+    const [acceptOffer, setAcceptOffer] = useState(false);
 
     const [notificationTittle, setNotificationTittle] = useState('');
     const [notificationMessage, setNotificationMessage] = useState('');
@@ -40,6 +41,9 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
     const [isOfferAccepted, setIsOfferAccepted] = useState(false);
 
     const [showNewOfferReceived, setShowNewOfferReceived] = useState(false);
+    const [counterOfferSent, setCounterOfferSent] = useState(false);
+    const [newAcceptOffer, setNewAcceptOffer] = useState(false);
+
     useEffect(() => {
         if (visible) {
             // Reset all internal states when modal opens
@@ -132,9 +136,25 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
     if (!car) return null;
 
     const statusStyles = getStatusStyles(car?.status);
-    const onAcceptNewOffer = () => {
+    const onAcceptNewOffer = (data) => {
+        setNewAcceptOffer(true);
         setShowNewOfferReceived(false);
         triggerNotificationPopup("Offer Accepted!", "You have accepted the new offer from John Jacobson.");
+    };
+    const onAcceptOffer = (data) => {
+        setAcceptOffer(true);
+        setShowDeclineConfirm(false);
+        triggerNotificationPopup("Offer Accepted!", "You have accepted the offer from Shark Fin Motors.");
+        setShowNewOfferReceived(false);
+    };
+    const onCounterOffer = () => {
+        setCounterOfferSent(true);
+        setShowNewOfferReceived(false);
+        triggerNotificationPopup("Counter Offer Sent!", "You have sent a counter offer to John Jacobson.");
+    };
+    const onOfferDeclined = () => {
+        setShowDeclineConfirm(true)
+        setShowNewOfferReceived(false);
     };
     return (
         <Portal>
@@ -151,7 +171,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                         <Animated.View style={[styles.modalContainer, animatedStyle]}>
                             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
                                 {/* Header */}
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                     <AppText style={styles.title}>{car.title}</AppText>
                                     <AppTouchable onPress={onDismiss}>
                                         <Icon name="close-outline" size={32} color={AppColors.textSecondary} />
@@ -224,7 +244,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                                 <SellerInfo label="Email Address" value={car.dealer?.email} />
 
                                 {/* Conditional Bottom Buttons */}
-                                {openedFromHome && !isOfferDeclined && !isOfferAccepted && car?.status !== "INCOMING OFFER" && (
+                                {openedFromHome && !isOfferDeclined && !isOfferAccepted && car?.status !== "INCOMING OFFER" && !newAcceptOffer && (
                                     <View style={styles.bottomButtonContainer}>
                                         <AppTouchable onPress={() => setShowDeclineConfirm(true)} style={styles.declineOffer}>
                                             <AppText style={styles.sendOfferText}>Decline Offer</AppText>
@@ -259,7 +279,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                                         </AppTouchable>
                                     </View>
                                 )}
-                                {car.status === 'INCOMING OFFER' && !isOfferDeclined &&
+                                {car.status === 'INCOMING OFFER' && !isOfferDeclined && !counterOfferSent && !newAcceptOffer &&
                                     <View style={styles.offerDeclineButtonsContainer}>
                                         <AppTouchable onPress={() => setShowDeclineConfirm(true)} style={styles.declineOffer}>
                                             <AppText style={styles.ReportanIssueButtonText}>Decline Offer</AppText>
@@ -270,6 +290,29 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                                         </AppTouchable>
                                     </View>
                                 }
+                                {car.status === 'INCOMING OFFER' && counterOfferSent &&
+                                    <View style={styles.offerDeclineButtonsContainer}>
+                                        <AppTouchable onPress={() => setShowDeclineConfirm(true)} style={styles.declineOffer}>
+                                            <AppText style={styles.ReportanIssueButtonText}>Retract Offer</AppText>
+                                        </AppTouchable>
+                                        <AppTouchable onPress={() => setShowNewOfferReceived(true)}
+                                            style={[styles.viewOffer, { backgroundColor: AppColors.link }]}>
+                                            <AppText style={styles.CompleteSaleButtontext}>View Counter</AppText>
+                                        </AppTouchable>
+                                    </View>
+                                }
+                                {car.status === 'INCOMING OFFER' && newAcceptOffer &&
+                                    <View style={styles.offerDeclineButtonsContainer}>
+                                        <AppTouchable onPress={() => { }} style={styles.ReportanIssueButton}>
+                                            <AppText style={styles.ReportanIssueButtonText}>Report an Issue</AppText>
+                                        </AppTouchable>
+                                        <AppTouchable onPress={() => { }} style={styles.CompleteSaleButton}>
+                                            <AppText style={styles.CompleteSaleButtontext}>Complete Sale</AppText>
+                                        </AppTouchable>
+                                    </View>
+                                }
+
+
                             </ScrollView>
                         </Animated.View>
                     </Modal>
@@ -304,12 +347,14 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                 onDismiss={() => setShowDeclineConfirm(false)}
                 onDecline={handleDeclineConfirmed}
                 onGoBack={() => setShowDeclineConfirm(false)}
+                openedFromAcceptOffer={acceptOffer}
+                onAccept={onAcceptOffer}
             />
             <NewOfferReceived
                 visible={showNewOfferReceived}
-                onDecline={() => setShowDeclineConfirm(true)}
-                onCounter={() => { }}
-                onAccept={() => onAcceptNewOffer()}
+                onDecline={() => onOfferDeclined()}
+                onCounter={onCounterOffer}
+                onAccept={(data) => onAcceptNewOffer(data)}
                 onDecideLater={() => { }}
                 onDismiss={() => setShowNewOfferReceived(false)}
                 car={car}

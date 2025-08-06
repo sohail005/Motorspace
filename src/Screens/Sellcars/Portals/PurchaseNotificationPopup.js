@@ -19,7 +19,7 @@ const PurchaseNotificationPopup = ({
     message = '',
 }) => {
     const translateY = useSharedValue(-100);
-    const isAccepted = title.includes('Accepted');
+    const isAccepted = title.includes('Accepted') || title.includes('Sent');
     useEffect(() => {
         if (visible) {
             translateY.value = withTiming(0, {
@@ -51,7 +51,7 @@ const PurchaseNotificationPopup = ({
     if (!visible) return null;
 
     return (
-        <Animated.View style={[[styles.popupContainer,{backgroundColor:isAccepted?AppColors.popupbg:AppColors.notificationbg}], animatedStyle]}>
+        <Animated.View style={[[styles.popupContainer, { backgroundColor: isAccepted ? AppColors.popupbg : AppColors.notificationbg }], animatedStyle]}>
             <View style={styles.popupContent}>
                 <AppTouchable onPress={onClose}>
                     <FillterIcon name="x" size={24} color={AppColors.white} />

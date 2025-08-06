@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, KeyboardAvoidingView, TouchableWithoutFeedback, Platform, Keyboard, TextInput } from 'react-native';
 import { Modal, Portal, Text } from 'react-native-paper';
 import AppText from '../../../components/AppText';
@@ -8,6 +8,7 @@ import { AppColors } from '../../../constants/colors';
 import { Fonts } from '../../../constants/Fonts';
 import { FontSizes } from '../../../constants/fontsizes';
 import DimensionsUtil from '../../../constants/Dimensions';
+import OffferConfirmationPortal from './OffferConfirmationPortal';
 
 const NewOfferReceived = ({
     visible,
@@ -22,7 +23,14 @@ const NewOfferReceived = ({
 }) => {
     const [showCounterOffer, setShowCounterOffer] = useState(false);
     const [counterOfferValue, setCounterOfferValue] = useState('');
+    const [showAcceptConfirmationportal, setAcceptConfirmationportal] = useState(false);
 
+    useEffect(() => {
+        if (visible) {
+            setShowCounterOffer(false);
+            setCounterOfferValue('');
+        }
+    }, [visible]);
     const onCounterClicked = () => {
         if (!showCounterOffer) {
             setShowCounterOffer(true);
@@ -31,7 +39,15 @@ const NewOfferReceived = ({
             onDismiss();
         }
     };
-
+    const AcceptOffer = () => {
+        setAcceptConfirmationportal(true);
+    };
+    const handleAcceptConfirmed = () => {
+        setAcceptConfirmationportal(false)
+        setShowCounterOffer(false)
+        onDismiss()
+        onAccept(true)
+    }
     return (
         <Portal>
             <Modal visible={visible} onDismiss={onDismiss} contentContainerStyle={styles.modalContainer}>
@@ -54,7 +70,13 @@ const NewOfferReceived = ({
                                     <AppText style={styles.priceLabel}>Your Price:</AppText>
                                     <AppText style={styles.priceValue}>£{userPrice}</AppText>
                                 </View>
-                                <View style={styles.priceRow}>
+                                <View style={styles.devider} />
+                                <View style={[styles.priceRow, {
+                                    borderTopRightRadius: 0,
+                                    borderTopLeftRadius: 0,
+                                    borderBottomRightRadius: 12,
+                                    borderBottomLeftRadius: 12,
+                                }]}>
                                     <AppText style={[styles.priceLabel, { color: AppColors.link }]}>Incoming Offer:</AppText>
                                     <AppText style={[styles.priceValue, { color: AppColors.link }]}>£{offerPrice}</AppText>
                                 </View>
@@ -90,7 +112,7 @@ const NewOfferReceived = ({
                                     <AppTouchable onPress={onCounterClicked} style={styles.actionTouch}>
                                         <AppText style={styles.counterText}>Counter</AppText>
                                     </AppTouchable>
-                                    <AppTouchable onPress={onAccept} style={styles.actionTouch}>
+                                    <AppTouchable onPress={AcceptOffer} style={styles.actionTouch}>
                                         <AppText style={styles.acceptText}>Accept</AppText>
                                     </AppTouchable>
                                 </View>
@@ -103,7 +125,7 @@ const NewOfferReceived = ({
                                         onPress={onCounterClicked}
                                         style={[styles.sendOfferbutton, { borderBottomRightRadius: 16 }]}
                                     >
-                                        <AppText style={styles.counterText}>Counter Offer</AppText>
+                                        <AppText style={styles.counterText}>Send Offer</AppText>
                                     </AppTouchable>
                                 </View>
                             )}
@@ -117,6 +139,12 @@ const NewOfferReceived = ({
                     </TouchableWithoutFeedback>
                 </KeyboardAvoidingView>
             </Modal>
+            <OffferConfirmationPortal
+                visible={showAcceptConfirmationportal}
+                onGoBack={() => setAcceptConfirmationportal(false)}
+                openedFromAcceptOffer={true}
+                onAccept={handleAcceptConfirmed}
+            />
         </Portal >
     );
 };
@@ -161,21 +189,32 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     priceBox: {
-        backgroundColor: AppColors.pricebg,
         padding: 16,
         borderRadius: 12,
-        width: '95%',
-        marginBottom: 20,
+        width: '100%',
+        // alignItems: 'center',
     },
     priceRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 6,
+        alignItems: 'center',
+        backgroundColor: AppColors.pricebg,
+        paddingHorizontal: 40,
+        padding: 10,
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
+    },
+    devider: {
+        height: 1,
+        backgroundColor: AppColors.white,
+        width: DimensionsUtil.SCREEN_WIDTH / 1.3,
+        alignSelf: 'center',
     },
     priceLabel: {
         fontSize: FontSizes.medium,
         color: AppColors.textSecondary,
         fontFamily: Fonts.semiBold,
+        textAlignVertical: 'center', // Vertically centers the text within the row
     },
     priceValue: {
         fontSize: FontSizes.xLarge,

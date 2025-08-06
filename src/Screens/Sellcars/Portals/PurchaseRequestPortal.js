@@ -21,7 +21,7 @@ const PurchaseRequestPortal = ({
     const handleAcceptConfirmed = () => {
         setAcceptConfirmationportal(false)
         onDismiss()
-       onAccept(true)
+        onAccept(true)
     }
 
     return (
