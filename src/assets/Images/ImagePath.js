@@ -16,6 +16,6 @@ export const IMAGES = {
      NoDamage: require("../../assets/Images/NoDamage.png"),
      Damage: require("../../assets/Images/Damage.png"),
      CarsDamages: require("../../assets/Images/CarsDamages.png"),
-     
-     
+     warning: require("../../assets/Images/warning.png"),
+     successCelebration: require("../../assets/Images/celebration.png"),
 }

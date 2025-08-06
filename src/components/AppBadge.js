@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { AppColors } from '../constants/colors';
 import { FontSizes } from '../constants/fontsizes';
+import { Fonts } from '../constants/Fonts';
 
 const AppBadge = ({ text }) => {
   return (
@@ -16,15 +17,14 @@ export default AppBadge;
 const styles = StyleSheet.create({
   badge: {
     backgroundColor: AppColors.plateYellow,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
     borderRadius: 4,
-    alignSelf: 'flex-start',
     marginTop: 6,
   },
   badgeText: {
-    fontWeight: '900',
-    fontSize: FontSizes.medium,
-    color: '#000',
+    fontSize: FontSizes.xLarge,
+    color: AppColors.textPrimary,
+    fontFamily: Fonts.UKNumberPlate,
+    paddingHorizontal: 16,
+    paddingVertical: 10
   },
 });

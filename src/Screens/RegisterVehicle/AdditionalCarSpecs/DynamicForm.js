@@ -63,6 +63,7 @@ const DynamicForm = ({ sectionConfig, onSubmitForm, defaultValues = {} }) => {
 
               return (
                 <TextInput
+                 allowFontScaling={false}
                   style={[styles.input, errors[field.name] && styles.inputError]}
                   onBlur={onBlur}
                   cursorColor={AppColors.primary}

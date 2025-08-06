@@ -156,6 +156,12 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
         setShowDeclineConfirm(true)
         setShowNewOfferReceived(false);
     };
+
+
+    const OnCompleteSale = () => {
+        onDismiss();
+        navigation.navigate("CompleteSale", { car });
+    }
     return (
         <Portal>
             {visible && (
@@ -306,7 +312,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                                         <AppTouchable onPress={() => { }} style={styles.ReportanIssueButton}>
                                             <AppText style={styles.ReportanIssueButtonText}>Report an Issue</AppText>
                                         </AppTouchable>
-                                        <AppTouchable onPress={() => { }} style={styles.CompleteSaleButton}>
+                                        <AppTouchable onPress={() => OnCompleteSale()} style={styles.CompleteSaleButton}>
                                             <AppText style={styles.CompleteSaleButtontext}>Complete Sale</AppText>
                                         </AppTouchable>
                                     </View>

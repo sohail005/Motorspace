@@ -88,6 +88,7 @@ const NewOfferReceived = ({
                                     <View style={styles.inputWithPrefix}>
                                         <AppText style={styles.prefix}>£</AppText>
                                         <TextInput
+                                            allowFontScaling={false}
                                             value={counterOfferValue}
                                             onChangeText={setCounterOfferValue}
                                             keyboardType="numeric"

@@ -50,6 +50,7 @@ const AppInput = ({
                 )}
 
                 <TextInput
+                    allowFontScaling={false}
                     placeholder={placeholder}
                     placeholderTextColor={AppColors.grayOverlay}
                     cursorColor={AppColors.primary}

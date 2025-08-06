@@ -1,10 +1,9 @@
 // src/navigation/SellCarsStack.js
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import BuyCarsList from '../Screens/Buycars/BuyCarsList/BuyCarsList';
-import AdditionalInfo from '../Screens/Buycars/AdditionalInfo/AdditionalInfo';
-import BuyCarsDamageReport from '../Screens/Buycars/BuyCarsDamageReport/BuyCarsDamageReport';
 import SellCarsList from '../Screens/Sellcars/SellCars/SellCarsList';
+import CompleteSale from '../Screens/Sellcars/CompleteSale/CompleteSale';
+import SaleSuccess from '../Screens/Sellcars/SaleSuccess/SaleSuccess';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +15,16 @@ const SellCarsStack = () => {
                 component={SellCarsList}
                 options={{ headerShown: false }}
             />
-
+            <Stack.Screen
+                name="CompleteSale"
+                component={CompleteSale}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="SaleSuccess"
+                component={SaleSuccess}
+                options={{ headerShown: false }}
+            />
 
         </Stack.Navigator>
     );
