@@ -75,6 +75,7 @@ const NewOfferReceived = ({
                                         />
                                     </View>
 
+
                                     <AppText style={styles.subtitle}>
                                         <Text style={styles.bold}>Please note:</Text> If your counter-offer is accepted, an invoice containing the newly-agreed price will be sent to the buyer.
                                     </AppText>
@@ -238,36 +239,51 @@ const styles = StyleSheet.create({
     },
     inputWithPrefix: {
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'center', // ✅ Vertically centers the prefix and input
         backgroundColor: AppColors.white,
-        // height: 70,
-        borderRadius: 8,
         borderWidth: 1,
         borderColor: AppColors.borderColor,
+        borderRadius: 8,
         paddingHorizontal: 12,
-        marginTop: 8,
-        marginBottom: 20,
+        height: 50,
         width: DimensionsUtil.SCREEN_WIDTH / 1.4,
-        height: DimensionsUtil.SCREEN_WIDTH / 9,
-
     },
-
     prefix: {
         fontSize: FontSizes.jumbo,
         color: AppColors.textPrimary,
         marginRight: 4,
         fontFamily: Fonts.bold,
+        // remove textAlignVertical
     },
 
     counterOfferPriceInputtext: {
         flex: 1,
         fontSize: FontSizes.jumbo,
         color: AppColors.textPrimary,
+        backgroundColor: AppColors.white,
         paddingLeft: 4,
-        textAlignVertical: 'center',
+        textAlignVertical: 'center', // this works on Android
+        textAlign: 'left',
+        height: 50, // required for vertical alignment
         fontFamily: Fonts.bold,
+        includeFontPadding: false, // Optional: better vertical centering on Android
+        paddingVertical: 0, 
+        borderTopWidth:1   ,    // Optional: avoid extra vertical spacing,
+        borderBottomWidth: 1, // Optional: avoid extra vertical spacing
+        borderColor: AppColors.borderColor,
     },
+    inputWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: AppColors.white,
+        borderWidth: 1,
+        borderColor: AppColors.borderColor,
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        width: DimensionsUtil.SCREEN_WIDTH / 1.4,
+        height: 50,
+    },
+
 
 
 });
