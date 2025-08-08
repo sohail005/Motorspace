@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BuyCarsList from '../Screens/Buycars/BuyCarsList/BuyCarsList';
 import AdditionalInfo from '../Screens/Buycars/AdditionalInfo/AdditionalInfo';
 import BuyCarsDamageReport from '../Screens/Buycars/BuyCarsDamageReport/BuyCarsDamageReport';
+import SaleSuccessBuyer from '../Screens/Buycars/SaleSuccessBuyer/SaleSuccessBuyer';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +26,12 @@ const BuyCarsStack = () => {
         component={BuyCarsDamageReport}
         options={{ headerShown: false }}
       />
-      
+      <Stack.Screen
+        name="SaleSuccessBuyer"
+        component={SaleSuccessBuyer}
+        options={{ headerShown: false }}
+      />
+
     </Stack.Navigator>
   );
 };

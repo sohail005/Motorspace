@@ -16,8 +16,10 @@ import ConfirmQuickBuyPortal from './ConfirmQuickBuyPortal';
 import { defaultValues, nearbyCarsData, vehicleData } from './data';
 import SearchFilterBar from '../../../components/SearchFilterBar';
 import CarSection from '../../../components/CarSection';
+import { useNavigation } from '@react-navigation/native';
 
 const BuyCarsList = () => {
+  const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [filtersCount, setFiltersCount] = useState(0);
@@ -99,6 +101,10 @@ const BuyCarsList = () => {
     setPopupTitle("Purchase Request Sent!");
     setPopupContent("The seller has until 13:41 today to accept or decline your purchase.");
     triggerOfferSentPopup();
+    setTimeout(() => {
+    navigation.navigate('SaleSuccessBuyer'); // Assuming you want to navigate to Home after confirming purchase
+
+    }, 100);
   }
   const handleConfirmQuickBuy = () => {
     setShowConfirmQuickBuyModal(false)

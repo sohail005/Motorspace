@@ -23,6 +23,8 @@ import { AppColors } from '../../../constants/colors';
 import { styles } from './VehicleDetailsPortalStyles';
 import NewOfferReceived from './NewOfferReceived';
 import ArchiveListingPortal from './ArchiveListingPortal';
+import DeleteListingPortal from './DeleteListingPortal';
+import ReportIssuePortal from './ReportIssuePortal';
 
 const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSent, ConfirmPurchase }) => {
     const opacity = useSharedValue(0);
@@ -45,7 +47,8 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
     const [counterOfferSent, setCounterOfferSent] = useState(false);
     const [newAcceptOffer, setNewAcceptOffer] = useState(false);
     const [showArchivePortal, setShowArchivePortal] = useState(false);
-
+    const [showDeletePortal, setShowDeletePortal] = useState(false);
+    const [showReportModal, setShowReportModal] = useState(false);
     useEffect(() => {
         if (visible) {
             // Reset all internal states when modal opens
@@ -271,7 +274,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                                         <AppTouchable onPress={() => setShowArchivePortal(true)} style={styles.ArchiveListingButton}>
                                             <AppText style={styles.ArchiveListingButtontext}>Archive Listing</AppText>
                                         </AppTouchable>
-                                        <AppTouchable onPress={() => { }} style={styles.deleteButton}>
+                                        <AppTouchable onPress={() => setShowDeletePortal(true)} style={styles.deleteButton}>
                                             <Icon name="trash" size={32} color={AppColors.white} />
                                         </AppTouchable>
                                     </View>
@@ -282,7 +285,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                                         <AppTouchable onPress={() => { }} style={styles.ReportanIssueButton}>
                                             <AppText style={styles.ReportanIssueButtonText}>Report an Issue</AppText>
                                         </AppTouchable>
-                                        <AppTouchable onPress={() => { }} style={styles.CompleteSaleButton}>
+                                        <AppTouchable onPress={() => OnCompleteSale()} style={styles.CompleteSaleButton}>
                                             <AppText style={styles.CompleteSaleButtontext}>Complete Sale</AppText>
                                         </AppTouchable>
                                     </View>
@@ -300,7 +303,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                                 }
                                 {car.status === 'INCOMING OFFER' && counterOfferSent &&
                                     <View style={styles.offerDeclineButtonsContainer}>
-                                        <AppTouchable onPress={() => setShowDeclineConfirm(true)} style={styles.declineOffer}>
+                                        <AppTouchable onPress={() => setShowReportModal(true)} style={styles.declineOffer}>
                                             <AppText style={styles.ReportanIssueButtonText}>Retract Offer</AppText>
                                         </AppTouchable>
                                         <AppTouchable onPress={() => setShowNewOfferReceived(true)}
@@ -377,6 +380,21 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                     // perform archive logic here
                     setShowArchivePortal(false);
                 }}
+            />
+            <DeleteListingPortal
+                visible={showDeletePortal}
+                onDismiss={() => setShowDeletePortal(false)}
+                onConfirm={() => {
+                    // perform delete logic here
+                    setShowDeletePortal(false);
+                }}
+            />
+            <ReportIssuePortal
+                visible={showReportModal}
+                onDismiss={() => setShowReportModal(false)}
+                onCancelSale={() => { /* your logic */ }}
+                onReportBuyer={() => { /* your logic */ }}
+                onSupport={() => { /* your logic */ }}
             />
         </Portal>
     );

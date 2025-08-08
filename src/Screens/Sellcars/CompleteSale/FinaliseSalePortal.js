@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Linking } from 'react-native';
 import { Modal, Portal, Checkbox } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -10,12 +10,8 @@ import { AppColors } from '../../../constants/colors';
 import { Fonts } from '../../../constants/Fonts';
 import { FontSizes } from '../../../constants/fontsizes';
 import DimensionsUtil from '../../../constants/Dimensions';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
-import AppCircleCheckbox from '../../../components/AppCircleCheckbox';
-import AppImage from '../../../components/AppImage';
-import { IMAGES } from '../../../assets/Images/ImagePath';
 
-const FinaliseSalePortal = ({ visible, onDismiss, onFinalise }) => {
+const FinaliseSalePortal = ({ visible, onClose, onFinalise }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleLinkPress = () => {
@@ -25,29 +21,16 @@ const FinaliseSalePortal = ({ visible, onDismiss, onFinalise }) => {
   const handleFinalise = () => {
     if (isChecked) onFinalise();
   };
-  const translateY = useSharedValue(200); // start below screen
-
-  useEffect(() => {
-    if (visible) {
-      translateY.value = withTiming(0, { duration: 200 });
-    } else {
-      translateY.value = withTiming(200, { duration: 200 });
-    }
-  }, [visible]);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: translateY.value }],
-  }));
 
   return (
     <Portal>
       <Modal
         visible={visible}
-        onDismiss={onDismiss}
+        onDismiss={onClose}
         contentContainerStyle={styles.modalContainer}
       >
-        <Animated.View style={[styles.popupContent, animatedStyle]}>
-          <AppImage source={IMAGES.warning} style={styles.icon} />
+        <View style={styles.popupContent}>
+          <Icon name="warning" size={36} color={AppColors.warning} style={styles.icon} />
 
           <AppText style={styles.title}>Is Everything in Order?</AppText>
 
@@ -56,18 +39,18 @@ const FinaliseSalePortal = ({ visible, onDismiss, onFinalise }) => {
           </AppText>
 
           <View style={styles.checkboxRow}>
-            <AppCircleCheckbox
-              checked={isChecked}
+            <Checkbox
+              status={isChecked ? 'checked' : 'unchecked'}
               onPress={() => setIsChecked(prev => !prev)}
             />
             <AppText style={styles.termsText}>
               By ticking this, you agree to have read and acknowledged the Motorspace webapp's{' '}
+              <AppText style={styles.link} onPress={handleLinkPress}>
+                Terms & Conditions (click to read)
+              </AppText>
             </AppText>
-
           </View>
-          <AppText style={styles.link} onPress={handleLinkPress}>
-            Terms & Conditions (click to read)
-          </AppText>
+
           <AppTouchable
             onPress={handleFinalise}
             style={[styles.button, !isChecked && styles.disabledButton]}
@@ -75,20 +58,16 @@ const FinaliseSalePortal = ({ visible, onDismiss, onFinalise }) => {
           >
             <AppText style={styles.buttonText}>Finalise Sale</AppText>
           </AppTouchable>
-
-        </Animated.View>
-        {/* Proceed Button */}
-
+        </View>
       </Modal>
     </Portal>
-
   );
 };
 
 const styles = StyleSheet.create({
   modalContainer: {
-    marginHorizontal: 0,
-    marginTop: 'auto', // Pushes to bottom
+    position: 'absolute',
+    bottom: 0,
     width: '100%',
   },
 
@@ -96,18 +75,21 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.white,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    padding: 30,
+    padding: 24,
     alignItems: 'center',
-    width: '100%',
+    // Optional: add shadow if needed
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
 
   icon: {
     marginBottom: 12,
-    width: 50,
-    height: 50,
   },
   title: {
-    fontSize: FontSizes.xLarge,
+    fontSize: FontSizes.large,
     fontFamily: Fonts.bold,
     color: AppColors.textPrimary,
     textAlign: 'center',
@@ -116,16 +98,16 @@ const styles = StyleSheet.create({
   description: {
     textAlign: 'center',
     fontSize: FontSizes.medium,
-    color: AppColors.textPrimary,
+    color: AppColors.textSecondary,
     marginBottom: 20,
   },
   checkboxRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-
+    marginBottom: 24,
   },
   termsText: {
-    fontSize: FontSizes.smallMedium,
+    fontSize: FontSizes.small,
     color: AppColors.textSecondary,
     flex: 1,
     paddingLeft: 10,
@@ -133,28 +115,23 @@ const styles = StyleSheet.create({
   link: {
     color: AppColors.link,
     fontFamily: Fonts.bold,
-    fontSize: FontSizes.mediumLarge,
-
   },
   button: {
-    backgroundColor: AppColors.quickbuy,
+    backgroundColor: AppColors.successGreen,
     width: DimensionsUtil.SCREEN_WIDTH - 80,
-    height: DimensionsUtil.SCREEN_WIDTH / 9,
+    height: 50,
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
   },
   disabledButton: {
-    backgroundColor: AppColors.quickbuy,
-    opacity: 0.5,
+    backgroundColor: AppColors.disabledButton,
   },
   buttonText: {
     color: AppColors.white,
-    fontSize: FontSizes.mediumLarge,
+    fontSize: FontSizes.medium,
     fontFamily: Fonts.bold,
   },
-
 });
 
 export default FinaliseSalePortal;
