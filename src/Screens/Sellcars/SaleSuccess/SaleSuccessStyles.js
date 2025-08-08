@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 150, // Ensure enough space for the footer
   },
   imaegContainer: {
-    marginTop: 20,
+    marginTop: 80,
   },
   successImage: {
     width: 100,
@@ -35,11 +35,15 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 30,
   },
+
   receiptCard: {
-    width: '100%',
+    width: DimensionsUtil.SCREEN_WIDTH / 1.1,
     backgroundColor: AppColors.defaultBackground,
-    padding: 20,
+    // padding: 20,
     borderRadius: 15,
+  },
+  receiptCardMainContent: {
+    padding: 10,
   },
   receiptTitle: {
     fontSize: FontSizes.xxLarge,
@@ -116,13 +120,39 @@ export const styles = StyleSheet.create({
   backButton: {
     backgroundColor: AppColors.primary,
     paddingVertical: 16,
-    paddingHorizontal: 40,
+    paddingHorizontal: 10,
     borderRadius: 10,
     marginTop: 30,
+    width: (DimensionsUtil.SCREEN_WIDTH - 40) / 1.2
+  },
+  ContactSellerButton: {
+    backgroundColor: AppColors.buttonOrange,
+    paddingVertical: 16,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    marginTop: 30,
+    width: (DimensionsUtil.SCREEN_WIDTH - 40) / 2.5,
+
+  },
+  ContactSellerButtonText: {
+    color: AppColors.white,
+    fontFamily: Fonts.semiBold,
+    fontSize: FontSizes.large,
+    textAlign: 'center',
+
   },
   backButtonText: {
     color: AppColors.white,
     fontFamily: Fonts.semiBold,
     fontSize: FontSizes.large,
+    textAlign: 'center',
   },
+  buttonContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    width: '100%',
+    marginTop: 20,
+    gap: 10
+  }
 });
