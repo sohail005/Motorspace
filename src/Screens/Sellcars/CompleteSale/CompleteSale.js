@@ -10,7 +10,6 @@ import AppBadge from '../../../components/AppBadge';
 import FinaliseSalePortal from './FinaliseSalePortal';
 import { useNavigation } from '@react-navigation/native';
 
-
 const CompleteSale = () => {
   const navigation = useNavigation(); // Assuming you are using react-navigation
   const [showFinalisePortal, setShowFinalisePortal] = useState(false);
@@ -20,7 +19,7 @@ const CompleteSale = () => {
   }
   return (
     <View style={styles.container}>
-      <AppHeader rightIcon={IMAGES.home} />
+      <AppHeader leftIcon rightIcon={IMAGES.home} />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
 
         <AppText style={styles.title}>Complete Sale</AppText>
@@ -88,9 +87,9 @@ const CompleteSale = () => {
 
         {/* Proceed Button */}
         <View style={styles.proceedButtonContainer}>
-        <AppTouchable onPress={() => OnProceedClcik()} style={styles.proceedButton}>
-          <AppText style={styles.proceedText}>Proceed</AppText>
-        </AppTouchable>
+          <AppTouchable onPress={() => OnProceedClcik()} style={styles.proceedButton}>
+            <AppText style={styles.proceedText}>Proceed</AppText>
+          </AppTouchable>
         </View>
       </ScrollView>
       <FinaliseSalePortal

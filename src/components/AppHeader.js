@@ -7,20 +7,20 @@ import Icon from 'react-native-vector-icons/Octicons';
 import AppText from './AppText';
 import { FontSizes } from '../constants/fontsizes';
 import AppTouchable from './AppTouchable';
+import { useNavigation } from '@react-navigation/native';
 const AppHeader = ({
     title = 'MOTORSPACE',
     leftIcon,
     rightIcon,
-    onLeftPress = () => {
-        console.log('Left icon pressed');
-    },
+    onLeftPress,
     onRightPress = () => {
         console.log('Right icon pressed');
     },
 }) => {
-
+const navigation = useNavigation();
     const handleLeftPress = () => {
-        onLeftPress(); // can also add logic like navigation if needed
+        navigation.goBack();
+        //onLeftPress(); // can also add logic like navigation if needed
     };
 
     const handleRightPress = () => {

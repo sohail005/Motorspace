@@ -77,7 +77,7 @@ const SaleSuccessBuyer = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <AppHeader rightIcon={IMAGES.home} />
+            <AppHeader leftIcon rightIcon={IMAGES.home} />
             <View style={{}}>
                 <Zigzag color="#D2DDF7" />
             </View>
