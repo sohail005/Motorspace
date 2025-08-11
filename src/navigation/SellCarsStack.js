@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SellCarsList from '../Screens/Sellcars/SellCars/SellCarsList';
 import CompleteSale from '../Screens/Sellcars/CompleteSale/CompleteSale';
 import SaleSuccess from '../Screens/Sellcars/SaleSuccess/SaleSuccess';
+import ListMotorScreen from '../Screens/Sellcars/ListMotorforSale/ListedMotors.js/ListMotorScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,12 @@ const SellCarsStack = () => {
                 component={SaleSuccess}
                 options={{ headerShown: false }}
             />
+            <Stack.Screen
+                name="ListMotorScreen"
+                component={ListMotorScreen}
+                options={{ headerShown: false }}
+            />
+            
 
         </Stack.Navigator>
     );

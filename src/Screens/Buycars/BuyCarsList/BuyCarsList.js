@@ -102,7 +102,7 @@ const BuyCarsList = () => {
     setPopupContent("The seller has until 13:41 today to accept or decline your purchase.");
     triggerOfferSentPopup();
     setTimeout(() => {
-    navigation.navigate('SaleSuccessBuyer'); // Assuming you want to navigate to Home after confirming purchase
+      navigation.navigate('SaleSuccessBuyer'); // Assuming you want to navigate to Home after confirming purchase
 
     }, 100);
   }
@@ -172,8 +172,8 @@ const BuyCarsList = () => {
         />
         <View style={styles.topListConatiner}>
           {/* Search and fillter bar */}
-          <View style={{marginTop:20}}>
-          <SearchFilterBar onFilterPress={showModal} />
+          <View style={{ marginTop: 20 }}>
+            <SearchFilterBar onFilterPress={showModal} />
           </View>
           {/* showAppliedFillterContainer */}
           {(filtersCount > 0) &&

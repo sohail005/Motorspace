@@ -32,7 +32,7 @@ const SellCarsList = ({ navigation }) => {
                 {!listings.length > 0 &&
                     <View style={styles.mainContent}>
                         <AppTouchable
-                            onPress={() => navigation.navigate("InputVehicleRegistration")}
+                            onPress={() => navigation.navigate("ListMotorScreen")}
                             style={styles.addMotorButton}
                         >
                             <Icon name="add" size={32} color="white" />
@@ -55,7 +55,7 @@ const SellCarsList = ({ navigation }) => {
                                 <AppText style={styles.sectionTitle}>Active Listings</AppText>
                                 {listings.length > 0 &&
                                     <AppTouchable
-                                        onPress={() => navigation.navigate("InputVehicleRegistration")}
+                                        onPress={() => navigation.navigate("ListMotorScreen")}
                                         style={styles.addMotorButton}
                                     >
                                         <Icon name="add" size={32} color="white" />
