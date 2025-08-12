@@ -1,6 +1,5 @@
-// components/CarDetailSetpricePortal.js
-import React, { useEffect } from 'react';
-import { View, StyleSheet, TextInput } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, TextInput, Platform, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { Portal, Modal, Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Animated, {
@@ -22,15 +21,20 @@ const CarDetailSetpricePortal = ({ visible, onDismiss, car }) => {
     const scale = useSharedValue(0.95);
     const navigation = useNavigation();
 
+    // Price state
+    const [price, setPrice] = useState('');
+
     useEffect(() => {
         if (visible) {
+            // Prefill price from car data when opening
+            setPrice(car?.price?.toString() || '');
             opacity.value = withTiming(1, { duration: 300, easing: Easing.out(Easing.ease) });
             scale.value = withTiming(1, { duration: 300, easing: Easing.out(Easing.ease) });
         } else {
             opacity.value = withTiming(0, { duration: 200 });
             scale.value = withTiming(0.95, { duration: 200 });
         }
-    }, [visible]);
+    }, [visible, car]);
 
     const animatedStyle = useAnimatedStyle(() => ({
         opacity: opacity.value,
@@ -39,6 +43,11 @@ const CarDetailSetpricePortal = ({ visible, onDismiss, car }) => {
 
     if (!car) return null;
 
+    const handleNavigation = (screen) => {
+        onDismiss();
+        navigation.navigate(screen, { car });
+    };
+
     return (
         <Portal>
             <Modal
@@ -46,78 +55,98 @@ const CarDetailSetpricePortal = ({ visible, onDismiss, car }) => {
                 onDismiss={onDismiss}
                 contentContainerStyle={styles.modalContainer}
             >
-                <Animated.View style={[styles.card, animatedStyle]}>
-                    {/* Header */}
-                    <View style={styles.headerRow}>
-                        <View style={{ flex: 1 }}>
-                            <AppText style={styles.title}>{car.title}</AppText>
-                            <AppText style={styles.subtitle}>{car.variant}</AppText>
-                        </View>
-                        <AppTouchable onPress={onDismiss}>
-                            <Icon name="close-outline" size={30} color={AppColors.textSecondary} />
-                        </AppTouchable>
-                    </View>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                    keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
+                >
+                    <ScrollView
+                        contentContainerStyle={{ flexGrow: 1 }}
+                        keyboardShouldPersistTaps="handled"
+                        bounces={false}
+                    >
+                        <Animated.View style={[styles.card, animatedStyle]}>
+                            {/* Header */}
+                            <View style={styles.headerRow}>
+                                <View style={{ flex: 1 }}>
+                                    <AppText style={styles.title}>{car.title}</AppText>
+                                    <AppText style={styles.subtitle}>{car.variant}</AppText>
+                                </View>
+                                <AppTouchable onPress={onDismiss}>
+                                    <Icon name="close-outline" size={30} color={AppColors.textSecondary} />
+                                </AppTouchable>
+                            </View>
 
-                    {/* Plate & Condition */}
-                    <View style={styles.row}>
-                        <View style={styles.plateBox}>
-                            <AppText style={styles.plateText}>{car.numberPlate}</AppText>
-                        </View>
-                        <AppText style={styles.conditionText}>{car.condition}</AppText>
-                    </View>
+                            {/* Plate & Condition */}
+                            <View style={styles.row}>
+                                <View style={styles.plateBox}>
+                                    <AppText style={styles.plateText}>{car.numberPlate}</AppText>
+                                </View>
+                                <AppText style={styles.conditionText}>{car.condition}</AppText>
+                            </View>
 
-                    <Divider style={styles.divider} />
+                            <Divider style={styles.divider} />
 
-                    {/* Vehicle Info */}
-                    <AppText style={styles.sectionTitle}>Vehicle Information</AppText>
-                    {car.vehicleInfo && (
-                        <View style={styles.infoGrid}>
-                            <InfoItem label="Year" value={car.vehicleInfo.year} />
-                            <InfoItem label="Miles" value={car.vehicleInfo.miles} />
-                            <InfoItem label="Colour" value={car.vehicleInfo.color} />
-                            <InfoItem label="Fuel" value={car.vehicleInfo.fuel} />
-                            <InfoItem label="Engine" value={car.vehicleInfo.engine} />
-                            <InfoItem label="Trans" value={car.vehicleInfo.transmission} />
-                        </View>
-                    )}
+                            {/* Vehicle Info */}
+                            <AppText style={styles.sectionTitle}>Vehicle Information</AppText>
+                            {car.vehicleInfo && (
+                                <View style={styles.infoGrid}>
+                                    <InfoItem label="Year" value={car.vehicleInfo.year} />
+                                    <InfoItem label="Miles" value={car.vehicleInfo.miles} />
+                                    <InfoItem label="Colour" value={car.vehicleInfo.color} />
+                                    <InfoItem label="Fuel" value={car.vehicleInfo.fuel} />
+                                    <InfoItem label="Engine" value={car.vehicleInfo.engine} />
+                                    <InfoItem label="Trans" value={car.vehicleInfo.transmission} />
+                                </View>
+                            )}
 
-                    {/* Buttons Row */}
-                    <View style={styles.buttonRow}>
-                        <AppTouchable onPress={() => handleNavigation("AdditionalInfo")} style={styles.button}>
-                            <AppText style={styles.addionalInfoText}>Additional Information</AppText>
-                        </AppTouchable>
-                        <AppTouchable onPress={() => handleNavigation("BuyCarsDamageReport")} style={[styles.button, { backgroundColor: AppColors.primary }]}>
-                            <AppText style={styles.damageReportText}>Damage Report</AppText>
-                        </AppTouchable>
-                    </View>
+                            {/* Buttons Row */}
+                            <View style={styles.buttonRow}>
+                                <AppTouchable onPress={() => handleNavigation("AdditionalInfo")} style={styles.button}>
+                                    <AppText style={styles.addionalInfoText}>Additional Information</AppText>
+                                </AppTouchable>
+                                <AppTouchable onPress={() => handleNavigation("BuyCarsDamageReport")} style={[styles.button, { backgroundColor: AppColors.primary }]}>
+                                    <AppText style={styles.damageReportText}>Damage Report</AppText>
+                                </AppTouchable>
+                            </View>
 
-                    <Divider style={styles.divider} />
+                            <Divider style={styles.divider} />
 
-                    {/* Set Price */}
-                    <AppText style={styles.sectionTitle}>Set Price:</AppText>
-                    <View style={styles.priceRow}>
-                        <TextInput
-                            style={styles.priceInput}
-                            placeholder="Enter price"
-                            keyboardType="numeric"
-                        />
-                        <AppText style={styles.capText}>CAP: £{car.capValue}</AppText>
-                    </View>
+                            {/* Set Price */}
 
-                    {/* Bottom Buttons */}
-                    <View style={styles.bottomRow}>
-                        <AppTouchable style={styles.editButton}>
-                            <AppText style={styles.outlinedText}>Edit Details</AppText>
-                        </AppTouchable>
-                        <AppTouchable style={styles.submitButton}>
-                            <AppText style={styles.filledText}>Submit Listing</AppText>
-                        </AppTouchable>
-                    </View>
-                </Animated.View>
+                            <View style={styles.priceRow}>
+                                <AppText style={styles.sectionTitle}>Set Price:</AppText>
+                                <TextInput
+                                    allowFontScaling={false}
+                                    style={styles.priceInput}
+                                    placeholder="Enter price"
+                                    keyboardType="numeric"
+                                    cursorColor={AppColors.primary}
+                                    placeholderTextColor={AppColors.borderColor}
+                                    value={price}
+                                    onChangeText={setPrice}
+                                />
+                            </View>
+                            <AppText style={styles.capText}>CAP: {car.price}</AppText>
+
+                            {/* Bottom Buttons */}
+                            <View style={styles.bottomRow}>
+                                <AppTouchable style={styles.editButton}>
+                                    <AppText style={styles.outlinedText}>Edit Details</AppText>
+                                </AppTouchable>
+                                <AppTouchable style={styles.submitButton}>
+                                    <AppText style={styles.filledText}>Submit Listing</AppText>
+                                </AppTouchable>
+                            </View>
+                        </Animated.View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+
             </Modal>
         </Portal>
     );
 };
+
+
 
 const InfoItem = ({ label, value }) => (
     <View style={styles.infoItem}>
@@ -147,7 +176,7 @@ const styles = StyleSheet.create({
     },
     subtitle: {
         color: AppColors.Blue_Subtext,
-        fontSize: 14,
+        fontSize: FontSizes.medium,
     },
     row: {
         flexDirection: 'row',
@@ -174,7 +203,7 @@ const styles = StyleSheet.create({
         // marginHorizontal: 4,
         borderWidth: 1,
         borderColor: AppColors.primary,
-        // padding: 12,
+        padding: 12,
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
@@ -184,9 +213,9 @@ const styles = StyleSheet.create({
     addionalInfoText: { textAlign: 'center', color: AppColors.primary },
     damageReportText: { textAlign: 'center', color: AppColors.white },
     sectionTitle: {
-        fontFamily: Fonts.semiBold,
+        fontFamily: Fonts.bold,
         marginBottom: 6,
-        fontSize: FontSizes.large,
+        fontSize: FontSizes.xLarge,
     },
     divider: {
         marginVertical: 10,
@@ -213,7 +242,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginVertical: 8,
-        flex: 1,
     },
     outlinedButton: {
         borderWidth: 1,
@@ -227,6 +255,7 @@ const styles = StyleSheet.create({
     outlinedText: {
         color: AppColors.primary,
         fontFamily: Fonts.semiBold,
+        marginBottom: -4,
     },
     filledButton: {
         backgroundColor: AppColors.primary,
@@ -235,28 +264,36 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginLeft: 6,
+
     },
     filledText: {
         color: AppColors.white,
         fontFamily: Fonts.semiBold,
+        marginBottom: -4,
     },
     priceRow: {
         flexDirection: 'row',
         alignItems: 'center',
+        width: '100%',
+        justifyContent: 'space-between'
     },
     priceInput: {
+        color: AppColors.primary,
         borderWidth: 1,
         borderColor: AppColors.textSecondary,
         borderRadius: 8,
         paddingHorizontal: 10,
-        flex: 1,
+        fontSize: FontSizes.large,
         height: DimensionsUtil.SCREEN_WIDTH / 10,
-        marginRight: 10,
+        width: DimensionsUtil.SCREEN_WIDTH / 1.8,
+        fontWeight: '700'
     },
     capText: {
-        fontSize: FontSizes.medium,
+        fontSize: FontSizes.large,
         fontFamily: Fonts.semiBold,
-        color: AppColors.textGrey,
+        color: AppColors.gobackButton,
+        textAlign: 'right',
+        paddingTop: 15
     },
     bottomRow: {
         flexDirection: 'row',
@@ -271,6 +308,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginRight: 6,
+        minWidth: DimensionsUtil.SCREEN_WIDTH / 2.5,
     },
     submitButton: {
         backgroundColor: AppColors.quickbuy,
@@ -279,6 +317,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginLeft: 6,
+        minWidth: DimensionsUtil.SCREEN_WIDTH / 2.5,
     },
 });
 
