@@ -10,37 +10,43 @@ export const styles = StyleSheet.create({
     backgroundColor: AppColors.white,
   },
   scrollContainer: {
-    padding: 20,
-    alignItems: 'center',
+    // paddingHorizontal: 20,
+    // alignItems: 'center',
     paddingBottom: 150, // Ensure enough space for the footer
   },
   imaegContainer: {
     marginTop: 80,
+    alignItems: 'center'
   },
   successImage: {
     width: 100,
     height: 100,
-    marginVertical: 20,
+    marginTop: 10,
   },
   title: {
     fontSize: FontSizes.ultraLarge,
     fontFamily: Fonts.bold,
     color: AppColors.primary,
     textAlign: 'center',
+    lineHeight: FontSizes.ultraLarge + 15,
+    textDecorationLine: 'underline',
+    textDecorationColor: AppColors.buttonOrange // underline will be orange
   },
+  
   subtitle: {
     fontSize: FontSizes.xLarge,
     fontFamily: Fonts.bold,
     color: AppColors.primary,
     textAlign: 'center',
-    marginBottom: 30,
+    // marginBottom: 30,
   },
-
+ 
   receiptCard: {
     width: DimensionsUtil.SCREEN_WIDTH / 1.1,
     backgroundColor: AppColors.defaultBackground,
     // padding: 20,
     borderRadius: 15,
+    alignSelf: 'center'
   },
   receiptCardMainContent: {
     padding: 10,

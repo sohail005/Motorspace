@@ -6,6 +6,7 @@ export const AppColors = {
     buttonDisabled: '#727A96',      // Accent (used for buttons like "Continue")
     Blue_Subtext: "#7583B4",
     // Backgrounds & Surfaces
+    zigzagColor:"#D4DCF6",
     white: '#FFFFFF',
     lightGray: '#F7F7F7',
     borderColor: '#B6B6B6',

@@ -282,7 +282,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
 
                                 {isOfferAccepted && (
                                     <View style={styles.offerDeclineButtonsContainer}>
-                                        <AppTouchable onPress={() => { }} style={styles.ReportanIssueButton}>
+                                        <AppTouchable onPress={() => setShowReportModal(true)} style={styles.ReportanIssueButton}>
                                             <AppText style={styles.ReportanIssueButtonText}>Report an Issue</AppText>
                                         </AppTouchable>
                                         <AppTouchable onPress={() => OnCompleteSale()} style={styles.CompleteSaleButton}>
@@ -314,7 +314,7 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
                                 }
                                 {car.status === 'INCOMING OFFER' && newAcceptOffer &&
                                     <View style={styles.offerDeclineButtonsContainer}>
-                                        <AppTouchable onPress={() => { }} style={styles.ReportanIssueButton}>
+                                        <AppTouchable onPress={() => setShowReportModal(true)} style={styles.ReportanIssueButton}>
                                             <AppText style={styles.ReportanIssueButtonText}>Report an Issue</AppText>
                                         </AppTouchable>
                                         <AppTouchable onPress={() => OnCompleteSale()} style={styles.CompleteSaleButton}>

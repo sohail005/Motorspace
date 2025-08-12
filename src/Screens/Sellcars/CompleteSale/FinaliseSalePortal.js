@@ -28,6 +28,7 @@ const FinaliseSalePortal = ({ visible, onDismiss, onFinalise }) => {
   const translateY = useSharedValue(200); // start below screen
 
   useEffect(() => {
+    setIsChecked(false)
     if (visible) {
       translateY.value = withTiming(0, { duration: 200 });
     } else {

@@ -15,11 +15,13 @@ import { AppColors } from '../../../constants/colors';
 import { FontSizes } from '../../../constants/fontsizes';
 import { Fonts } from '../../../constants/Fonts';
 import DimensionsUtil from '../../../constants/Dimensions';
+import FinaliseSalePortal from '../CompleteSale/FinaliseSalePortal';
 
 const CarDetailSetpricePortal = ({ visible, onDismiss, car }) => {
     const opacity = useSharedValue(0);
     const scale = useSharedValue(0.95);
     const navigation = useNavigation();
+    const [showFinalisePortal, setShowFinalisePortal] = useState(false);
 
     // Price state
     const [price, setPrice] = useState('');
@@ -133,7 +135,7 @@ const CarDetailSetpricePortal = ({ visible, onDismiss, car }) => {
                                 <AppTouchable style={styles.editButton}>
                                     <AppText style={styles.outlinedText}>Edit Details</AppText>
                                 </AppTouchable>
-                                <AppTouchable style={styles.submitButton}>
+                                <AppTouchable onPress={() => setShowFinalisePortal(true)} style={styles.submitButton}>
                                     <AppText style={styles.filledText}>Submit Listing</AppText>
                                 </AppTouchable>
                             </View>
@@ -142,6 +144,16 @@ const CarDetailSetpricePortal = ({ visible, onDismiss, car }) => {
                 </KeyboardAvoidingView>
 
             </Modal>
+            <FinaliseSalePortal
+                visible={showFinalisePortal}
+                onDismiss={() => setShowFinalisePortal(false)}
+                onFinalise={() => {
+                    onDismiss()
+                    setShowFinalisePortal(false);
+                    navigation.navigate('MotorUpForSale'); // Navigate to SaleSuccess screen
+                    // handle finalise logic
+                }}
+            />
         </Portal>
     );
 };

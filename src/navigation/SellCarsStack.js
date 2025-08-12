@@ -5,6 +5,7 @@ import SellCarsList from '../Screens/Sellcars/SellCars/SellCarsList';
 import CompleteSale from '../Screens/Sellcars/CompleteSale/CompleteSale';
 import SaleSuccess from '../Screens/Sellcars/SaleSuccess/SaleSuccess';
 import ListMotorScreen from '../Screens/Sellcars/ListMotorforSale/ListedMotors.js/ListMotorScreen';
+import MotorUpForSale from '../Screens/Sellcars/ListMotorforSale/MotorUpForSale';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,11 @@ const SellCarsStack = () => {
             <Stack.Screen
                 name="ListMotorScreen"
                 component={ListMotorScreen}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="MotorUpForSale"
+                component={MotorUpForSale}
                 options={{ headerShown: false }}
             />
             

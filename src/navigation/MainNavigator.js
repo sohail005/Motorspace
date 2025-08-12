@@ -1,10 +1,10 @@
 // src/navigation/MainNavigator.js
 import React, { useState } from 'react';
 import CustomCurvedBottomBar from '../components/CustomCurvedBottomBar/CustomCurvedBottomBar'; // your component
-import BuycarsScreen from '../Screens/Buycars/BuycarsScreen';
-import HomeScreen from '../Screens/Home/HomeScreen';
-import SellcarsScreen from '../Screens/Sellcars/SellcarsScreen';
 import { IMAGES } from '../assets/Images/ImagePath';
+import BuyCarsStack from './BuyCarsStack';
+import SellCarsStack from './SellCarsStack';
+import MyMotorSpaceStack from './MyMotorSpaceStack';
 
 const MainNavigator = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -13,17 +13,17 @@ const MainNavigator = () => {
     {
       label: 'Buy Cars',
       icon: IMAGES.buycars,
-      component: <BuycarsScreen />,
+      component: <BuyCarsStack />,
     },
     {
       label: 'My Motorspace',
       icon: IMAGES.home,
-      component: <HomeScreen />,
+      component: <MyMotorSpaceStack />,
     },
     {
       label: 'Sell Cars',
       icon: IMAGES.sellcars,
-      component: <SellcarsScreen />,
+      component: <SellCarsStack />,
     },
   ];
 
