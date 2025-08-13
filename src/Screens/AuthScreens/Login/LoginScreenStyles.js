@@ -24,10 +24,9 @@ export const styles = StyleSheet.create({
     },
     loginHeading: {
         fontSize: FontSizes.ultraLarge,
-
         color: AppColors.primary,
         marginTop: DimensionsUtil.SCREEN_WIDTH / 4.5,
-        marginBottom: 24,
+        // marginBottom: 24,
         fontFamily: Fonts.bold,
 
     },
