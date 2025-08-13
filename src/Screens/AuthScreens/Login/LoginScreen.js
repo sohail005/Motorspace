@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  ScrollView,
 } from 'react-native';
 import AppImage from '../../../components/AppImage';
 import AppText from '../../../components/AppText';
@@ -80,6 +81,7 @@ const LoginScreen = () => {
         keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <ScrollView style={{flex:1}}>
           <View style={styles.container}>
             <Animated.View
               entering={ZoomIn.duration(500)}
@@ -137,6 +139,7 @@ const LoginScreen = () => {
               </View>
             </Animated.View>
           </View>
+          </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </SafeAreaView>
