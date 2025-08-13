@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import AppTouchable from '../../../components/AppTouchable';
 import AppText from '../../../components/AppText';
 import AppHeaderCommon from '../../../components/AppHeaderCommon';
@@ -7,47 +7,47 @@ import { AppColors } from '../../../constants/colors';
 import { styles } from './DamageDiagramScreenStyles';
 import ImageMarker from '../../../components/ImageMarker';
 import { useRoute } from '@react-navigation/native';
+import DamageDetected from './DamageDetected';
 
 const DamageDiagramScreen = ({ navigation }) => {
     const [damageLocated, setDamageLocated] = useState(false);
     const imageMarkerRef = useRef();
     const route = useRoute();
 
-    const {
-        imageSource,
-        initialMarker,
-        readOnly,
-        onComplete,
-    } = route.params || {};
+    const { imageSource, initialMarker, readOnly, onComplete } = route.params || {};
 
     const handleSubmit = async () => {
         if (imageMarkerRef.current) {
             const result = await imageMarkerRef.current.saveImage();
+
             if (result) {
                 console.log('Captured image at:', result.uri);
-                console.log('Marker at:', result.markerCoordinates);
-                route.params?.onComplete?.(true, result);
+                console.log('Marker coordinates:', result.markerCoordinates);
+                onComplete?.(true, result);
             } else {
                 console.log('No marker placed.');
-                route.params?.onComplete?.(false, null);
+                onComplete?.(false, null);
             }
         }
         navigation.goBack();
     };
 
-    const DamageMarked = (data) => {
-        console.log("Marker placed:", data);
-        setDamageLocated(data); // true or false
+    const handleDamageMarked = (isPlaced) => {
+        console.log('Marker placed:', isPlaced);
+        setDamageLocated(!!isPlaced);
     };
 
     return (
         <View style={styles.container}>
             <AppHeaderCommon title="" onLeftPress={navigation.goBack} />
+
             <View style={styles.containerContent}>
                 <AppText style={styles.heading}>Damage Diagram</AppText>
                 <AppText style={styles.subtitle}>
                     Pinch to zoom, and select the location of the damage.
                 </AppText>
+
+                <DamageDetected damageLocated={damageLocated} />
 
                 <View style={styles.ImageMarkerConatiner}>
                     <ImageMarker
@@ -55,37 +55,24 @@ const DamageDiagramScreen = ({ navigation }) => {
                         imageSource={imageSource}
                         initialMarker={initialMarker}
                         readOnly={readOnly}
-                        DamageMarked={DamageMarked}
+                        DamageMarked={handleDamageMarked}
                     />
                 </View>
-
-
             </View>
-            <View
-                style={[
-                    styles.badge,
-                    damageLocated ? styles.badgeLocated : styles.badgeNotLocated,
-                ]}
-            >
-                <AppText
+
+
+            <View style={styles.submitBtnConatiner}>
+                <AppTouchable
+                    onPress={handleSubmit}
                     style={[
-                        styles.badgeText,
-                        damageLocated ? styles.badgeTextLocated : styles.badgeTextNotLocated,
+                        styles.button,
+                        { backgroundColor: damageLocated ? AppColors.primary : AppColors.buttonDisabled },
                     ]}
+                // disabled={!damageLocated}
                 >
-                    {damageLocated ? '✖ Damage Located!' : 'No Damage Located'}
-                </AppText>
+                    <AppText style={styles.submitText}>Submit</AppText>
+                </AppTouchable>
             </View>
-            <AppTouchable
-                onPress={handleSubmit}
-                style={[
-                    styles.submitBtn,
-                    { backgroundColor: damageLocated ? AppColors.primary : AppColors.buttonDisabled },
-                ]}
-                disabled={!damageLocated}
-            >
-                <AppText style={styles.submitText}>Submit</AppText>
-            </AppTouchable>
         </View>
     );
 };

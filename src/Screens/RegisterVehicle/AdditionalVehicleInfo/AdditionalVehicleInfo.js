@@ -1,143 +1,128 @@
-import React, { useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import React from 'react';
+import { Keyboard, KeyboardAvoidingView, ScrollView, TouchableWithoutFeedback, View } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
 import AppHeaderCommon from '../../../components/AppHeaderCommon';
 import AppInput from '../../../components/AppInput';
 import AppText from '../../../components/AppText';
 import AppTouchable from '../../../components/AppTouchable';
 import { styles } from './AdditionalVehicleInfoStyles';
 
-const initialForm = {
-    mileage: '',
-    transmission: '',
-    engineSize: '',
-    driveType: '',
-    trim: '',
-    doors: '',
-    seats: '',
-    lastService: '',
-    mileageAtLastService: '',
-    fuelConsumption: '',
-    vehicleTax: '',
-    insuranceLevel: '',
-    previousOwners: '',
-    ulez: '',
-};
+// Validation schema
+const schema = yup.object().shape({
+    mileage: yup.number().typeError('Only numbers are allowed.').required('This field is required.'),
+    transmission: yup.string().required('This field is required.'),
+    engineSize: yup.number().typeError('Only numbers are allowed.').required('This field is required.'),
+    driveType: yup.string().required('This field is required.'),
+    trim: yup.string().required('This field is required.'),
+    doors: yup.number().typeError('Only numbers are allowed.').required('This field is required.'),
+    seats: yup.number().typeError('Only numbers are allowed.').required('This field is required.'),
+    lastService: yup.string().required('This field is required.'),
+    mileageAtLastService: yup.number().typeError('Only numbers are allowed.').required('This field is required.'),
+    fuelConsumption: yup.number().typeError('Only numbers are allowed.').required('This field is required.'),
+    vehicleTax: yup.number().typeError('Only numbers are allowed.').required('This field is required.'),
+    insuranceLevel: yup.number().typeError('Only numbers are allowed.').required('This field is required.'),
+    previousOwners: yup
+        .number()
+        .typeError('Only numbers are allowed.')
+        .nullable(),
+    ulez: yup.string().nullable(),
+});
 
-const numericFields = [
-    'mileage',
-    'engineSize',
-    'doors',
-    'seats',
-    'mileageAtLastService',
-    'fuelConsumption',
-    'vehicleTax',
-    'insuranceLevel',
-    'previousOwners',
+// Field configuration
+const fields = [
+    { name: 'mileage', label: 'Registered Mileage', required: true, type: 'number' },
+    { name: 'transmission', label: 'Transmission', required: true, type: 'text' },
+    { name: 'engineSize', label: 'Engine Size', required: true, type: 'number' },
+    { name: 'driveType', label: 'Drive Type', required: true, type: 'text' },
+    { name: 'trim', label: 'Trim', required: true, type: 'text' },
+    { name: 'doors', label: 'Doors', required: true, type: 'number' },
+    { name: 'seats', label: 'Seats', required: true, type: 'number' },
+    { name: 'lastService', label: 'Last Service', required: true, type: 'text' },
+    { name: 'mileageAtLastService', label: 'Mileage at Last Service', required: true, type: 'number' },
+    { name: 'fuelConsumption', label: 'Fuel Consumption', required: true, type: 'number' },
+    { name: 'vehicleTax', label: 'Vehicle Tax', required: true, type: 'number' },
+    { name: 'insuranceLevel', label: 'Insurance Level', required: true, type: 'number' },
+    { name: 'previousOwners', label: 'Number of Previous Owners', required: false, type: 'number' },
+    { name: 'ulez', label: 'ULEZ Compliant?', required: false, type: 'text' },
 ];
 
-const optionalFields = ['previousOwners', 'ulez'];
-
 const AdditionalVehicleInfo = ({ navigation }) => {
-    const [form, setForm] = useState(initialForm);
-    const [formErrors, setFormErrors] = useState({});
+    const { control, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: fields.reduce((acc, f) => ({ ...acc, [f.name]: '' }), {}),
+    });
 
-    const validateField = (field, value) => {
-        if (!optionalFields.includes(field) && !value.trim()) {
-            return 'This field is required.';
-        }
-        if (numericFields.includes(field) && value.trim() && !/^\d+(\.\d+)?$/.test(value)) {
-            return 'Only numbers are allowed.';
-        }
-        return '';
+    const onSubmit = (data) => {
+        console.log('Form submitted:', data);
+        navigation.navigate('AnyNotableDamage');
     };
 
-    const handleChange = (field, value) => {
-        setForm(prev => ({ ...prev, [field]: value }));
-        const error = validateField(field, value);
-        setFormErrors(prev => ({ ...prev, [field]: error }));
-    };
-
-    const validateForm = () => {
-        const errors = {};
-        Object.entries(form).forEach(([field, value]) => {
-            const error = validateField(field, value);
-            if (error) errors[field] = error;
-        });
-        setFormErrors(errors);
-        return Object.keys(errors).length === 0;
-    };
-
-    const handleSubmit = () => {
-        if (validateForm()) {
-            console.log('Form submitted:', form);
-            // Handle submit
-        } else {
-            navigation.navigate("AnyNotableDamage")
-        }
-    };
-
-    const renderInput = (field, label, required = true) => (
-        <View style={styles.inputWrapper}>
-            <AppInput
-                label={required ? `${label} *` : label}
-                placeholder={`Enter ${label}`}
-                value={form[field]}
-                onChangeText={(text) => handleChange(field, text)}
-                errorMessage={formErrors[field]}
+    const renderFields = (fieldList) =>
+        fieldList.map(({ name, label, required, type }) => (
+            <Controller
+                key={name}
+                control={control}
+                name={name}
+                render={({ field: { onChange, value } }) => (
+                    <AppInput
+                        label={required ? `${label} *` : label}
+                        placeholder={`Enter ${label}`}
+                        value={value}
+                        inputStyle={styles.input}
+                        onChangeText={onChange}
+                        errorMessage={errors[name]?.message}
+                        keyboardType={type === 'number' ? 'numeric' : 'default'}
+                    />
+                )}
             />
-        </View>
-    );
+        ));
 
     return (
-        <View style={styles.container}>
-            <AppHeaderCommon
-                title=""
-                onLeftPress={() => navigation.goBack()}
-                showBadge
-            />
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 10 : 0} // adjust if you have header
+        >
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                <View style={styles.container}>
+                    <AppHeaderCommon title="" onLeftPress={() => navigation.goBack()} showBadge />
 
-            <ScrollView
-                contentContainerStyle={styles.scrollContent}
-                showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps="handled"
-            >
-                <AppText style={styles.title}>Additional{"\n"}Vehicle Info</AppText>
-                {/* Mechanical Details */}
-                <AppText style={styles.sectionTitle}>Mechanical Details</AppText>
-                {renderInput('mileage', 'Registered Mileage')}
-                {renderInput('transmission', 'Transmission')}
-                {renderInput('engineSize', 'Engine Size')}
-                {renderInput('driveType', 'Drive Type')}
+                    <ScrollView
+                        contentContainerStyle={styles.scrollContent}
+                        showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps="handled"
+                    >
+                        <AppText style={styles.title}>Additional{"\n"}Vehicle Info</AppText>
 
-                {/* Trim & Interior */}
-                <AppText style={styles.sectionTitle}>Trim & Interior</AppText>
-                {renderInput('trim', 'Trim')}
-                {renderInput('doors', 'Doors')}
-                {renderInput('seats', 'Seats')}
+                        <AppText style={styles.sectionTitle}>Mechanical Details</AppText>
+                        {renderFields(fields.slice(0, 4))}
 
-                {/* Service History */}
-                <AppText style={styles.sectionTitle}>Service History</AppText>
-                {renderInput('lastService', 'Last Service')}
-                {renderInput('mileageAtLastService', 'Mileage at Last Service')}
+                        <AppText style={styles.sectionTitle}>Trim & Interior</AppText>
+                        {renderFields(fields.slice(4, 7))}
 
-                {/* Running Costs */}
-                <AppText style={styles.sectionTitle}>Running Costs</AppText>
-                {renderInput('fuelConsumption', 'Fuel Consumption')}
-                {renderInput('vehicleTax', 'Vehicle Tax')}
-                {renderInput('insuranceLevel', 'Insurance Level')}
+                        <AppText style={styles.sectionTitle}>Service History</AppText>
+                        {renderFields(fields.slice(7, 9))}
 
-                {/* Helpful Extras */}
-                <AppText style={styles.sectionTitle}>Helpful Extras</AppText>
-                {renderInput('previousOwners', 'Number of Previous Owners', false)}
-                {renderInput('ulez', 'ULEZ Compliant?', false)}
-            </ScrollView>
-            <View style={styles.buttonConatainer}>
-                <AppTouchable style={styles.submitButton} onPress={handleSubmit}>
-                    <AppText style={styles.submitButtonText}>Submit</AppText>
-                </AppTouchable>
-            </View>
+                        <AppText style={styles.sectionTitle}>Running Costs</AppText>
+                        {renderFields(fields.slice(9, 12))}
 
-        </View>
+                        <AppText style={styles.sectionTitle}>Helpful Extras</AppText>
+                        {renderFields(fields.slice(12))}
+
+                         <View style={styles.buttonConatainer}>
+                        <AppTouchable style={styles.submitButton} onPress={handleSubmit(onSubmit)}>
+                            <AppText style={styles.submitButtonText}>Submit</AppText>
+                        </AppTouchable>
+                    </View>
+                    </ScrollView>
+
+                   
+                </View>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     );
 };
 

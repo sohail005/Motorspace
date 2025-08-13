@@ -1,4 +1,3 @@
-
 import React, {
     useRef,
     useState,
@@ -18,7 +17,11 @@ import Animated, {
     useSharedValue,
     useAnimatedStyle,
     runOnJS,
+    withSpring, // ----> 1. Import withSpring for the bounce effect
 } from 'react-native-reanimated';
+import MarkerControlButtons from '../Screens/RegisterVehicle/DamageReport/MarkerControlButtons';
+import AppTouchable from './AppTouchable';
+import Icon from 'react-native-vector-icons/Ionicons'; // Or your preferred icon library
 
 // Helper component for a single draggable marker
 const DraggableMarker = ({
@@ -28,7 +31,20 @@ const DraggableMarker = ({
     scale,
     imageLayout,
     onDragEnd,
+    markerSize
 }) => {
+    // ----> 2. Add a shared value for the marker's own scale animation
+    const markerScale = useSharedValue(0);
+
+    // ----> 3. Use useEffect to trigger the animation when the marker is first added (mounted)
+    useEffect(() => {
+        // Animate the scale from 0 to 1 with a spring effect to make it bounce
+        markerScale.value = withSpring(1, {
+            damping: 8,
+            stiffness: 300,
+        });
+    }, [markerScale]); // Runs once on component mount
+
     // This gesture handles dragging for an individual marker
     const markerPanGesture = Gesture.Pan()
         .onStart(() => {
@@ -72,10 +88,11 @@ const DraggableMarker = ({
         if (!position) return { opacity: 0 };
 
         return {
-            opacity: 1,
+            opacity: markerScale.value, // Link opacity to the scale animation
             transform: [
                 { translateX: position.x - 25 }, // Center the marker (50/2)
                 { translateY: position.y - 25 }, // Center the marker (50/2)
+                { scale: markerScale.value }, // ----> 4. Apply the scale animation
             ],
         };
     });
@@ -83,7 +100,10 @@ const DraggableMarker = ({
     return (
         <GestureDetector gesture={markerPanGesture}>
             <Animated.View
-                style={[styles.marker, animatedMarkerStyle]}
+                style={[styles.marker, {
+                    width: markerSize,
+                    height: markerSize,
+                }, animatedMarkerStyle]}
                 hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
             />
         </GestureDetector>
@@ -96,7 +116,7 @@ const ImageMarker = forwardRef(({ imageSource, DamageMarked }, ref) => {
     const [imageLayout, setImageLayout] = useState(null);
     const viewShotRef = useRef(null);
     const nextId = useRef(0);
-
+    const [markerSize, setMarkerSize] = useState(50);
     // --- Reanimated Shared Values ---
     // For image pan & zoom
     const scale = useSharedValue(1);
@@ -236,6 +256,10 @@ const ImageMarker = forwardRef(({ imageSource, DamageMarked }, ref) => {
             addMarker();
         }
     }, [imageLayout, markers.length, addMarker]);
+    const updateMarkerSize = (change) => {
+        const newSize = markerSize + change;
+        setMarkerSize(Math.max(20, newSize));
+    }
 
     return (
         <View style={styles.outerContainer}>
@@ -258,6 +282,7 @@ const ImageMarker = forwardRef(({ imageSource, DamageMarked }, ref) => {
                                 <DraggableMarker
                                     key={marker.id}
                                     index={index}
+                                    markerSize={markerSize}
                                     markersPositions={markersPositions}
                                     savedMarkersPositions={savedMarkersPositions}
                                     scale={scale}
@@ -269,13 +294,16 @@ const ImageMarker = forwardRef(({ imageSource, DamageMarked }, ref) => {
                     </ViewShot>
                 </GestureDetector>
             </View>
+            <View style={styles.markerAdjustButtonsConatiner}>
+                <AppTouchable onPress={() => updateMarkerSize(-5)} style={styles.increaseButton}>
+                    <Icon name="remove-circle-outline" size={34} color={AppColors.white} style={styles.icon} />
+                </AppTouchable>
+                <AppTouchable onPress={() => updateMarkerSize(5)} style={styles.increaseButton}>
+                    <Icon name="add-circle-outline" size={34} color={AppColors.white} style={styles.icon} />
+                </AppTouchable>
+            </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button} onPress={addMarker}>
-                    <Text style={styles.buttonText}>Add Marker</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={removeAllMarkers}>
-                    <Text style={styles.buttonText}>Remove All</Text>
-                </TouchableOpacity>
+                <MarkerControlButtons addMarker={addMarker} removeAllMarkers={removeAllMarkers} />
             </View>
         </View>
     );
@@ -295,9 +323,9 @@ const styles = StyleSheet.create({
     },
     imageWrapper: {
         width: DimensionsUtil.SCREEN_WIDTH / 1.8,
-        height: DimensionsUtil.SCREEN_HEIGHT / 1.8,
+        height: DimensionsUtil.SCREEN_HEIGHT / 2,
         aspectRatio: 0.7,
-        backgroundColor: '#fff',
+        backgroundColor: AppColors.white,
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
@@ -314,7 +342,7 @@ const styles = StyleSheet.create({
     marker: {
         width: 50,
         height: 50,
-        borderRadius: 25,
+        borderRadius: 100,
         position: 'absolute',
         borderWidth: 3,
         borderColor: AppColors.buttonOrange,
@@ -323,6 +351,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         width: '100%',
+        marginTop: 10
     },
     button: {
         backgroundColor: AppColors.buttonOrange,
@@ -331,7 +360,23 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     buttonText: {
-        color: '#fff',
+        color: AppColors.white,
         fontWeight: 'bold',
     },
+    markerAdjustButtonsConatiner: {
+        width: DimensionsUtil.SCREEN_WIDTH / 1.3,
+        position: 'absolute',
+        top: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+
+    },
+    increaseButton: {
+        padding: 5,
+        borderRadius: 100,
+        backgroundColor: AppColors.grayOverlay,
+        marginHorizontal: 10,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });

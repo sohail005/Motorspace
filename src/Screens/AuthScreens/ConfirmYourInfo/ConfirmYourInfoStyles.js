@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import { AppColors } from "../../../constants/colors";
 import { FontSizes } from "../../../constants/fontsizes";
 import DimensionsUtil from "../../../constants/Dimensions";
+import { Fonts } from "../../../constants/Fonts";
 
 export const styles = StyleSheet.create({
     container: {
@@ -10,6 +11,12 @@ export const styles = StyleSheet.create({
         // flex: 1,
         backgroundColor: AppColors.white,
         flexGrow: 1,
+    },
+    passwordInput:{
+fontSize:FontSizes.medium,
+fontFamily:Fonts.medium,
+borderColor:AppColors.borderColor,
+color:AppColors.textPrimary
     },
     heading: {
         fontSize: FontSizes.ultraLarge,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, View, FlatList, Alert } from 'react-native';
 import { AppColors } from '../../constants/colors';
 import AppText from '../../components/AppText';
@@ -7,11 +7,10 @@ import AppHeader from '../../components/AppHeader';
 import { useDispatch } from 'react-redux';
 import { setStatusBarColor } from '../../redux/features/user/userSlice';
 import AppFlatList from '../../components/AppFlatList';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import RecentlyListItem from '../../components/RecentlyListItem';
 import AppTouchable from '../../components/AppTouchable';
 import CarDetailPortal from '../../components/CarDetailPortal';
-import DimensionsUtil from '../../constants/Dimensions';
 
 export const vehicleData = [
     {
@@ -329,9 +328,17 @@ const RecentlyListed = () => {
     const navigation = useNavigation();
     const route = useRoute();
     const { isApproved } = route.params;
-    useEffect(() => {
-        dispatch(setStatusBarColor(AppColors.primary));
-    }, []);
+    // useFocusEffect(
+    //     useCallback(() => {
+    //         // Screen is focused → set primary color
+    //         dispatch(setStatusBarColor(AppColors.primary));
+
+    //         return () => {
+    //             // Screen is unfocused → reset color
+    //             dispatch(setStatusBarColor(AppColors.default));
+    //         };
+    //     }, [dispatch])
+    // );
     const [selectedCar, setSelectedCar] = useState(null);
     const [visible, setVisible] = useState(false);
 
@@ -350,9 +357,11 @@ const RecentlyListed = () => {
             <View style={styles.containerMain}>
                 <AppFlatList
                     data={vehicleData}
+                    style={styles.Flatlist}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => <RecentlyListItem item={item} onPress={() => openDetails(item)} />}
                     emptyText="No cars listed"
+                    contentContainerStyle={{ paddingBottom: 180 }}
                     stickyHeaderHiddenOnScroll={true}
                     stickyHeaderIndices={[0]}
                     ListHeaderComponent={
@@ -366,13 +375,13 @@ const RecentlyListed = () => {
             <View style={{
                 position: 'absolute',
                 bottom: 15,
-                alignSelf:'center'
+                alignSelf: 'center'
             }}>
                 <AppTouchable
                     disabled={!isApproved}
                     style={[
                         styles.confirmButton,
-                         {backgroundColor: isApproved?AppColors.buttonOrange:AppColors.buttonDisabled}
+                        { backgroundColor: isApproved ? AppColors.buttonOrange : AppColors.buttonDisabled }
                     ]}
                     onPress={() => {
                         Alert.alert('test!', 'sjfkjghk')

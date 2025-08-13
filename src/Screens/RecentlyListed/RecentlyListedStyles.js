@@ -14,6 +14,11 @@ export const styles = StyleSheet.create({
         backgroundColor: AppColors.defaultBackground,
         paddingHorizontal: 16,
         // paddingTop: 20,
+        // paddingBottom:100
+    },
+    Flatlist: {
+        // paddingBottom: DimensionsUtil.SCREEN_HEIGHT / 2
+        
     },
     heading: {
         fontSize: FontSizes.ultraLarge,
@@ -22,7 +27,7 @@ export const styles = StyleSheet.create({
         marginBottom: 16,
     },
     listHeaderContainer: {
-        backgroundColor: AppColors.white
+        // backgroundColor: AppColors.white,
     },
     confirmButton: {
         // backgroundColor: AppColors.secondary,
@@ -32,7 +37,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 12,
         alignSelf: 'center',
-       
+
     },
     confirmText: {
         fontSize: FontSizes.medium,

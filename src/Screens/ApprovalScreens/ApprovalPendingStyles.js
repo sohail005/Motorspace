@@ -49,13 +49,16 @@ export const styles = StyleSheet.create({
         fontWeight: '500',
         fontSize: FontSizes.medium,
     },
+    viewmotorsButtonConatiner: {
+        marginTop: 30,
+    },
     viewMotorsBtn: {
         borderWidth: 1,
         borderColor: AppColors.primary,
         paddingVertical: 14,
         paddingHorizontal: 24,
         borderRadius: 8,
-        marginTop:30
+        // marginTop:30,
     },
     viewMotorsText: {
         color: AppColors.primary,

@@ -21,14 +21,13 @@ export const styles = StyleSheet.create({
         fontSize: FontSizes.ultraLarge,
         fontFamily: Fonts.bold,
         color: AppColors.primary,
-        marginVertical: 16,
+        marginVertical: 8,
         textAlign: 'center',
     },
     subtitle: {
         fontSize: 14,
         color: AppColors.textSecondary,
-        marginBottom: 20,
-        marginTop: 12,
+        textAlign: 'center',
     },
     diagramWrapper: {
         borderWidth: 2,
@@ -79,18 +78,20 @@ export const styles = StyleSheet.create({
     badgeTextNotLocated: {
         color: '#fff',
     },
-    submitBtn: {
-        backgroundColor: AppColors.primary,
-        paddingVertical: 12,
-        borderRadius: 10,
-        alignItems: 'center',
-        margin: 20,
-        height: 50,
-        justifyContent: 'center',
+    submitBtnConatiner: {
         width: DimensionsUtil.SCREEN_WIDTH / 2.5,
+        height: 55,
         alignSelf: 'flex-end',
-        position:'absolute',
-        bottom:20
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        zIndex: 100000
+    },
+    button: {
+        height: 55,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10
     },
     submitBtnDisabled: {
         backgroundColor: '#ccc',

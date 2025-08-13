@@ -1,185 +1,183 @@
-import React, { useState } from 'react';
-import { View, ScrollView, Alert, TouchableWithoutFeedback, KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
+import React from 'react';
+import {
+    View,
+    ScrollView,
+    Alert,
+    TouchableWithoutFeedback,
+    KeyboardAvoidingView,
+    Platform,
+    Keyboard,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
 import AppText from '../../../components/AppText';
 import AppInput from '../../../components/AppInput';
 import AppImage from '../../../components/AppImage';
 import AppTouchable from '../../../components/AppTouchable';
-import { IMAGES } from '../../../assets/Images/ImagePath';
-import { launchImageLibrary } from 'react-native-image-picker';
-import { requestGalleryPermission } from '../../../utils/permissions';
 import AppHeaderCommon from '../../../components/AppHeaderCommon';
-import { useNavigation } from '@react-navigation/native';
+
+import { IMAGES } from '../../../assets/Images/ImagePath';
+import { requestGalleryPermission } from '../../../utils/permissions';
 import { styles } from './PrivateDetailsStyles';
+import { navigate } from '../../../navigation/NavigationService';
+
+// ✅ Yup Validation Schema
+const schema = yup.object().shape({
+    photo: yup.string().required('Please upload your profile photo.'),
+    firstName: yup.string().required('First name is required.'),
+    lastName: yup.string().required('Last name is required.'),
+    email: yup.string().email('Enter a valid email').required('Email is required.'),
+    confirmEmail: yup
+        .string()
+        .oneOf([yup.ref('email')], 'Emails do not match.')
+        .required('Please confirm your email.'),
+    phone: yup.string().required('Phone number is required.'),
+    address1: yup.string().required('Address line 1 is required.'),
+    address2: yup.string(), // optional
+    city: yup.string().required('City is required.'),
+    county: yup.string().required('County is required.'),
+    postcode: yup.string().required('Postcode is required.'),
+    password: yup.string().required('Password is required.'),
+    confirmPassword: yup
+        .string()
+        .oneOf([yup.ref('password')], 'Passwords do not match.')
+        .required('Please confirm your password.'),
+});
 
 const PrivateDetails = () => {
     const navigation = useNavigation();
-    const [errors, setErrors] = useState({});
-    const [form, setForm] = useState({
-        photo: null,
-        firstName: '',
-        lastName: '',
-        email: '',
-        confirmEmail: '',
-        phone: '',
-        address1: '',
-        address2: '',
-        city: '',
-        county: '',
-        postcode: '',
-        password: '',
-        confirmPassword: '',
+
+    const {
+        control,
+        handleSubmit,
+        setValue,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+            photo: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            confirmEmail: '',
+            phone: '',
+            address1: '',
+            address2: '',
+            city: '',
+            county: '',
+            postcode: '',
+            password: '',
+            confirmPassword: '',
+        },
     });
-
-    const handleChange = (key, value) => {
-        setForm({ ...form, [key]: value });
-
-        if (errors[key]) {
-            setErrors(prev => ({ ...prev, [key]: undefined }));
-        }
-    };
 
     const handleImagePick = async () => {
         const permissionStatus = await requestGalleryPermission();
-
         if (permissionStatus === 'granted') {
             launchImageLibrary(
-                {
-                    mediaType: 'photo',
-                    quality: 0.7,
-                },
+                { mediaType: 'photo', quality: 0.7 },
                 (response) => {
                     if (!response.didCancel && !response.errorCode && response.assets?.length) {
-                        handleChange('photo', response.assets[0].uri);
+                        setValue('photo', response.assets[0].uri, { shouldValidate: true });
                     }
                 }
             );
         } else {
-            Alert.alert(
-                'Permission Denied',
-                'Please allow photo access in settings to continue.'
-            );
+            Alert.alert('Permission Denied', 'Please allow photo access in settings to continue.');
         }
     };
 
-    const handleConfirm = () => {
-        navigation.navigate("OtpScreen");
+    const onSubmit = (data) => {
+        navigate("OtpScreen")
         return
-        const {
-            firstName, lastName, email, confirmEmail, phone,
-            address1, city, county, postcode, password, confirmPassword, photo
-        } = form;
-
-        const newErrors = {};
-
-        if (!photo) newErrors.photo = 'Please upload your profile photo.';
-        if (!firstName) newErrors.firstName = 'First name is required.';
-        if (!lastName) newErrors.lastName = 'Last name is required.';
-        if (!email) newErrors.email = 'Email is required.';
-        if (!confirmEmail) newErrors.confirmEmail = 'Please confirm your email.';
-        if (email && confirmEmail && email !== confirmEmail) newErrors.confirmEmail = 'Emails do not match.';
-        if (!phone) newErrors.phone = 'Phone number is required.';
-        if (!address1) newErrors.address1 = 'Address line 1 is required.';
-        if (!city) newErrors.city = 'City is required.';
-        if (!county) newErrors.county = 'County is required.';
-        if (!postcode) newErrors.postcode = 'Postcode is required.';
-        if (!password) newErrors.password = 'Password is required.';
-        if (!confirmPassword) newErrors.confirmPassword = 'Please confirm your password.';
-        if (password && confirmPassword && password !== confirmPassword) newErrors.confirmPassword = 'Passwords do not match.';
-
-        setErrors(newErrors);
-
-        if (Object.keys(newErrors).length === 0) {
-            Alert.alert('Success', 'Form submitted!');
-            // Submit logic
-        }
+        Alert.alert('Success', 'Form submitted!');
+        console.log('Form Data:', data);
+        // API call here
     };
 
+    const inputFields = [
+        { key: 'firstName', label: 'First Name *' },
+        { key: 'lastName', label: 'Last Name *' },
+        { key: 'email', label: 'Email Address *', keyboardType: 'email-address' },
+        { key: 'confirmEmail', label: 'Confirm Email Address *', keyboardType: 'email-address' },
+        { key: 'phone', label: 'Phone Number *', keyboardType: 'phone-pad' },
+        { key: 'address1', label: '1st Line of Address *' },
+        { key: 'address2', label: '2nd Line of Address' },
+        { key: 'city', label: 'Town/City *' },
+        { key: 'county', label: 'County *' },
+        { key: 'postcode', label: 'Postcode *' },
+        { key: 'password', label: 'Password *', secureTextEntry: true },
+        { key: 'confirmPassword', label: 'Confirm Password *', secureTextEntry: true },
+    ];
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={{ flex: 1 }}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0} // adjust offset as needed
+                keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
             >
                 <AppHeaderCommon
                     title=""
                     onLeftPress={() => navigation.goBack()}
                     onRightPress={() => console.log('Logo tapped')}
                 />
-                <ScrollView keyboardShouldPersistTaps={'handled'} contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
 
+                <ScrollView
+                    keyboardShouldPersistTaps="handled"
+                    contentContainerStyle={styles.container}
+                    showsVerticalScrollIndicator={false}
+                >
                     <View style={styles.inputsMainCnatiner}>
                         <AppText style={styles.Heading}>Tell Us a Bit About You</AppText>
+
+                        {/* Profile Photo */}
                         <AppText style={styles.label}>Profile Photo *</AppText>
                         <View style={styles.imageMainContainer}>
                             <AppTouchable onPress={handleImagePick} style={styles.imageContainer}>
-                                <AppImage
-                                    source={form.photo ? { uri: form.photo } : IMAGES.addImage}
-                                    style={!form.photo ? styles.image : styles.selectedImage}
-                                    resizeMode="cover"
+                                <Controller
+                                    control={control}
+                                    name="photo"
+                                    render={({ field: { value } }) => (
+                                        <AppImage
+                                            source={value ? { uri: value } : IMAGES.addImage}
+                                            style={!value ? styles.image : styles.selectedImage}
+                                            resizeMode="cover"
+                                        />
+                                    )}
                                 />
                             </AppTouchable>
                         </View>
-                        {errors.photo ? (
-                            <AppText style={styles.error}>{errors.photo}</AppText>
-                        ) :
-                            <AppText style={styles.error}></AppText>
-                        }
-                        <AppInput
-                            label="First Name *"
-                            value={form.firstName}
-                            onChangeText={(val) => handleChange('firstName', val)}
-                            errorMessage={errors.firstName}
-                        />
+                        <AppText style={styles.error}>{errors.photo?.message || ''}</AppText>
 
-                        <AppInput
-                            label="Last Name *"
-                            value={form.lastName}
-                            onChangeText={(val) => handleChange('lastName', val)}
-                            errorMessage={errors.lastName}
-                        />
+                        {/* Dynamic Inputs */}
+                        {inputFields.map(({ key, ...props }) => (
+                            <Controller
+                                key={key}
+                                control={control}
+                                name={key}
+                                render={({ field: { onChange, value } }) => (
+                                    <AppInput
+                                        {...props}
+                                        value={value}
+                                        inputStyle={styles.input}
+                                        onChangeText={onChange}
+                                        errorMessage={errors[key]?.message}
+                                    />
+                                )}
+                            />
+                        ))}
 
-                        <AppInput
-                            label="Email Address *"
-                            keyboardType="email-address"
-                            value={form.email}
-                            onChangeText={(val) => handleChange('email', val)}
-                            errorMessage={errors.email}
-                        />
-
-                        <AppInput
-                            label="Confirm Email Address *"
-                            keyboardType="email-address"
-                            value={form.confirmEmail}
-                            onChangeText={(val) => handleChange('confirmEmail', val)}
-                            errorMessage={errors.confirmEmail}
-                        />
-
-                        <AppInput label="Phone Number *" keyboardType="phone-pad" value={form.phone} onChangeText={(val) => handleChange('phone', val)} errorMessage={errors.phone} />
-                        <AppInput label="1st Line of Address *" value={form.address1} onChangeText={(val) => handleChange('address1', val)} errorMessage={errors.address1} />
-                        <AppInput label="2nd Line of Address" value={form.address2} onChangeText={(val) => handleChange('address2', val)} errorMessage={errors.address2} />
-                        <AppInput label="Town/City *" value={form.city} onChangeText={(val) => handleChange('city', val)} errorMessage={errors.city} />
-                        <AppInput label="County *" value={form.county} onChangeText={(val) => handleChange('county', val)} errorMessage={errors.county} />
-                        <AppInput label="Postcode *" value={form.postcode} onChangeText={(val) => handleChange('postcode', val)} errorMessage={errors.postcode} />
-
-                        <AppInput
-                            label="Password *"
-                            secureTextEntry
-                            value={form.password}
-                            onChangeText={(val) => handleChange('password', val)}
-                            errorMessage={errors.password}
-                        />
-                        <AppInput
-                            label="Confirm Password *"
-                            secureTextEntry
-                            value={form.confirmPassword}
-                            onChangeText={(val) => handleChange('confirmPassword', val)}
-                            errorMessage={errors.confirmPassword}
-                        />
-
+                        {/* Confirm Button */}
                         <View style={styles.buttonContainer}>
-                            <AppTouchable style={styles.confirmButton} onPress={handleConfirm}>
+                            <AppTouchable
+                                style={styles.confirmButton}
+                                onPress={handleSubmit(onSubmit)}
+                            >
                                 <AppText style={styles.confirmText}>Confirm</AppText>
                             </AppTouchable>
                         </View>
@@ -191,4 +189,3 @@ const PrivateDetails = () => {
 };
 
 export default PrivateDetails;
-

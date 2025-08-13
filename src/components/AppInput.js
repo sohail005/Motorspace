@@ -37,6 +37,7 @@ const AppInput = ({
           inputStyle,
           showError && styles.errorBorder
         ]}
+        allowFontScaling={false}
         placeholder={placeholder}
         placeholderTextColor={AppColors.grayBackground}
         value={value}
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    minHeight:50,
+    minHeight: 50,
     borderColor: AppColors.lightGary,
     borderRadius: 8,
     paddingHorizontal: 12,

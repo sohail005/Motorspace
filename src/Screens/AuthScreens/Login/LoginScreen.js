@@ -67,10 +67,10 @@ const LoginScreen = () => {
     }
   };
   const handleJoinNow = () => {
-    // navigation.navigate('GettingStarted')
+    //navigation.navigate('GettingStarted')
     //navigation.navigate('LetsRegister')
-    // navigation.navigate('ReportMinorDamages')
-    navigation.navigate('WelcomeScreen')
+     navigation.navigate('ReportMinorDamages')
+    // navigation.navigate('WelcomeScreen')
 
   }
   return (
@@ -143,7 +143,7 @@ const LoginScreen = () => {
         </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
-);
+  );
 
 };
 

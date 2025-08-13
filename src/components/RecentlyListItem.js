@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import DimensionsUtil from '../constants/Dimensions';
 import AppTouchable from './AppTouchable';
 
-const RecentlyListItem = ({ item,onPress  }) => {
+const RecentlyListItem = ({ item, onPress }) => {
   return (
     <AppTouchable onPress={() => onPress(item)} style={styles.card}>
       <View style={styles.headerRow}>
@@ -17,7 +17,9 @@ const RecentlyListItem = ({ item,onPress  }) => {
       </View>
       <AppText style={styles.subtitle}>{item.variant}</AppText>
       {item.numberPlate ? (
-        <AppBadge text={item.numberPlate} badgeStyle={styles.plateBadge} />
+        <View style={styles.badgeContainer}>
+          <AppBadge text={item.numberPlate} badgeStyle={styles.plateBadge} />
+        </View>
       ) : null}
       <View style={styles.midRow}>
         <View style={styles.dealerRow}>
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
     fontSize: FontSizes.medium,
     fontWeight: '900',
     color: AppColors.textPrimary,
-    width:DimensionsUtil.SCREEN_WIDTH/1.45
+    width: DimensionsUtil.SCREEN_WIDTH / 1.45
   },
   time: {
     fontSize: 12,
@@ -67,15 +69,18 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 13,
     color: AppColors.Blue_Subtext,
-    
+
     fontWeight: '500',
-    width:DimensionsUtil.SCREEN_WIDTH/1.45
+    width: DimensionsUtil.SCREEN_WIDTH / 1.45
   },
   midRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginTop: 5
+  },
+  badgeContainer: {
+    width: '30%'
   },
   plateBadge: {
     backgroundColor: AppColors.plateYellow, // Yellow
@@ -93,13 +98,13 @@ const styles = StyleSheet.create({
     color: AppColors.textPrimary,
     marginLeft: 6,
     fontWeight: '500',
-    width:DimensionsUtil.SCREEN_WIDTH/1.55,
+    width: DimensionsUtil.SCREEN_WIDTH / 1.55,
   },
   icon: {
     marginTop: 2,
   },
   price: {
-    fontSize: FontSizes.medium,
+    fontSize: FontSizes.xLarge,
     fontWeight: '900',
     color: '#000',
   },

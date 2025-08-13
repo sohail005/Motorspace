@@ -29,10 +29,17 @@ export const styles = StyleSheet.create({
     inputWrapper: {
         marginBottom: 0,
     },
+    input: {
+        color: AppColors.textPrimary,
+        fontSize: FontSizes.medium,
+        fontFamily: Fonts.medium,
+        borderWidth: 1,
+        borderColor: AppColors.borderColor
+    },
     errorText: {
         color: 'red',
         fontSize: 12,
-        
+
         marginLeft: 4,
     },
     inputErrorBorder: {
@@ -59,6 +66,6 @@ export const styles = StyleSheet.create({
         fontSize: FontSizes.medium,
         textAlign: 'center',
         fontFamily: Fonts.semiBold,
-        
+
     },
 });

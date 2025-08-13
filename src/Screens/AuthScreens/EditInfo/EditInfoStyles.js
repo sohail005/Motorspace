@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import { AppColors } from "../../../constants/colors";
 import DimensionsUtil from "../../../constants/Dimensions";
 import { FontSizes } from "../../../constants/fontsizes";
+import { Fonts } from "../../../constants/Fonts";
 
 export const styles = StyleSheet.create({
     container: {
@@ -9,6 +10,13 @@ export const styles = StyleSheet.create({
     },
     inputsMainCnatiner: {
         paddingHorizontal: DimensionsUtil.SCREEN_WIDTH / 16,
+    },
+    input: {
+        color: AppColors.textPrimary,
+        fontSize: FontSizes.medium,
+        fontFamily: Fonts.medium,
+        borderWidth: 1,
+        borderColor: AppColors.borderColor
     },
     Heading: {
         fontSize: FontSizes.ultraLarge,

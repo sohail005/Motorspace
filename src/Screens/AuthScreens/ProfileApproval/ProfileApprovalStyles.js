@@ -81,7 +81,8 @@ export const styles = StyleSheet.create({
         borderRadius: 8,
         fontSize: FontSizes.medium,
         color: AppColors.black,
-        height: DimensionsUtil.SCREEN_HEIGHT / 7
+        height: DimensionsUtil.SCREEN_HEIGHT / 7,
+        borderColor:AppColors.borderColor
     },
     submitButton: {
         backgroundColor: AppColors.primary,

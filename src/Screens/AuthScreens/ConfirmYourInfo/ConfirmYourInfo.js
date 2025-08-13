@@ -78,6 +78,7 @@ const ConfirmYourInfo = () => {
                     <AppInput
                         label="Password"
                         value={password}
+                        inputStyle={styles.passwordInput}
                         onChangeText={setPassword}
                         secureTextEntry
                         placeholder="Enter your password"

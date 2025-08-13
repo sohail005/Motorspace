@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     },
     containerContent: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
     },
     // Title
     screenTitle: {
@@ -27,17 +27,20 @@ export const styles = StyleSheet.create({
     AddButtonContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: DimensionsUtil.SCREEN_HEIGHT / 8
+        marginVertical: DimensionsUtil.SCREEN_HEIGHT / 8,
+        alignContent: 'center',
+        width: DimensionsUtil.SCREEN_WIDTH / 1.1,
+
     },
     // Main Content
     mainContent: {
         alignItems: 'center',
-
         flex: 1,
+
     },
     addMotorButton: {
-        width: 72,
-        height: 72,
+        width: 60,
+        height: 60,
         borderRadius: 36,
         backgroundColor: AppColors.buttonOrange,
         alignItems: 'center',
@@ -47,12 +50,13 @@ export const styles = StyleSheet.create({
     addMotorText: {
         fontSize: FontSizes.large,
         color: AppColors.buttonOrange || '#333333',
-        fontFamily: Fonts.bold
+        fontFamily: Fonts.bold,
+        textAlign: 'center',
+        width: DimensionsUtil.SCREEN_WIDTH / 1.1,
     },
 
     // Bottom Buttons
     bottomButtons: {
-
         position: 'absolute',
         bottom: 20,
         right: 20
@@ -92,7 +96,8 @@ export const styles = StyleSheet.create({
     },
     listContainer: {
         width: DimensionsUtil.SCREEN_WIDTH / 1.1,
-
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     damageItemContainer: {
         width: '100%',
@@ -102,7 +107,8 @@ export const styles = StyleSheet.create({
         padding: 10,
         justifyContent: 'center',
         backgroundColor: AppColors.white,
-        marginTop: 15
+        marginTop: 15,
+        width: DimensionsUtil.SCREEN_WIDTH / 1.1,
     },
     damageItemHeader: {
         flexDirection: 'row',

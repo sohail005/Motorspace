@@ -22,7 +22,13 @@ export const styles = StyleSheet.create({
     photoFieldContainer: {
         marginBottom: 16,
     },
-
+    input: {
+        color: AppColors.textPrimary,
+        fontSize: FontSizes.medium,
+        fontFamily: Fonts.medium,
+        borderWidth: 1,
+        borderColor: AppColors.borderColor
+    },
     label: {
         fontSize: FontSizes.mediumLarge,
         color: AppColors.primaryText, // Use your dark blue color
@@ -72,7 +78,7 @@ export const styles = StyleSheet.create({
     imageThumb: {
         width: DimensionsUtil.SCREEN_WIDTH / 1.5,
         height: DimensionsUtil.SCREEN_WIDTH / 2,
-        marginVertical:5
+        marginVertical: 5
     },
 
     diagramBtn: {
