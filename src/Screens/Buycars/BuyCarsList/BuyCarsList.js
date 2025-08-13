@@ -5,7 +5,7 @@ import AppText from '../../../components/AppText';
 import AppTouchable from '../../../components/AppTouchable';
 import FillterIcon from 'react-native-vector-icons/Octicons';
 import { useNavigation } from '@react-navigation/native';
-
+import Animated, { ZoomIn } from 'react-native-reanimated';
 // Local Imports
 import { styles } from './BuyCarsListStyles';
 import { IMAGES } from '../../../assets/Images/ImagePath';
@@ -51,7 +51,7 @@ const BuyCarsList = () => {
     const [selectedQuickBuyData, setSelectedQuickBuyData] = useState(null);
     const [activeFilters, setActiveFilters] = useState(defaultValues);
     const [location, setLocation] = useState({ postcode: '', city: '', county: '' });
-    
+
     // State for the popup
     const [popupData, setPopupData] = useState({ visible: false, title: '', content: '' });
 
@@ -107,7 +107,7 @@ const BuyCarsList = () => {
     const offerSent = useCallback(() => {
         triggerPopup("Offer Sent!", "The seller has until 13:41 today to reply to your offer.");
     }, [triggerPopup]);
-    
+
     const confirmPurchase = useCallback(() => {
         hideConfirmQuickBuy();
         triggerPopup("Purchase Request Sent!", "The seller has until 13:41 today to accept or decline your purchase.");
@@ -121,95 +121,100 @@ const BuyCarsList = () => {
         console.log(location);
         hideLocation();
     }, [location, hideLocation]);
-    
+
     // Empty function for props that need it
-    const doNothing = useCallback(() => {}, []);
+    const doNothing = useCallback(() => { }, []);
 
     return (
         <View style={styles.container}>
             <AppHeader rightIcon={IMAGES.home} />
-            <OfferSentPopup 
-                data={popupData} 
-                onDismiss={() => setPopupData(prev => ({ ...prev, visible: false }))} 
-            />
-
-            <ScrollView
-                contentContainerStyle={styles.scrollContent}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refreshing}
-                        onRefresh={onRefresh}
-                        tintColor={AppColors.primary}
-                        title="Refreshing..."
-                        titleColor={AppColors.primary}
-                        {...(Platform.OS === 'android' && { colors: [AppColors.primary] })}
-                    />
-                }
+            <Animated.View
+                entering={ZoomIn.duration(400)}
+                style={{ width: '100%' }}
             >
-                {/* --- MODALS --- */}
-                <LocationModal
-                    visible={showLocationModal}
-                    onDismiss={hideLocation}
-                    postcode={location.postcode}
-                    setPostcode={val => setLocation(l => ({ ...l, postcode: val }))}
-                    city={location.city}
-                    setCity={val => setLocation(l => ({ ...l, city: val }))}
-                    county={location.county}
-                    setCounty={val => setLocation(l => ({ ...l, county: val }))}
-                    onApply={handleLocationApply}
-                />
-                <ConfirmQuickBuyPortal
-                    visible={showConfirmQuickBuyModal}
-                    onDismiss={hideConfirmQuickBuy}
-                    onConfirm={confirmPurchase}
-                    vehicleTitle={selectedQuickBuyData?.title}
-                    vehicleSubtitle={selectedQuickBuyData?.variant}
-                    price={selectedQuickBuyData?.price}
-                />
-                <FilterSortModal
-                    visible={modalVisible}
-                    onDismiss={hideFilterModal}
-                    onApplyFilters={handleApplyFilters}
-                    initialFilters={activeFilters}
+                <OfferSentPopup
+                    data={popupData}
+                    onDismiss={() => setPopupData(prev => ({ ...prev, visible: false }))}
                 />
 
-                {/* --- CONTENT --- */}
-                <View style={styles.topListConatiner}>
-                    <View style={{ marginTop: 20 }}>
-                        <SearchFilterBar onFilterPress={showFilterModal} />
+                <ScrollView
+                    contentContainerStyle={styles.scrollContent}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                            tintColor={AppColors.primary}
+                            title="Refreshing..."
+                            titleColor={AppColors.primary}
+                            {...(Platform.OS === 'android' && { colors: [AppColors.primary] })}
+                        />
+                    }
+                >
+                    {/* --- MODALS --- */}
+                    <LocationModal
+                        visible={showLocationModal}
+                        onDismiss={hideLocation}
+                        postcode={location.postcode}
+                        setPostcode={val => setLocation(l => ({ ...l, postcode: val }))}
+                        city={location.city}
+                        setCity={val => setLocation(l => ({ ...l, city: val }))}
+                        county={location.county}
+                        setCounty={val => setLocation(l => ({ ...l, county: val }))}
+                        onApply={handleLocationApply}
+                    />
+                    <ConfirmQuickBuyPortal
+                        visible={showConfirmQuickBuyModal}
+                        onDismiss={hideConfirmQuickBuy}
+                        onConfirm={confirmPurchase}
+                        vehicleTitle={selectedQuickBuyData?.title}
+                        vehicleSubtitle={selectedQuickBuyData?.variant}
+                        price={selectedQuickBuyData?.price}
+                    />
+                    <FilterSortModal
+                        visible={modalVisible}
+                        onDismiss={hideFilterModal}
+                        onApplyFilters={handleApplyFilters}
+                        initialFilters={activeFilters}
+                    />
+
+                    {/* --- CONTENT --- */}
+                    <View style={styles.topListConatiner}>
+                        <View style={{ marginTop: 20 }}>
+                            <SearchFilterBar onFilterPress={showFilterModal} />
+                        </View>
+
+                        <AppliedFiltersBar count={filtersCount} onClear={clearFilters} />
+
+                        <CarSection
+                            title="Recently Listed"
+                            data={vehicleData}
+                            onItemPress={openDetails}
+                            onQuickBuyPress={onQuickBuyPress}
+                            onViewMore={doNothing} // Pass stable function
+                        />
                     </View>
-                    
-                    <AppliedFiltersBar count={filtersCount} onClear={clearFilters} />
 
                     <CarSection
-                        title="Recently Listed"
-                        data={vehicleData}
+                        title="Cars Near Me"
+                        isLocation
+                        locationLabel="Ashby-De-La-Zouch"
+                        onLocationPress={showLocation}
+                        data={nearbyCarsData}
                         onItemPress={openDetails}
                         onQuickBuyPress={onQuickBuyPress}
                         onViewMore={doNothing} // Pass stable function
                     />
-                </View>
+                </ScrollView>
 
-                <CarSection
-                    title="Cars Near Me"
-                    isLocation
-                    locationLabel="Ashby-De-La-Zouch"
-                    onLocationPress={showLocation}
-                    data={nearbyCarsData}
-                    onItemPress={openDetails}
-                    onQuickBuyPress={onQuickBuyPress}
-                    onViewMore={doNothing} // Pass stable function
+                <CarDetailPortal
+                    visible={visibleCarDetails}
+                    onDismiss={hideCarDetails}
+                    car={selectedCar}
+                    openedFromHome={true}
+                    offerSent={offerSent}
+                    ConfirmPurchase={confirmPurchase}
                 />
-            </ScrollView>
-
-            <CarDetailPortal
-                visible={visibleCarDetails}
-                onDismiss={hideCarDetails}
-                car={selectedCar}
-                openedFromHome={true}
-                offerSent={offerSent}
-                ConfirmPurchase={confirmPurchase}
-            />
+            </Animated.View>
         </View>
     );
 };
