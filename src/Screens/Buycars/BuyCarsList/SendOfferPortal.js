@@ -123,7 +123,13 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         height: DimensionsUtil.SCREEN_WIDTH / 8,
         justifyContent: 'center',
-
+        borderWidth: 1,
+        borderColor: AppColors.borderColor,
+        borderRadius: 16,
+        paddingHorizontal: 16,
+        fontSize: FontSizes.xxLarge,
+        fontFamily: Fonts.bold,
+        lineHeight: FontSizes.xxLarge * 1.5,
     },
     inputError: {
         borderColor: AppColors.redLabel,

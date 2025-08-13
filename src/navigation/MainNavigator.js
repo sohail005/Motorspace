@@ -14,16 +14,19 @@ const MainNavigator = () => {
       label: 'Buy Cars',
       icon: IMAGES.buycars,
       component: <BuyCarsStack />,
+      name: 'BuyCarsTab',
     },
     {
       label: 'My Motorspace',
       icon: IMAGES.home,
       component: <MyMotorSpaceStack />,
+      name: 'MyMotorSpaceTab',
     },
     {
       label: 'Sell Cars',
       icon: IMAGES.sellcars,
       component: <SellCarsStack />,
+      name: 'SellCarsTab',
     },
   ];
 

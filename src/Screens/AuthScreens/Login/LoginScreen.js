@@ -17,10 +17,13 @@ import { styles } from './LoginScreenStyles';
 import DimensionsUtil from '../../../constants/Dimensions';
 import { useNavigation } from '@react-navigation/native';
 import Animated, { ZoomIn } from 'react-native-reanimated';
+import { useDispatch } from 'react-redux';
+import { setStatusBarColor, setToken, setUser } from '../../../redux/features/user/userSlice';
+import { AppColors } from '../../../constants/colors';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -33,7 +36,6 @@ const LoginScreen = () => {
 
   const handleLogin = () => {
     let valid = true;
-    navigation.navigate('WelcomeScreen')
     setEmailError('');
     setPasswordError('');
 
@@ -51,7 +53,16 @@ const LoginScreen = () => {
     }
 
     if (valid) {
-      navigation.navigate('GettingStarted');
+      const fakeToken = 'abc123';
+      const fakeUser = { name: 'John Doe', email };
+      Keyboard.dismiss()
+      // Save to Redux
+      setTimeout(() => {
+        dispatch(setStatusBarColor(AppColors.primary))
+        dispatch(setToken(fakeToken));
+        dispatch(setUser(fakeUser));
+      }, 50);
+
     }
   };
   const handleJoinNow = () => {
@@ -82,6 +93,7 @@ const LoginScreen = () => {
                 placeholder="Enter your email"
                 icon={IMAGES.User}
                 value={email}
+                inputStyle={styles.input}
                 onChangeText={(text) => {
                   setEmail(text);
                   if (emailError) setEmailError('');
@@ -96,6 +108,7 @@ const LoginScreen = () => {
                 icon={IMAGES.Lock}
                 placeholder="Enter your password"
                 secureTextEntry
+                inputStyle={styles.input}
                 value={password}
                 onChangeText={(text) => {
                   setPassword(text);

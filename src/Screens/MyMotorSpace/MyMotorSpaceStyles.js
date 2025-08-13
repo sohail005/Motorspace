@@ -34,10 +34,10 @@ export const styles = StyleSheet.create({
 
   },
   screenTitle: {
-    fontSize: FontSizes.ultraLarge,
+    fontSize: FontSizes.ultra,
     fontFamily: Fonts.bold,
     color: AppColors.primary,
-    paddingLeft: 16
+     padding: 10
   },
   profileCard: {
     flexDirection: 'row',

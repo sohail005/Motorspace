@@ -4,21 +4,23 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import AppText from '../../../components/AppText';
 import AppTouchable from '../../../components/AppTouchable';
 import { styles } from './TermsStyles';
+import { AppColors } from '../../../constants/colors';
+import AppCircleCheckbox from '../../../components/AppCircleCheckbox';
 
 const TermsScreen = ({ navigation }) => {
     const [accepted, setAccepted] = useState(false);
 
     return (
         <View style={styles.container}>
-            
+
 
 
             <ScrollView style={styles.termsList}>
                 <View style={styles.topContainer}>
-                <AppText style={styles.header}>MOTORSPACE</AppText>
-                <AppText style={styles.subHeader}>Terms & Conditions</AppText>
-                <AppText style={styles.instruction}>You must read and agree to continue</AppText>
-            </View>
+                    <AppText style={styles.header}>MOTORSPACE</AppText>
+                    <AppText style={styles.subHeader}>Terms & Conditions</AppText>
+                    <AppText style={styles.instruction}>You must read and agree to continue</AppText>
+                </View>
                 <AppText style={styles.termItem}>1. Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat.</AppText>
                 <AppText style={styles.termItem}>2. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.</AppText>
                 <AppText style={styles.termItem}>3. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Laculis massa nisl malesuada lacinia integer nunc posuere.</AppText>
@@ -28,21 +30,29 @@ const TermsScreen = ({ navigation }) => {
                 <AppText style={styles.termItem}>7. Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat.</AppText>
                 <AppText style={styles.termItem}>8. Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat.</AppText>
                 <AppText style={styles.termItem}>9. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Laculis massa nisl malesuada lacinia integer nunc posuere.</AppText>
-           
-           
-            
+
+
+
             </ScrollView>
-<View style={styles.bottomContainer}>
-                <AppTouchable onPress={()=>navigation.navigate('TermsFullView')} style={styles.linkButton}>
+            <View style={styles.bottomContainer}>
+                <AppTouchable onPress={() => navigation.navigate('TermsFullView')} style={styles.linkButton}>
                     <AppText style={styles.linkButtonText}>Click for Full T&Cs</AppText>
                 </AppTouchable>
 
                 <View style={styles.checkboxContainer}>
-                    <Icon
-                        name={accepted ? "checkmark-circle" : "ellipse-outline"}
-                        size={24}
-                        color={accepted ? "green" : "#999"}
+
+                    <AppCircleCheckbox
+                        checked={accepted}
                         onPress={() => setAccepted(!accepted)}
+                        size={28}
+                        borderColor={AppColors.textPrimary}
+                        checkedColor={AppColors.quickbuy}
+                        uncheckedColor={AppColors.white}
+                        borderWidth={2}
+                        iconName="done"
+                        iconColor="yellow"
+                        paddingWhenChecked={3}
+                        style={{ marginRight: 10, marginLeft: 5 }}
                     />
                     <AppText style={styles.checkboxText}>
                         By ticking this, you agree to have read and acknowledged the Motorspace webapp’s terms & conditions.
@@ -57,7 +67,7 @@ const TermsScreen = ({ navigation }) => {
                     <AppText style={styles.continueButtonText}>Continue</AppText>
                 </AppTouchable>
             </View>
-           
+
         </View>
     );
 };

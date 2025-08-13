@@ -11,13 +11,12 @@ export default function ProfileCard({
     imageSource,
     name,
     subtitle,
-    onSettingsPress,
     style
 }) {
     return (
         <View style={[styles.card, style]}>
             <AppImage source={imageSource} style={styles.avatar} />
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, alignItems: 'center' }}>
                 <AppText style={styles.name}>{name}</AppText>
                 <AppText style={styles.subText}>{subtitle}</AppText>
             </View>
@@ -34,8 +33,17 @@ const styles = StyleSheet.create({
         width: DimensionsUtil.SCREEN_WIDTH / 3.5,
         height: DimensionsUtil.SCREEN_WIDTH / 3.5,
         borderRadius: 5,
-        // marginRight: 12
     },
-    name: { fontSize: FontSizes.xxLarge, fontWeight: 'bold', color: AppColors.primary },
-    subText: { fontSize: FontSizes.mediumLarge, color: AppColors.buttonOrange, fontFamily: Fonts.semiBold },
+    name: {
+        fontSize: FontSizes.xxLarge,
+        fontWeight: 'bold',
+        color: AppColors.primary,
+        textAlign: 'center'
+    },
+    subText: {
+        fontSize: FontSizes.mediumLarge,
+        color: AppColors.buttonOrange,
+        fontFamily: Fonts.semiBold,
+        textAlign: 'center',
+    },
 });

@@ -4,9 +4,25 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import AppTouchable from './AppTouchable';
 import { AppColors } from '../constants/colors';
 
-const AppCircleCheckbox = ({ checked, onPress, size = 30 }) => {
+const AppCircleCheckbox = ({
+  checked = false,
+  onPress = () => {},
+  size = 30,
+  borderColor = AppColors.black,
+  checkedColor = AppColors.quickbuy,
+  uncheckedColor = 'transparent',
+  borderWidth = 2,
+  iconName = 'check',
+  iconColor = AppColors.white,
+  iconSize, // if not passed, calculated from size
+  paddingWhenChecked = 2,
+  paddingWhenUnchecked = 0,
+  style,
+}) => {
+  const calcIconSize = iconSize || size * 0.6;
+
   return (
-    <AppTouchable onPress={onPress} style={{ borderRadius: size / 2 }}>
+    <AppTouchable onPress={onPress} style={[{ borderRadius: size / 2 }, style]}>
       <View
         style={[
           styles.checkboxBase,
@@ -14,17 +30,18 @@ const AppCircleCheckbox = ({ checked, onPress, size = 30 }) => {
             width: size,
             height: size,
             borderRadius: size / 2,
-            backgroundColor: checked ? AppColors.quickbuy : 'transparent',
-            borderColor: AppColors.black,
-            padding: checked ? 2 : 0,
+            backgroundColor: checked ? checkedColor : uncheckedColor,
+            borderColor: borderColor,
+            borderWidth: borderWidth,
+            padding: checked ? paddingWhenChecked : paddingWhenUnchecked,
           },
         ]}
       >
         {checked && (
           <Icon
-            name="check"
-            size={size * 0.6}
-            color={AppColors.white}
+            name={iconName}
+            size={calcIconSize}
+            color={iconColor}
           />
         )}
       </View>
@@ -34,7 +51,6 @@ const AppCircleCheckbox = ({ checked, onPress, size = 30 }) => {
 
 const styles = StyleSheet.create({
   checkboxBase: {
-    borderWidth: 2,
     justifyContent: 'center',
     alignItems: 'center',
   },

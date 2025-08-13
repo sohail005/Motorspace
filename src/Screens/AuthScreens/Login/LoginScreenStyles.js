@@ -16,30 +16,36 @@ export const styles = StyleSheet.create({
         height: DimensionsUtil.SCREEN_WIDTH / 4.5,
         alignSelf: 'center',
     },
+    input: {
+        borderWidth: 1,
+        borderColor: AppColors.borderColor,
+        color: AppColors.textPrimary,
+        fontSize: FontSizes.mediumLarge
+    },
     loginHeading: {
         fontSize: FontSizes.ultraLarge,
-       
+
         color: AppColors.primary,
         marginTop: DimensionsUtil.SCREEN_WIDTH / 4.5,
         marginBottom: 24,
-        fontFamily:Fonts.bold,
-        
+        fontFamily: Fonts.bold,
+
     },
     signInButton: {
         height: DimensionsUtil.SCREEN_WIDTH / 9,
         width: DimensionsUtil.SCREEN_WIDTH / 2.3,
         borderRadius: 8,
         backgroundColor: AppColors.primary,
-       justifyContent:'center'
+        justifyContent: 'center'
         // marginTop: 16,
         // marginBottom: height / 4,
     },
     signInText: {
         color: AppColors.white,
         fontSize: FontSizes.medium,
-        fontFamily:Fonts.semiBold,
-        textAlign:'center',
-        textAlignVertical:'center',
+        fontFamily: Fonts.semiBold,
+        textAlign: 'center',
+        textAlignVertical: 'center',
     },
     footer: {
         // padding: width / 8,
@@ -72,6 +78,6 @@ export const styles = StyleSheet.create({
     joinText: {
         color: AppColors.white,
         fontSize: FontSizes.medium,
-        fontFamily:Fonts.semiBold,
+        fontFamily: Fonts.semiBold,
     },
 });

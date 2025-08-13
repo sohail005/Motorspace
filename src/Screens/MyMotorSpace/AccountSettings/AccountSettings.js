@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { styles } from './AccountSettingsStyles';
@@ -8,14 +8,25 @@ import AppImage from '../../../components/AppImage';
 import { AppColors } from '../../../constants/colors';
 import AppHeader from '../../../components/AppHeader';
 import { IMAGES } from '../../../assets/Images/ImagePath';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
+import ProfileCard from '../ProfileCard';
+import SignoutPortal from '../../../components/SignoutPortal';
+import { navigate } from '../../../navigation/NavigationService';
+import { appLogout } from '../../../utils/Functions/logoutService';
 
 export default function AccountSettings() {
     const navigation = useNavigation()
+    const [showSignout, setShowSignout] = useState(false);
 
+    const handleSignout = () => {
+        setShowSignout(false);
+        appLogout();
+    };
     const OnItemPress = (item) => {
         if (item.id == 0) {
             navigation.navigate("EditProfile")
+        } else if (item.id == 3) {
+            setShowSignout(true)
         }
 
     }
@@ -31,16 +42,12 @@ export default function AccountSettings() {
                 </View>
 
                 {/* Profile Card */}
-                <View style={styles.profileCard}>
-                    <AppImage
-                        source={IMAGES.MotospaceCar}
-                        style={styles.avatar}
-                    />
-                    <View style={{ flex: 1 }}>
-                        <AppText style={styles.name}>Thomas Lamb</AppText>
-                        <AppText style={styles.subText}>Motorspace Testing</AppText>
-                    </View>
-                </View>
+                <ProfileCard
+                    imageSource={IMAGES.MotospaceCar}
+                    name="Thomas Lamb"
+                    subtitle="Motorspace Testing"
+                    onSettingsPress={() => console.log("Settings Pressed")}
+                />
                 <View style={styles.divider} />
 
                 {/* Menu Items */}
@@ -64,6 +71,12 @@ export default function AccountSettings() {
                     </React.Fragment>
                 ))}
             </ScrollView>
+            <SignoutPortal
+                visible={showSignout}
+                onDismiss={() => setShowSignout(false)}
+                onConfirmSignout={handleSignout}
+                onCancel={() => setShowSignout(false)}
+            />
         </View>
     );
 }

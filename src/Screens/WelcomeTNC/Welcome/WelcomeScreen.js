@@ -5,23 +5,20 @@ import AppImage from '../../../components/AppImage';
 import AppTouchable from '../../../components/AppTouchable';
 import { IMAGES } from '../../../assets/Images/ImagePath';
 import { styles } from './WelcomeStyles';
+import ProfileCard from '../../MyMotorSpace/ProfileCard';
 
 const WelcomeScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <AppText style={styles.welcomeText}>Welcome to</AppText>
             <AppText style={styles.appName}>MOTORSPACE</AppText>
-
-            <View style={styles.userDetailscontainer}>
-                <AppImage
-                    source={IMAGES.private} // Replace with actual image
-                    style={styles.profileImage}
-                    resizeMode="cover"
-                    placeholder
+            <View style={styles.profilecardConatiner}>
+                <ProfileCard
+                    imageSource={IMAGES.MotospaceCar}
+                    name="Thomas Lamb"
+                    subtitle="Motorspace Testing"
+                    onSettingsPress={() => console.log("Settings Pressed")}
                 />
-
-                <AppText style={styles.name}>Thomas Lamb</AppText>
-                <AppText style={styles.role}>Motorspace Testing</AppText>
             </View>
             <AppTouchable onPress={() => navigation.navigate('TermsScreen')} style={styles.button}>
                 <AppText style={styles.buttonText}>Let’s Go</AppText>

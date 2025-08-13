@@ -17,10 +17,17 @@ const AppHeader = ({
         console.log('Right icon pressed');
     },
 }) => {
-const navigation = useNavigation();
+    const navigation = useNavigation();
     const handleLeftPress = () => {
-        navigation.goBack();
-        //onLeftPress(); // can also add logic like navigation if needed
+        if (leftIcon != undefined) {
+            if (navigation.canGoBack()) {
+                navigation.goBack();
+                console.log(leftIcon);
+            } else {
+                console.log("No previous screen to go back to", leftIcon);
+                // Optional: handle the case where there's no back screen
+            }
+        }
     };
 
     const handleRightPress = () => {

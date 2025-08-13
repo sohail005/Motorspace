@@ -7,87 +7,87 @@ import DimensionsUtil from "../../../constants/Dimensions";
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: AppColors.defaultBackground
-    },
-    topBar: {
-        backgroundColor: AppColors.primary,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        // padding: 16,
-        alignItems: 'center'
+        backgroundColor: AppColors.defaultBackground,
     },
     mymotorsapcaeHeaderContainer: {
-        backgroundColor: AppColors.white
-    },
-    topBarTitle: {
-        color: AppColors.white,
-        fontSize: FontSizes.ultraLarge,
-        fontWeight: 'bold'
-    },
-    divider: {
-        backgroundColor: AppColors.borderColor,
-        height: 1,
-        width: '95%',
-        alignSelf: 'center',
-        marginVertical: 16
+        backgroundColor: AppColors.white,
     },
     scrollContent: {
-
+        paddingBottom: 150,
+    },
+    mainContentContainer: {
+        width: DimensionsUtil.SCREEN_WIDTH / 1.2,
+        alignSelf: 'center',
     },
     screenTitle: {
-        fontSize: FontSizes.ultraLarge,
+        fontSize: FontSizes.ultra,
         fontFamily: Fonts.bold,
         color: AppColors.primary,
-        paddingLeft: 16
-    },
-    profileCard: {
-        // flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: AppColors.defaultBackground,
-        padding: 18,
-        borderRadius: 10,
-        justifyContent: 'center'
-    },
-    avatar: {
-        width: DimensionsUtil.SCREEN_WIDTH / 3.5,
-        height: DimensionsUtil.SCREEN_WIDTH / 3.5,
-        borderRadius: 5,
-        // marginRight: 12
-    },
-    name: { fontSize: FontSizes.xxLarge, fontWeight: 'bold', color: AppColors.primary },
-    subText: { fontSize: FontSizes.mediumLarge, color: AppColors.buttonOrange, fontFamily: Fonts.semiBold },
-    menuItem: {
-        // flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: AppColors.white,
-        margin: 12,
-        borderRadius: 10,
         padding: 10,
-        paddingVertical: 16
     },
-    innercarditemsConatiner: {
-        flexDirection: 'row',
-        alignItems: 'center'
+    inputStyle: {
+        backgroundColor: AppColors.white,
+        borderRadius: 6,
+        borderColor: AppColors.borderColor,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+        fontSize: FontSizes.medium,
+        fontFamily: Fonts.medium,
     },
-    iconLabelRow: {
-        flexDirection: 'row', alignItems: 'center',
-        paddingHorizontal: 5
+    inputContainer: {
+        marginTop: 10,
     },
-    menuLabel: {
-        marginLeft: 10,
-        fontSize: FontSizes.large,
-        color: AppColors.primary,
-        fontFamily: Fonts.semiBold
+    disabledInput: {
+        backgroundColor: AppColors.grayBackground,
+    },
+    submitButton: {
+        backgroundColor: AppColors.primary,
+        paddingVertical: 15,
+        borderRadius: 8,
+        marginTop: 25,
+        alignItems: 'center',
+        width: DimensionsUtil.SCREEN_WIDTH / 2.5,
+        alignSelf: 'flex-end'
 
     },
-    badge: {
-        backgroundColor: 'red',
-        borderRadius: 10,
-        height: 20,
-        width: 20,
-        alignItems: 'center',
-        justifyContent: 'center'
+    submitButtonText: {
+        color: AppColors.white,
+        fontFamily: Fonts.semiBold,
+        fontSize: 16,
     },
-    badgeText: { color: AppColors.white, fontSize: 12, fontWeight: 'bold' }
+    inputNote: {
+        fontSize: FontSizes.smallMedium,
+        width: DimensionsUtil.SCREEN_WIDTH / 1.4
+    },
+    sectionLabel: {
+        fontSize: FontSizes.medium,
+        fontFamily: Fonts.medium,
+        color: AppColors.black,
+        marginBottom: 4,
+    },
+    toggleContainer: {
+        flexDirection: 'row',
+        marginVertical: 10,
+    },
+    toggleButton: {
+        flex: 1,
+        borderWidth: 1,
+        borderColor: AppColors.primary,
+        paddingVertical: 10,
+        alignItems: 'center',
+        borderRadius: 8,
+        marginHorizontal: 5,
+    },
+    toggleButtonActive: {
+        backgroundColor: AppColors.primaryLight,
+        borderColor: AppColors.primary,
+    },
+    toggleText: {
+        fontSize: 16,
+        color: AppColors.textGray,
+    },
+    toggleTextActive: {
+        fontWeight: 'bold',
+        color: AppColors.primary,
+    },
 });
