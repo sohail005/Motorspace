@@ -74,76 +74,77 @@ const LoginScreen = () => {
 
   }
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <ScrollView style={{flex:1}}>
-          <View style={styles.container}>
-            <Animated.View
-              entering={ZoomIn.duration(500)}
-              style={{ width: '100%' }}
-            >
-              <AppImage source={IMAGES.logo} style={styles.logo} />
-              <AppText style={styles.loginHeading}>Log in.</AppText>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView
+          contentContainerStyle={styles.container}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          <Animated.View
+            entering={ZoomIn.duration(300)}
+            style={{ width: '100%' }}
+          >
+            <AppImage source={IMAGES.logo} style={styles.logo} />
+            <AppText style={styles.loginHeading}>Log in.</AppText>
 
-              <AppInput
-                label="Email Address"
-                placeholder="Enter your email"
-                icon={IMAGES.User}
-                value={email}
-                inputStyle={styles.input}
-                onChangeText={(text) => {
-                  setEmail(text);
-                  if (emailError) setEmailError('');
-                }}
-                errorMessage={emailError}
-                keyboardType="email-address"
-                autoCapitalize="none"
-              />
+            <AppInput
+              label="Email Address"
+              placeholder="Enter your email"
+              icon={IMAGES.User}
+              value={email}
+              inputStyle={styles.input}
+              onChangeText={(text) => {
+                setEmail(text);
+                if (emailError) setEmailError('');
+              }}
+              errorMessage={emailError}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
 
-              <AppInput
-                label="Password"
-                icon={IMAGES.Lock}
-                placeholder="Enter your password"
-                secureTextEntry
-                inputStyle={styles.input}
-                value={password}
-                onChangeText={(text) => {
-                  setPassword(text);
-                  if (passwordError) setPasswordError('');
-                }}
-                errorMessage={passwordError}
-              />
+            <AppInput
+              label="Password"
+              icon={IMAGES.Lock}
+              placeholder="Enter your password"
+              secureTextEntry
+              inputStyle={styles.input}
+              value={password}
+              onChangeText={(text) => {
+                setPassword(text);
+                if (passwordError) setPasswordError('');
+              }}
+              errorMessage={passwordError}
+            />
 
-              <View style={{ marginTop: 16, width: DimensionsUtil.SCREEN_WIDTH / 2.5 }}>
-                <AppTouchable onPress={handleLogin} style={styles.signInButton}>
-                  <AppText style={styles.signInText}>Sign in</AppText>
+            <View style={{ marginTop: 16, width: DimensionsUtil.SCREEN_WIDTH / 2.5 }}>
+              <AppTouchable onPress={handleLogin} style={styles.signInButton}>
+                <AppText style={styles.signInText}>Sign in</AppText>
+              </AppTouchable>
+            </View>
+
+            <View style={styles.footer}>
+              <AppText style={styles.newText}>New to</AppText>
+              <AppText style={styles.brandText}>Motorspace?</AppText>
+              <View style={{ width: DimensionsUtil.SCREEN_WIDTH / 2.5 }}>
+                <AppTouchable
+                  onPress={() => handleJoinNow()}
+                  style={styles.joinButton}
+                >
+                  <AppText style={styles.joinText}>Join Now</AppText>
                 </AppTouchable>
               </View>
+            </View>
+          </Animated.View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+);
 
-              <View style={styles.footer}>
-                <AppText style={styles.newText}>New to</AppText>
-                <AppText style={styles.brandText}>Motorspace?</AppText>
-                <View style={{ width: DimensionsUtil.SCREEN_WIDTH / 2.5 }}>
-                  <AppTouchable
-                    onPress={() => handleJoinNow()}
-                    style={styles.joinButton}
-                  >
-                    <AppText style={styles.joinText}>Join Now</AppText>
-                  </AppTouchable>
-                </View>
-              </View>
-            </Animated.View>
-          </View>
-          </ScrollView>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
-  );
 };
 
 export default LoginScreen;
