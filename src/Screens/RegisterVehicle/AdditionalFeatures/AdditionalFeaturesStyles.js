@@ -15,10 +15,10 @@ export const styles = StyleSheet.create({
     },
     innerContainer: {
         flex: 1,
-      },
-      spacer: {
+    },
+    spacer: {
         height: 100, // ensures space for bottom buttons when scrolling
-      },
+    },
     title: {
         fontSize: FontSizes.ultraLarge,
         fontFamily: Fonts.bold,
@@ -34,13 +34,15 @@ export const styles = StyleSheet.create({
     inputRow: {
         flexDirection: 'row',
         height: 50,
-        marginBottom: 15
+        marginBottom: 15,
+        alignItems:'center'
     },
     input: {
         borderRadius: 8,
         fontSize: FontSizes.medium,
         width: DimensionsUtil.SCREEN_WIDTH / 1.25,
-
+        borderWidth: 1,
+        borderColor:AppColors.borderColor
     },
     addButton: {
         width: 50,
@@ -50,7 +52,7 @@ export const styles = StyleSheet.create({
         borderColor: AppColors.borderColor,
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft:10
+        marginLeft: 10
     },
     featureItem: {
         flexDirection: 'row',
@@ -62,14 +64,14 @@ export const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 10,
         width: DimensionsUtil.SCREEN_WIDTH / 1.25,
-        alignItems:'center'
+        alignItems: 'center'
     },
     featureText: {
         fontSize: FontSizes.medium,
         fontFamily: Fonts.regular,
         color: AppColors.textPrimary,
         flex: 1,
-        paddingLeft:10
+        paddingLeft: 10
     },
     placeholderText: {
         fontSize: FontSizes.medium,
@@ -85,7 +87,7 @@ export const styles = StyleSheet.create({
         bottom: 0,
         width: DimensionsUtil.SCREEN_WIDTH,
         padding: 20,
-        backgroundColor:AppColors.white
+        backgroundColor: AppColors.white
     },
     skipButton: {
         borderWidth: 1,

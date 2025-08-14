@@ -9,9 +9,22 @@ import AppTouchable from '../../components/AppTouchable';
 import AppImage from '../../components/AppImage';
 import AppText from '../../components/AppText';
 import { useNavigation } from '@react-navigation/native';
+import { navigate } from '../../navigation/NavigationService';
 
 export default function MyMotorSpace() {
-    const navigation = useNavigation()
+    const navigation = useNavigation();
+
+    const OnItemPress = (item) => {
+        if (item.id == 0) {
+            navigate("MyMotors")
+        } else if (item.id == 3) {
+            // setShowSignout(true)
+        } else if (item.id == 2) {
+            navigate("TermsConditions")
+        }
+
+
+    }
     return (
         <View style={styles.container}>
             {/* Top Bar */}
@@ -42,7 +55,7 @@ export default function MyMotorSpace() {
                 {/* Menu Items */}
                 {menuItems.map((item, index) => (
                     <React.Fragment key={index}>
-                        <AppTouchable style={styles.menuItem}>
+                        <AppTouchable onPress={() => OnItemPress(item)} style={styles.menuItem}>
                             <View style={styles.innercarditemsConatiner}>
                                 <View style={styles.iconLabelRow}>
                                     <Icon name={item.icon} size={24} color={AppColors.buttonOrange} />
@@ -65,9 +78,9 @@ export default function MyMotorSpace() {
 }
 
 const menuItems = [
-    { icon: 'car-outline', label: 'My Motors' },
-    { icon: 'checkmark-done-circle-outline', label: 'Active Listings', badge: 2 },
-    { icon: 'cash-outline', label: 'Sold Motors', badge: 1 },
-    { icon: 'eye-outline', label: 'Watch List' },
-    { icon: 'pricetag-outline', label: 'My Purchases' },
+    { id: 0, icon: 'car-outline', label: 'My Motors' },
+    { id: 1, icon: 'checkmark-done-circle-outline', label: 'Active Listings', badge: 2 },
+    { id: 2, icon: 'cash-outline', label: 'Sold Motors', badge: 1 },
+    { id: 3, icon: 'eye-outline', label: 'Watch List' },
+    { id: 4, icon: 'pricetag-outline', label: 'My Purchases' },
 ];

@@ -24,10 +24,13 @@ export default function AccountSettings() {
     };
     const OnItemPress = (item) => {
         if (item.id == 0) {
-            navigation.navigate("EditProfile")
+            navigate("EditProfile")
         } else if (item.id == 3) {
             setShowSignout(true)
+        } else if (item.id == 2) {
+            navigate("TermsConditions")
         }
+
 
     }
     return (

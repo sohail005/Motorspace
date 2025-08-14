@@ -4,6 +4,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MyMotorSpace from '../Screens/MyMotorSpace/MyMotorSpace';
 import AccountSettings from '../Screens/MyMotorSpace/AccountSettings/AccountSettings';
 import EditProfile from '../Screens/MyMotorSpace/EditProfile/EditProfile';
+import TermsConditions from '../Screens/MyMotorSpace/TermsConditions/TermsConditions';
+import MyMotors from '../Screens/MyMotorSpace/MyMotors/MyMotors';
+import ListMotorScreen from '../Screens/Sellcars/ListMotorforSale/ListedMotors.js/ListMotorScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,12 +23,28 @@ const MyMotorSpaceStack = () => {
         component={AccountSettings}
         options={{ headerShown: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="EditProfile"
         component={EditProfile}
         options={{ headerShown: false }}
       />
-      
+      <Stack.Screen
+        name="TermsConditions"
+        component={TermsConditions}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="MyMotors"
+        component={MyMotors}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ListMotorScreen"
+        component={ListMotorScreen}
+        options={{ headerShown: false }}
+      />
+
+
     </Stack.Navigator>
   );
 };

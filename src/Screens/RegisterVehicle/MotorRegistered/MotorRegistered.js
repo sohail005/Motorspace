@@ -11,8 +11,8 @@ import DimensionsUtil from '../../../constants/Dimensions';
 
 const MotorRegistered = ({ navigation, route }) => {
   const { make, model, registrationNumber } = route?.params || {
-    make: 'Make, Model',
-    model: '',
+    make: 'Fiat Punto',
+    model: '2025',
     registrationNumber: 'TY24 FGH'
   };
 
@@ -26,7 +26,7 @@ const MotorRegistered = ({ navigation, route }) => {
       <AppImage
         source={IMAGES.MotospaceCar}
         resizeMode="contain"
-        style={{ width: DimensionsUtil.SCREEN_WIDTH/3, height: DimensionsUtil.SCREEN_WIDTH/3 }}
+        style={{ width: DimensionsUtil.SCREEN_WIDTH / 3, height: DimensionsUtil.SCREEN_WIDTH / 3 }}
       />
     </View>
   );
@@ -139,29 +139,36 @@ const styles = StyleSheet.create({
   registrationPlate: {
     backgroundColor: AppColors.plateYellow, // Yellow background
     borderRadius: 6,
-
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   registrationText: {
     fontSize: FontSizes.xLarge,
     color: AppColors.textPrimary,
     letterSpacing: 2,
-    fontFamily: "UKNumberPlate",
-    padding: 15
+    fontFamily: Fonts.UKNumberPlate,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlignVertical: 'center'
   },
   buttonSection: {
     paddingHorizontal: 20,
+
   },
   continueButton: {
     backgroundColor: AppColors.primary,
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: 'center',
+    justifyContent: 'center'
 
   },
   continueButtonText: {
     color: AppColors.white,
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: FontSizes.medium,
+    fontFamily: Fonts.semiBold,
   },
 });
 

@@ -70,9 +70,10 @@ const AdditionalFeatures = () => {
               <AppInput
                 label=""
                 value={feature}
+                 inputStyle={styles.input}
                 onChangeText={setFeature}
                 placeholder="Type Feature"
-                style={styles.input}
+                // style={styles.input}
               />
               <AppTouchable onPress={handleAddFeature} style={styles.addButton}>
                 <Icon name="add" size={22} color={AppColors.primary} />

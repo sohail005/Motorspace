@@ -93,7 +93,7 @@ const ReportMinorDamages = ({ navigation }) => {
                     {item?.photo?.uri && (
                         <AppImage
                             source={{ uri: item?.photo?.uri }}
-                            resizeMode="cover"
+                            resizeMode="contain"
                             style={styles.damageDetailImage}
                         />
                     )}

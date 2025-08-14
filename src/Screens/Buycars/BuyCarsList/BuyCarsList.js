@@ -128,10 +128,10 @@ const BuyCarsList = () => {
     return (
         <View style={styles.container}>
             <AppHeader rightIcon={IMAGES.home} />
-            <Animated.View
-                entering={ZoomIn.duration(400)}
+            {/* <Animated.View
+                entering={ZoomIn.duration(300)}
                 style={{ width: '100%' }}
-            >
+            > */}
                 <OfferSentPopup
                     data={popupData}
                     onDismiss={() => setPopupData(prev => ({ ...prev, visible: false }))}
@@ -214,7 +214,7 @@ const BuyCarsList = () => {
                     offerSent={offerSent}
                     ConfirmPurchase={confirmPurchase}
                 />
-            </Animated.View>
+            {/* </Animated.View> */}
         </View>
     );
 };

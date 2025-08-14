@@ -17,6 +17,7 @@ const AppInput = ({
   labelStyle,
   inputStyle,
   errorMessage,
+  cursorColor = AppColors.primary,
   touched,
   ...rest
 }) => {
@@ -44,6 +45,7 @@ const AppInput = ({
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
+        cursorColor={cursorColor}
         {...rest}
       />
 
