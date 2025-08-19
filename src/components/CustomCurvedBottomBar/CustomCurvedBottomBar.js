@@ -35,13 +35,13 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
       Animated.spring(animatedValue, {
         toValue: index * tabWidth,
         useNativeDriver: false,
-        tension: 200,
+        tension: 100,
         friction: 7,
       }),
       Animated.spring(curveCenterAnimated, {
         toValue: newCurveCenter,
         useNativeDriver: false,
-        tension: 200,
+        tension: 100,
         friction: 7,
       })
     ]).start();
@@ -53,13 +53,13 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
       Animated.spring(animatedValue, {
         toValue: activeTab * tabWidth,
         useNativeDriver: false,
-        tension: 200,
+        tension: 100,
         friction: 7,
       }),
       Animated.spring(curveCenterAnimated, {
         toValue: newCurveCenter,
         useNativeDriver: false,
-        tension: 200,
+        tension: 100,
         friction: 7,
       })
     ]).start();
