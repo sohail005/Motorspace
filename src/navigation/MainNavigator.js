@@ -44,7 +44,8 @@ const MainNavigator = () => {
     <Tab.Navigator
       screenOptions={{ headerShown: false }}
       tabBar={(props) => {
-        const activeIndex = props.state.index;
+        let activeIndex = props.state.index;
+        console.log("activeIndex:", activeIndex);
 
         const handleTabPress = (index) => {
           const activeIndex = props.state.index;

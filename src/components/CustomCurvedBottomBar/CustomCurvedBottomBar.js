@@ -22,6 +22,7 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
   const pathRef = useRef();
   const dispatch = useDispatch();
   const tabWidth = width / tabs.length;
+  console.log("activeTab:::", activeTab);
 
   const handleTabPress = (index) => {
     dispatch(setStatusBarColor(AppColors.primary));
@@ -46,11 +47,11 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
     ]).start();
   };
   useEffect(() => {
-    const newCurveCenter = (activeIndex * tabWidth) + (tabWidth / 2);
+    const newCurveCenter = (activeTab * tabWidth) + (tabWidth / 2);
 
     Animated.parallel([
       Animated.spring(animatedValue, {
-        toValue: activeIndex * tabWidth,
+        toValue: activeTab * tabWidth,
         useNativeDriver: false,
         tension: 200,
         friction: 7,
@@ -62,7 +63,7 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
         friction: 7,
       })
     ]).start();
-  }, [activeIndex]);
+  }, [activeTab]);
   useEffect(() => {
     setTabController(setActiveIndex);  // expose setter globally
   }, []);
@@ -72,7 +73,7 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
     const curveDepth = 40;
 
     const radius = maxCurveWidth / 2;
-    const initialCurveCenter = (activeIndex * tabWidth) + (tabWidth / 2);
+    const initialCurveCenter = (activeTab * tabWidth) + (tabWidth / 2);
 
     let curveCenter = initialCurveCenter;
 
@@ -101,7 +102,7 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
     `;
 
     setCurvePath(initialPath); // Set initial path
-    animatedValue.setValue(activeIndex * tabWidth);
+    animatedValue.setValue(activeTab * tabWidth);
     curveCenterAnimated.setValue(initialCurveCenter);
 
     const listenerId = curveCenterAnimated.addListener(({ value }) => {
@@ -141,7 +142,7 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
   }, [tabs.length]);
 
   const renderTab = (tab, index) => {
-    const isActive = activeIndex === index;
+    const isActive = activeTab === index;
 
     return (
       <AppTouchable

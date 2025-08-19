@@ -32,7 +32,12 @@ const RootNavigator = () => {
       />
 
       {/* Navigation */}
-      <NavigationContainer ref={navigationRef} theme={MyTheme}>
+      <NavigationContainer
+        onStateChange={() => {
+          const currentRoute = navigationRef.current?.getCurrentRoute();
+          console.log("Now active:", currentRoute?.name);
+        }}
+        ref={navigationRef} theme={MyTheme}>
         {isLoggedIn ? <MainNavigator /> : <AuthNavigator />}
       </NavigationContainer>
     </SafeAreaView>
