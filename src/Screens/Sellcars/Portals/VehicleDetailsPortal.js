@@ -138,10 +138,11 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
         };
     };
 
+    const statusStyles = getStatusStyles(car?.status);
     if (!car) return null;
 
-    const statusStyles = getStatusStyles(car?.status);
     const onAcceptNewOffer = (data) => {
+        setCounterOfferSent(false)
         setNewAcceptOffer(true);
         setShowNewOfferReceived(false);
         triggerNotificationPopup("Offer Accepted!", "You have accepted the new offer from John Jacobson.");
@@ -151,9 +152,11 @@ const VehicleDetailsPortal = ({ visible, onDismiss, car, openedFromHome, offerSe
         setShowDeclineConfirm(false);
         triggerNotificationPopup("Offer Accepted!", "You have accepted the offer from Shark Fin Motors.");
         setShowNewOfferReceived(false);
+
     };
     const onCounterOffer = () => {
         setCounterOfferSent(true);
+        setShowNewOfferReceived(false)
         setShowNewOfferReceived(false);
         triggerNotificationPopup("Counter Offer Sent!", "You have sent a counter offer to John Jacobson.");
     };

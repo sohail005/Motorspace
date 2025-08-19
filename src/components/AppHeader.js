@@ -8,6 +8,7 @@ import AppText from './AppText';
 import { FontSizes } from '../constants/fontsizes';
 import AppTouchable from './AppTouchable';
 import { useNavigation } from '@react-navigation/native';
+import { goBack } from '../navigation/NavigationService';
 const AppHeader = ({
     title = 'MOTORSPACE',
     leftIcon,
@@ -17,16 +18,9 @@ const AppHeader = ({
         console.log('Right icon pressed');
     },
 }) => {
-    const navigation = useNavigation();
     const handleLeftPress = () => {
         if (leftIcon != undefined) {
-            if (navigation.canGoBack()) {
-                navigation.goBack();
-                console.log(leftIcon);
-            } else {
-                console.log("No previous screen to go back to", leftIcon);
-                // Optional: handle the case where there's no back screen
-            }
+           goBack();
         }
     };
 

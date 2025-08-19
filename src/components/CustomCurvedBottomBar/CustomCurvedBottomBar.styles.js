@@ -6,8 +6,9 @@ import { Fonts } from '../../constants/Fonts';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: AppColors.white,
+    // flex: 1,
+    backgroundColor: AppColors.redLabel,
+    // height: DimensionsUtil.SCREEN_HEIGHT/8,
   },
   content: {
     flex: 1,

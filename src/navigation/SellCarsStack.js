@@ -6,6 +6,7 @@ import CompleteSale from '../Screens/Sellcars/CompleteSale/CompleteSale';
 import SaleSuccess from '../Screens/Sellcars/SaleSuccess/SaleSuccess';
 import ListMotorScreen from '../Screens/Sellcars/ListMotorforSale/ListedMotors.js/ListMotorScreen';
 import MotorUpForSale from '../Screens/Sellcars/ListMotorforSale/MotorUpForSale';
+import VehicleDetailsScreen from '../Screens/Sellcars/VehicleDetails/VehicleDetailsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,7 +38,11 @@ const SellCarsStack = () => {
                 component={MotorUpForSale}
                 options={{ headerShown: false }}
             />
-            
+            <Stack.Screen
+                name="VehicleDetailsScreen"
+                component={VehicleDetailsScreen}
+                options={{ headerShown: false }}
+            />
 
         </Stack.Navigator>
     );

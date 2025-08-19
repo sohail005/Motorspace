@@ -14,6 +14,7 @@ import SellCarCardItem from './SellCarCardItem'
 import { listings } from './data'
 import { styles } from './SellCarsListStyles'
 import VehicleDetailsPortal from '../Portals/VehicleDetailsPortal'
+import { navigate } from '../../../navigation/NavigationService'
 
 const SellCarsList = ({ navigation }) => {
     const [visibleCarDetails, setVisibleCarDetails] = useState(false);
@@ -22,7 +23,7 @@ const SellCarsList = ({ navigation }) => {
     const onItemPress = useCallback((item) => {
         console.log(item);
         setSelectedCar(item);
-        setVisibleCarDetails(true);
+        navigate("VehicleDetailsScreen", { car: item });
     }, []);
     return (
         <View style={styles.container}>
@@ -68,14 +69,12 @@ const SellCarsList = ({ navigation }) => {
                     contentContainerStyle={{ paddingBottom: 200, }}
                 />
             </View>
-            <VehicleDetailsPortal
+            {/* <VehicleDetailsPortal
                 visible={visibleCarDetails}
                 onDismiss={() => setVisibleCarDetails(false)}
                 car={selectedCar}
                 openedFromHome={true}
-                offerSent={() => { }}
-                ConfirmPurchase={() => { }}
-            />
+            /> */}
         </View>
     )
 }

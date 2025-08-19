@@ -120,7 +120,6 @@ const ListMotorScreen = ({ navigation }) => {
 
     const OnItemPress = (item) => {
         console.log("item:", item);
-
         setSelectedCar(item);
         setShowPortal(true);
     }

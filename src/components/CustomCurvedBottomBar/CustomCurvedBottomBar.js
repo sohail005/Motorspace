@@ -10,6 +10,7 @@ import AppText from '../AppText';
 import { useDispatch } from 'react-redux';
 import { setStatusBarColor } from '../../redux/features/user/userSlice';
 import AppTouchable from '../AppTouchable';
+import { setTabController } from '../../navigation/TabService';
 
 const { width } = Dimensions.get('screen');
 
@@ -44,7 +45,27 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
       })
     ]).start();
   };
+  useEffect(() => {
+    const newCurveCenter = (activeIndex * tabWidth) + (tabWidth / 2);
 
+    Animated.parallel([
+      Animated.spring(animatedValue, {
+        toValue: activeIndex * tabWidth,
+        useNativeDriver: false,
+        tension: 200,
+        friction: 7,
+      }),
+      Animated.spring(curveCenterAnimated, {
+        toValue: newCurveCenter,
+        useNativeDriver: false,
+        tension: 200,
+        friction: 7,
+      })
+    ]).start();
+  }, [activeIndex]);
+  useEffect(() => {
+    setTabController(setActiveIndex);  // expose setter globally
+  }, []);
   useEffect(() => {
     const barHeight = 90;
     const maxCurveWidth = 130;

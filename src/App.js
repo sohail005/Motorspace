@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { store } from './redux/store';
 import { StyleSheet } from 'react-native';
 import RootNavigator from './navigation/RootNavigator';
@@ -11,7 +11,6 @@ import { PaperProvider } from 'react-native-paper';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const AppWrapper = () => {
-  const statusBarColor = useSelector((state) => state.user.statusBarColor);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,12 +20,10 @@ const AppWrapper = () => {
       if (token) dispatch(setToken(token));
     };
     loadToken();
-  }, []);
+  }, [dispatch]);
+
   return (
-    <SafeAreaView
-      edges={['top', 'left', 'right']}
-      style={[styles.container, { backgroundColor: statusBarColor || AppColors.white }]}
-    >
+    <SafeAreaView style={styles.container}>
       <PaperProvider>
         <RootNavigator />
       </PaperProvider>
@@ -49,6 +46,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: AppColors.white,
   },
 });
 
