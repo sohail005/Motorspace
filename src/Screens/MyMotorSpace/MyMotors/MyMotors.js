@@ -26,7 +26,8 @@ const MyMotors = ({ }) => {
 
     const goToSellCarsList = () => {
         switchTab(2); // Sell Cars tab index
-        navigate("ListMotorScreen");
+        // navigate("ListMotorScreen");
+        navigate('MainTabs', { screen: 'SellCarsTab', params: { screen: 'ListMotorScreen' } });
     };
 
     const onItemPress = useCallback((item) => {
