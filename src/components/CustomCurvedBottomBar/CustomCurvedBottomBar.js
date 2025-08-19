@@ -179,9 +179,9 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
 
   return (
     <View style={styles.container}>
-      <View style={styles.content}>
+      {/* <View style={styles.content}>
         {tabs[activeIndex]?.component}
-      </View>
+      </View> */}
 
       <View style={styles.bottomBar}>
         <Svg width={width} height={80} style={styles.svgContainer}>
