@@ -22,7 +22,6 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
   const pathRef = useRef();
   const dispatch = useDispatch();
   const tabWidth = width / tabs.length;
-  console.log("activeTab:::", activeTab);
 
   const handleTabPress = (index) => {
     dispatch(setStatusBarColor(AppColors.primary));

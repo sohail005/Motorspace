@@ -13,7 +13,6 @@ import AppText from '../../../components/AppText';
 import AppInput from '../../../components/AppInput';
 import AppTouchable from '../../../components/AppTouchable';
 import { IMAGES } from '../../../assets/Images/ImagePath';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './LoginScreenStyles';
 import DimensionsUtil from '../../../constants/Dimensions';
 import { useNavigation } from '@react-navigation/native';

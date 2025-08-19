@@ -7,6 +7,7 @@ import AuthNavigator from './AuthNavigator';
 import MainNavigator from './MainNavigator';
 import { navigationRef } from './NavigationService';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import MainRootStack from './MainRootStack';
 
 const RootNavigator = () => {
   const statusBarColor = useSelector((state) => state.user.statusBarColor);
@@ -34,7 +35,7 @@ const RootNavigator = () => {
       {/* Navigation */}
       <NavigationContainer
         ref={navigationRef} theme={MyTheme}>
-        {isLoggedIn ? <MainNavigator /> : <AuthNavigator />}
+        {isLoggedIn ? <MainRootStack /> : <AuthNavigator />}
       </NavigationContainer>
     </SafeAreaView>
   );

@@ -10,6 +10,8 @@ import AppHeader from '../../../../components/AppHeader';
 import { IMAGES } from '../../../../assets/Images/ImagePath';
 import { Fonts } from '../../../../constants/Fonts';
 import CarDetailSetpricePortal from '../CarDetailSetpricePortal';
+import { useDispatch } from 'react-redux';
+import { setStatusBarColor } from '../../../../redux/features/user/userSlice';
 
 const getStatusColor = (status) => {
     const colors = {
@@ -55,6 +57,8 @@ const MotorCard = ({ numberPlate, title, variant, status, dateAdded, price, onPr
 const ListMotorScreen = ({ navigation }) => {
     const [showPortal, setShowPortal] = useState(false);
     const [selectedCar, setSelectedCar] = useState(null);
+    const dispatch = useDispatch();
+
     const data = [
         {
             id: '1',
@@ -123,6 +127,10 @@ const ListMotorScreen = ({ navigation }) => {
         setSelectedCar(item);
         setShowPortal(true);
     }
+    OnAddMotorPress = () => {
+        navigation.navigate('InputVehicleRegistration');
+        dispatch(setStatusBarColor(AppColors.white));
+    }
     return (
         <View style={styles.container}>
             <AppHeader leftIcon rightIcon={IMAGES.home} />
@@ -140,7 +148,7 @@ const ListMotorScreen = ({ navigation }) => {
 
                 <View style={styles.mainContent}>
                     <AppTouchable
-                        onPress={() => navigation.navigate('ListMotorScreen')}
+                        onPress={() => OnAddMotorPress()}
                         style={styles.addMotorButton}
                     >
                         <Icon name="add" size={32} color="white" />

@@ -7,6 +7,21 @@ import SaleSuccess from '../Screens/Sellcars/SaleSuccess/SaleSuccess';
 import ListMotorScreen from '../Screens/Sellcars/ListMotorforSale/ListedMotors.js/ListMotorScreen';
 import MotorUpForSale from '../Screens/Sellcars/ListMotorforSale/MotorUpForSale';
 import VehicleDetailsScreen from '../Screens/Sellcars/VehicleDetails/VehicleDetailsScreen';
+import LetsRegister from '../Screens/RegisterVehicle/LetsRegister';
+import RegisterYourFirstMotor from '../Screens/RegisterVehicle/RegisterYourFirstMotor/RegisterYourFirstMotor';
+import InputVehicleRegistration from '../Screens/RegisterVehicle/InputVehicleRegistration/InputVehicleRegistration';
+import ConfirmVehicleInfo from '../Screens/RegisterVehicle/ConfirmVehicleInfo/ConfirmVehicleInfo';
+import AdditionalVehicleInfo from '../Screens/RegisterVehicle/AdditionalVehicleInfo/AdditionalVehicleInfo';
+import AnyNotableDamage from '../Screens/RegisterVehicle/AnyNotableDamage/AnyNotableDamage';
+import ReportMinorDamages from '../Screens/RegisterVehicle/ReportMinorDamages/ReportMinorDamages';
+import DamageReport from '../Screens/RegisterVehicle/DamageReport/DamageReport';
+import DamageDiagramScreen from '../Screens/RegisterVehicle/DamageReport/DamageDiagramScreen';
+import AdditionalFeatures from '../Screens/RegisterVehicle/AdditionalFeatures/AdditionalFeatures';
+import AdditionalCarSpecs from '../Screens/RegisterVehicle/AdditionalCarSpecs/AdditionalCarSpecs';
+import MotorRegistered from '../Screens/RegisterVehicle/MotorRegistered/MotorRegistered';
+import WelcomeScreen from '../Screens/WelcomeTNC/Welcome/WelcomeScreen';
+import TermsScreen from '../Screens/WelcomeTNC/TNC/TermsScreen';
+import TermsFullView from '../Screens/WelcomeTNC/TNC/TermsFullView';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +59,7 @@ const SellCarsStack = () => {
                 options={{ headerShown: false }}
             />
 
+           
         </Stack.Navigator>
     );
 };

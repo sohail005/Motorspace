@@ -29,6 +29,7 @@ import ArchiveListingPortal from "../Portals/ArchiveListingPortal";
 import DeleteListingPortal from "../Portals/DeleteListingPortal";
 import ReportIssuePortal from "../Portals/ReportIssuePortal";
 import NegotiationinProgressPortal from "../Portals/NegotiationinProgressPortal";
+import { navigate } from "../../../navigation/NavigationService";
 
 /* ---------------- Helpers ---------------- */
 
@@ -191,7 +192,10 @@ const VehicleDetailsScreen = ({ route }) => {
         vehicleInfo,
         dealer,
     } = car;
-
+    const OnArchivePress = () => {
+        setShowArchivePortal(false);
+        navigate('MainTabs', { screen: 'MyMotorSpaceTab', params: { screen: 'MyMotors' } });
+    }
     return (
         <View style={{ flex: 1, backgroundColor: AppColors.white }}>
             {/* Notification */}
@@ -455,7 +459,7 @@ const VehicleDetailsScreen = ({ route }) => {
             <ArchiveListingPortal
                 visible={showArchivePortal}
                 onDismiss={() => setShowArchivePortal(false)}
-                onConfirm={() => setShowArchivePortal(false)}
+                onConfirm={() => OnArchivePress()}
             />
 
             <DeleteListingPortal

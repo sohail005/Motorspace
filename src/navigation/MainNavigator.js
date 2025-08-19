@@ -6,8 +6,7 @@ import { IMAGES } from '../assets/Images/ImagePath';
 import BuyCarsStack from './BuyCarsStack';
 import SellCarsStack from './SellCarsStack';
 import MyMotorSpaceStack from './MyMotorSpaceStack';
-import { resetStack } from './NavigationService';
-import { CommonActions, StackActions, useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { setStatusBarColor } from '../redux/features/user/userSlice';
 import { AppColors } from '../constants/colors';
@@ -15,7 +14,14 @@ import { AppColors } from '../constants/colors';
 const Tab = createBottomTabNavigator();
 
 const MainNavigator = () => {
+  const dispatch = useDispatch();
 
+  useFocusEffect(
+    useCallback(() => {
+      // This runs when the screen comes into focus
+      dispatch(setStatusBarColor(AppColors.primary));
+    }, [dispatch])
+  );
   const tabs = [
     {
       label: 'Buy Cars',
@@ -51,22 +57,13 @@ const MainNavigator = () => {
           const activeIndex = props.state.index;
           const tabRoute = props.state.routes[index]; // { key, name, state? }
           const { name, firstScreen } = tabs[index];
-
           if (activeIndex === index) {
-            // Re-tap active tab → pop to top of that stack
-            // props.navigation.dispatch({
-            //   ...StackActions.push(),
-            //   target: tabRoute.key, // target the inner stack
-            // });
-
-            // (Optional) trigger tabPress event → lets useScrollToTop() work
             props.navigation.emit({ type: 'tabPress', target: tabRoute.key });
           } else {
             // Switch tab and go to its first screen
             props.navigation.navigate(name, { screen: firstScreen });
           }
         };
-
 
         return (
           <CustomCurvedBottomBar

@@ -212,6 +212,8 @@ export const styles = StyleSheet.create({
     addMotorText: {
         fontSize: FontSizes.xLarge,
         color: AppColors.buttonOrange || '#333333',
-        fontFamily: Fonts.bold
+        fontFamily: Fonts.bold,
+        width:'100%',
+        textAlign: 'center',
     },
 });
