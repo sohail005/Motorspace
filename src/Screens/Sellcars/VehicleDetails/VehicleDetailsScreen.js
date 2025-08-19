@@ -202,7 +202,7 @@ const VehicleDetailsScreen = ({ route }) => {
                 message={notificationMessage}
             />
 
-            <AppHeader rightIcon={IMAGES.home} />
+            <AppHeader leftIcon rightIcon={IMAGES.home} />
 
             <Animated.View style={[{ flex: 1 }, animatedStyle]}>
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
@@ -227,7 +227,7 @@ const VehicleDetailsScreen = ({ route }) => {
                                 <AppText style={styles.conditionText}>{condition}</AppText>
                             </View>
                             <AppText style={styles.capLabel}>
-                                CAP: <Text style={styles.capStrike}>£38,335</Text>
+                                CAP: <Text style={styles.capStrike}>{car.capStrike}</Text>
                             </AppText>
                         </View>
 

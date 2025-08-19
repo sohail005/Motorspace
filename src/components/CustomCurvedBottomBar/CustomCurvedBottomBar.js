@@ -69,7 +69,7 @@ const CustomCurvedBottomBar = ({ tabs = [], activeTab = 0, onTabPress = () => { 
   }, []);
   useEffect(() => {
     const barHeight = 90;
-    const maxCurveWidth = 130;
+    const maxCurveWidth = 120;
     const curveDepth = 40;
 
     const radius = maxCurveWidth / 2;

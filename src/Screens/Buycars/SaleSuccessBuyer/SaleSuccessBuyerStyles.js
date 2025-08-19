@@ -120,7 +120,7 @@ export const styles = StyleSheet.create({
   backButton: {
     backgroundColor: AppColors.primary,
     paddingVertical: 16,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     borderRadius: 10,
     marginTop: 30,
     width: (DimensionsUtil.SCREEN_WIDTH - 40) / 1.8
@@ -128,7 +128,7 @@ export const styles = StyleSheet.create({
   ContactSellerButton: {
     backgroundColor: AppColors.buttonOrange,
     paddingVertical: 16,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     borderRadius: 10,
     marginTop: 30,
     width: (DimensionsUtil.SCREEN_WIDTH - 40) / 2.5,
@@ -137,14 +137,14 @@ export const styles = StyleSheet.create({
   ContactSellerButtonText: {
     color: AppColors.white,
     fontFamily: Fonts.semiBold,
-    fontSize: FontSizes.large,
+    fontSize: FontSizes.mediumLarge,
     textAlign: 'center',
 
   },
   backButtonText: {
     color: AppColors.white,
     fontFamily: Fonts.semiBold,
-    fontSize: FontSizes.large,
+    fontSize: FontSizes.mediumLarge,
     textAlign: 'center',
   },
   buttonContainer: {

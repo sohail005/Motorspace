@@ -97,6 +97,7 @@ export const styles = StyleSheet.create({
 
     content: {
         paddingVertical: 10,
+        paddingBottom:150
     },
     title: {
         fontSize: FontSizes.xxxLarge,
