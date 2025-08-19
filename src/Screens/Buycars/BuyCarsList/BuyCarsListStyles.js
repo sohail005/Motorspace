@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingLeft: 10,
-        marginVertical:10
+        marginVertical: 10
     },
     topListConatiner: {
         marginBottom: 10
@@ -91,18 +91,18 @@ export const styles = StyleSheet.create({
         backgroundColor: AppColors.redLabel,
         borderRadius: 5
     },
-    filterCountContainer:{
-        backgroundColor:AppColors.buttonOrange,
-        borderRadius:5,
+    filterCountContainer: {
+        backgroundColor: AppColors.buttonOrange,
+        borderRadius: 5,
         height: DimensionsUtil.SCREEN_WIDTH / 16,
-        alignItems:'center',
-        justifyContent:'center',
-        marginLeft:10
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 10
     },
-    fillterCountText:{
-        color:AppColors.white,
-        fontSize:FontSizes.smallMedium,
-        fontFamily:Fonts.semiBold,
-        paddingHorizontal:10
+    fillterCountText: {
+        color: AppColors.white,
+        fontSize: FontSizes.smallMedium,
+        fontFamily: Fonts.semiBold,
+        paddingHorizontal: 10
     }
 });

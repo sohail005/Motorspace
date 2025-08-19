@@ -59,17 +59,17 @@ const LoginScreen = () => {
       Keyboard.dismiss()
       // Save to Redux
       setTimeout(() => {
-        dispatch(setStatusBarColor(AppColors.primary))
+        dispatch(setStatusBarColor(AppColors.primary));
         dispatch(setToken(fakeToken));
         dispatch(setUser(fakeUser));
-      }, 50);
+      }, 10);
 
     }
   };
   const handleJoinNow = () => {
     //navigation.navigate('GettingStarted')
     //navigation.navigate('LetsRegister')
-     navigation.navigate('ReportMinorDamages')
+    navigation.navigate('ReportMinorDamages')
     // navigation.navigate('WelcomeScreen')
 
   }

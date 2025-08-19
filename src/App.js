@@ -1,53 +1,42 @@
+// App.js
 import React, { useEffect } from 'react';
-import { Provider, useDispatch } from 'react-redux';
-import { store } from './redux/store';
 import { StyleSheet } from 'react-native';
-import RootNavigator from './navigation/RootNavigator';
-import { AppColors } from './constants/colors';
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-import storageItem from './utils/storageItem';
-import { setToken } from './redux/features/user/userSlice';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { PaperProvider } from 'react-native-paper';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { store } from './redux/store';
+import { setToken } from './redux/features/user/userSlice';
+import RootNavigator from './navigation/RootNavigator';
 
 const AppWrapper = () => {
   const dispatch = useDispatch();
+  const statusBarColor = useSelector((state) => state.user.statusBarColor);
 
   useEffect(() => {
     const loadToken = async () => {
       const token = await storageItem.getItem('token');
-      console.log("token::::::::::::::", token);
+      console.log("token::::::::::::::", token, statusBarColor);
       if (token) dispatch(setToken(token));
     };
     loadToken();
   }, [dispatch]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <PaperProvider>
-        <RootNavigator />
-      </PaperProvider>
-    </SafeAreaView>
+    <PaperProvider>
+      <RootNavigator />
+    </PaperProvider>
   );
 };
 
-const App = () => {
+export default function App() {
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <AppWrapper />
-        </GestureHandlerRootView>
-      </SafeAreaProvider>
+      <AppWrapper />
     </Provider>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: AppColors.white,
   },
 });
-
-export default App;

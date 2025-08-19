@@ -1,5 +1,5 @@
 // src/navigation/MainNavigator.js
-import React from 'react';
+import React, { useCallback } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CustomCurvedBottomBar from '../components/CustomCurvedBottomBar/CustomCurvedBottomBar';
 import { IMAGES } from '../assets/Images/ImagePath';
@@ -7,10 +7,15 @@ import BuyCarsStack from './BuyCarsStack';
 import SellCarsStack from './SellCarsStack';
 import MyMotorSpaceStack from './MyMotorSpaceStack';
 import { resetStack } from './NavigationService';
+import { CommonActions, StackActions, useFocusEffect } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { setStatusBarColor } from '../redux/features/user/userSlice';
+import { AppColors } from '../constants/colors';
 
 const Tab = createBottomTabNavigator();
 
 const MainNavigator = () => {
+
   const tabs = [
     {
       label: 'Buy Cars',
@@ -42,15 +47,25 @@ const MainNavigator = () => {
         const activeIndex = props.state.index;
 
         const handleTabPress = (index) => {
+          const activeIndex = props.state.index;
+          const tabRoute = props.state.routes[index]; // { key, name, state? }
+          const { name, firstScreen } = tabs[index];
+
           if (activeIndex === index) {
-            // already on this tab → reset its stack
-            const { name, firstScreen } = tabs[index];
-            resetStack(name, firstScreen);
+            // Re-tap active tab → pop to top of that stack
+            // props.navigation.dispatch({
+            //   ...StackActions.push(),
+            //   target: tabRoute.key, // target the inner stack
+            // });
+
+            // (Optional) trigger tabPress event → lets useScrollToTop() work
+            props.navigation.emit({ type: 'tabPress', target: tabRoute.key });
           } else {
-            // let React Navigation change tab
-            props.navigation.navigate(tabs[index].name);
+            // Switch tab and go to its first screen
+            props.navigation.navigate(name, { screen: firstScreen });
           }
         };
+
 
         return (
           <CustomCurvedBottomBar
