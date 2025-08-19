@@ -32,20 +32,20 @@ export const styles = StyleSheet.create({
     // paddingHorizontal: 10,
   },
   tabLabel: {
-    fontSize: FontSizes.smallMedium,
+    fontSize: FontSizes.large,
     color: AppColors.white,
     // marginTop: 4,
     marginBottom: 26,
   },
   activeTabLabel: {
     fontFamily: Fonts.bold,
-    fontSize: FontSizes.smallMedium,
+    fontSize: FontSizes.mediumLarge,
   },
   activeIconContainer: {
     backgroundColor: AppColors.buttonOrange,
     borderRadius: 100,
     padding: 10,
-    top: -14,
+    top: -12,
   },
   inactiveIconContainer: {
     justifyContent: 'center',
