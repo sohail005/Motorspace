@@ -20,7 +20,7 @@ export default function MyMotorSpace() {
         } else if (item.id == 3) {
             // setShowSignout(true)
         } else if (item.id == 2) {
-            navigate("TermsConditions")
+            navigate("SoldMotors")
         }
 
 

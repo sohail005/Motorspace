@@ -10,26 +10,26 @@ import Animated, {
 } from "react-native-reanimated";
 import { useNavigation } from "@react-navigation/native";
 
-import { AppColors } from "../../../constants/colors";
+import { AppColors } from "../../constants/colors";
 import { styles } from "./VehicleDetailsScreenStyles";
-import { IMAGES } from "../../../assets/Images/ImagePath";
+import { IMAGES } from "../../assets/Images/ImagePath";
 
-import AppText from "../../../components/AppText";
-import AppTouchable from "../../../components/AppTouchable";
-import AppHeader from "../../../components/AppHeader";
+import AppText from "../../components/AppText";
+import AppTouchable from "../../components/AppTouchable";
+import AppHeader from "../../components/AppHeader";
 
 // Portals
-import PurchaseNotificationPopup from "../Portals/PurchaseNotificationPopup";
-import SendOfferPortal from "../../Buycars/BuyCarsList/SendOfferPortal";
-import ConfirmPurchasePortal from "../../Buycars/BuyCarsList/ConfirmPurchasePortal";
-import PurchaseRequestPortal from "../Portals/PurchaseRequestPortal";
-import OffferConfirmationPortal from "../Portals/OffferConfirmationPortal";
-import NewOfferReceived from "../Portals/NewOfferReceived";
-import ArchiveListingPortal from "../Portals/ArchiveListingPortal";
-import DeleteListingPortal from "../Portals/DeleteListingPortal";
-import ReportIssuePortal from "../Portals/ReportIssuePortal";
-import NegotiationinProgressPortal from "../Portals/NegotiationinProgressPortal";
-import { navigate } from "../../../navigation/NavigationService";
+import PurchaseNotificationPopup from "../Sellcars/Portals/PurchaseNotificationPopup";
+import SendOfferPortal from "../Buycars/BuyCarsList/SendOfferPortal";
+import ConfirmPurchasePortal from "../Buycars/BuyCarsList/ConfirmPurchasePortal";
+import PurchaseRequestPortal from "../Sellcars/Portals/PurchaseRequestPortal";
+import OffferConfirmationPortal from "../Sellcars/Portals/OffferConfirmationPortal";
+import NewOfferReceived from "../Sellcars/Portals/NewOfferReceived";
+import ArchiveListingPortal from "../Sellcars/Portals/ArchiveListingPortal";
+import DeleteListingPortal from "../Sellcars/Portals/DeleteListingPortal";
+import ReportIssuePortal from "../Sellcars/Portals/ReportIssuePortal";
+import NegotiationinProgressPortal from "../Sellcars/Portals/NegotiationinProgressPortal";
+import { navigate } from "../../navigation/NavigationService";
 
 /* ---------------- Helpers ---------------- */
 

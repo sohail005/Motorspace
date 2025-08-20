@@ -2,7 +2,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainNavigator from './MainNavigator'; // your bottom tabs
-import VehicleDetailsScreen from '../Screens/Sellcars/VehicleDetails/VehicleDetailsScreen';
+import VehicleDetailsScreen from '../Screens/VehicleDetails/VehicleDetailsScreen';
 import CompleteSale from '../Screens/Sellcars/CompleteSale/CompleteSale';
 import LetsRegister from '../Screens/RegisterVehicle/LetsRegister';
 import RegisterYourFirstMotor from '../Screens/RegisterVehicle/RegisterYourFirstMotor/RegisterYourFirstMotor';

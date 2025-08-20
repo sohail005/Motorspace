@@ -6,7 +6,7 @@ import CompleteSale from '../Screens/Sellcars/CompleteSale/CompleteSale';
 import SaleSuccess from '../Screens/Sellcars/SaleSuccess/SaleSuccess';
 import ListMotorScreen from '../Screens/Sellcars/ListMotorforSale/ListedMotors.js/ListMotorScreen';
 import MotorUpForSale from '../Screens/Sellcars/ListMotorforSale/MotorUpForSale';
-import VehicleDetailsScreen from '../Screens/Sellcars/VehicleDetails/VehicleDetailsScreen';
+import VehicleDetailsScreen from '../Screens/VehicleDetails/VehicleDetailsScreen';
 import LetsRegister from '../Screens/RegisterVehicle/LetsRegister';
 import RegisterYourFirstMotor from '../Screens/RegisterVehicle/RegisterYourFirstMotor/RegisterYourFirstMotor';
 import InputVehicleRegistration from '../Screens/RegisterVehicle/InputVehicleRegistration/InputVehicleRegistration';

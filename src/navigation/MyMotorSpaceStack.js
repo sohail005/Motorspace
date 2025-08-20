@@ -7,7 +7,8 @@ import EditProfile from '../Screens/MyMotorSpace/EditProfile/EditProfile';
 import TermsConditions from '../Screens/MyMotorSpace/TermsConditions/TermsConditions';
 import MyMotors from '../Screens/MyMotorSpace/MyMotors/MyMotors';
 import ListMotorScreen from '../Screens/Sellcars/ListMotorforSale/ListedMotors.js/ListMotorScreen';
-import VehicleDetailsScreen from '../Screens/Sellcars/VehicleDetails/VehicleDetailsScreen';
+import VehicleDetailsScreen from '../Screens/VehicleDetails/VehicleDetailsScreen';
+import SoldMotors from '../Screens/MyMotorSpace/SoldMotors/SoldMotors';
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +48,11 @@ const MyMotorSpaceStack = () => {
       <Stack.Screen
         name="VehicleDetailsScreen"
         component={VehicleDetailsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SoldMotors"
+        component={SoldMotors}
         options={{ headerShown: false }}
       />
      

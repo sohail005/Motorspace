@@ -56,13 +56,10 @@ const LoginScreen = () => {
       const fakeToken = 'abc123';
       const fakeUser = { name: 'John Doe', email };
       Keyboard.dismiss()
-      // Save to Redux
-      setTimeout(() => {
-        dispatch(setStatusBarColor(AppColors.primary));
-        dispatch(setToken(fakeToken));
-        dispatch(setUser(fakeUser));
-      }, 10);
-
+      // Save to Redu
+      dispatch(setStatusBarColor(AppColors.primary));
+      dispatch(setToken(fakeToken));
+      dispatch(setUser(fakeUser));
     }
   };
   const handleJoinNow = () => {
